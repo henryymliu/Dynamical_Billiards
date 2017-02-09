@@ -13,7 +13,7 @@ image = Image.new("RGB", (imgx, imgy))
 draw = ImageDraw.Draw(image)
 
 coloring = random.randint(0, 7) # choose a coloring method
-print 'Using the coloring method: ' + str(coloring)
+print ('Using the coloring method: ' + str(coloring))
 
 maxSteps = 200 # of steps of ball motion (in constant speed)
 
@@ -42,7 +42,7 @@ for i in range(n):
     cxList.append(cx)
     cyList.append(cy)
     crList.append(cr)
-    
+
 # initial direction of the ball
 a = 2.0 * math.pi * random.random()
 
@@ -58,7 +58,7 @@ for y0 in range(imgy):
         # print '%completed' every 10 seconds
         t = time.time()
         if t - t0 >= 10:
-            print '%' + str(int(100 * (imgx * y0 + x0) / (imgx * imgy)))
+            print ('%' + str(int(100 * (imgx * y0 + x0) / (imgx * imgy))))
             t0 = t
 
         # initial location of the ball must be outside of the circle(s)
@@ -136,5 +136,5 @@ for y0 in range(imgy):
             bl = k % 32 * 16
             image.putpixel((x0, y0), (rd, gr, bl))
 
-print 'Calculations completed.'    
+print ('Calculations completed.')
 image.save('Dynamical_Billiards_Map_color' + str(coloring) + '.png', 'PNG')
