@@ -1,0 +1,3 @@
+http://www.gribblelab.org/compneuro/2_Modelling_Dynamical_Systems.html#orgheadline5
+http://code.activestate.com/recipes/577455-dynamical-billiards-simulation-map/
+http://code.activestate.com/recipes/577445-dynamical-billiards-simulation/
