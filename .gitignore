@@ -90,3 +90,4 @@ ENV/
 
 #added by ryan to keep out images produced
 *.png
+*.sqlite3
