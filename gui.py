@@ -63,14 +63,16 @@ class simulation(tkinter.Tk):
 
     def startSimulation(self):
         # TODO: Handle unselected combobox case
-        self.stadium = self.stadiumList.get(first=None, last=None)
-        self.ballF = self.ballFormationList.get(first=None, last=None)
+        simArgs=dict()
+        simArgs['stadium'] = self.stadiumList.get(first=None, last=None)
+        simArgs['ballF'] = self.ballFormationList.get(first=None, last=None)
 
-        self.initVel = self.initialVelScale.get(self)
-        self.initX = self.initialXScale.get(self)
-        self.initY = self.initialYScale.get(self)
-        self.playbackSpeed = self.playbackSpeedScale.get(self)
-        sim.main()
+        simArgs['initVel'] = self.initialVelScale.get()
+        simArgs['initX'] = self.initialXScale.get()
+        simArgs['initY'] = self.initialYScale.get()
+        simArgs['playbackSpeed'] = self.playbackSpeedScale.get()
+        game=sim.PygameSim(**simArgs)
+        game.main()
 
 if __name__ == '__main__':
     app=simulation(None)
