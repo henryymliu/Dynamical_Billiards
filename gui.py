@@ -13,8 +13,8 @@ class simulation(tkinter.Tk):
     def initialize(self):
         self.grid() #sets up grid
 
-        #define a button to start simulation, runs startSimulation() when
-        #cliked
+        # define a button to start simulation, runs startSimulation() when
+        # clicked
         button = tkinter.Button(self,text=u'Start simulation',
             command=self.startSimulation)
         button.grid(column=1,row=9)
@@ -36,34 +36,41 @@ class simulation(tkinter.Tk):
         self.grid_columnconfigure(0,weight=1)
         #self.resizable(True,False)
 
-        stadiumList = Pmw.ComboBox(self, label_text = 'Choose Stadium', labelpos = 'nw', selectioncommand = None,
+        self.stadiumList = Pmw.ComboBox(self, label_text = 'Choose Stadium', labelpos = 'nw', selectioncommand = None,
                                    scrolledlist_items = ('Test1', 'Test2'), dropdown=1)
-        stadiumList.grid(column = 0, row = 1);
+        self.stadiumList.grid(column = 0, row = 1);
 
-        ballFormationList = Pmw.ComboBox(self, label_text='Choose Ball Formation', labelpos='nw', selectioncommand=None,
+        self.ballFormationList = Pmw.ComboBox(self, label_text='Choose Ball Formation', labelpos='nw', selectioncommand=None,
                                    scrolledlist_items=('Test1', 'Test2'), dropdown=1)
-        ballFormationList.grid(column=0, row=2);
+        self.ballFormationList.grid(column=0, row=2);
 
-        initialVelScale = tkinter.Scale(self, from_=-10, to=10, orient=tkinter.HORIZONTAL, label='Initial Velocity')
-        initialVelScale.grid(column = 0, row = 3,columnspan=2, sticky='W'+'E');
+        self.initialVelScale = tkinter.Scale(self, from_=-10, to=10, orient=tkinter.HORIZONTAL, label='Initial Velocity')
+        self.initialVelScale.grid(column = 0, row = 3,columnspan=2, sticky='W'+'E');
 
         # note to bound these next two sliders based on size of stadium
-        initialXScale = tkinter.Scale(self, from_=-10, to=10 , orient=tkinter.HORIZONTAL, label='Initial Position (X)')
-        initialXScale.grid(column=0, row=4,columnspan=2, sticky='W'+'E');
+        self.initialXScale = tkinter.Scale(self, from_=-10, to=10 , orient=tkinter.HORIZONTAL, label='Initial Position (X)')
+        self.initialXScale.grid(column=0, row=4,columnspan=2, sticky='W'+'E');
 
-        initialYScale = tkinter.Scale(self, from_=-10, to=10, orient=tkinter.HORIZONTAL, label='Initial Position (Y)')
-        initialYScale.grid(column=0, row=5,columnspan=2, sticky='W'+'E');
+        self.initialYScale = tkinter.Scale(self, from_=-10, to=10, orient=tkinter.HORIZONTAL, label='Initial Position (Y)')
+        self.initialYScale.grid(column=0, row=5,columnspan=2, sticky='W'+'E');
 
-        playbackSpeedScale = tkinter.Scale(self, from_=-10, to=10, orient=tkinter.HORIZONTAL, label='Playback Speed')
-        playbackSpeedScale.grid(column=0, row=8 ,columnspan=2, sticky='W'+'E');
+        self.playbackSpeedScale = tkinter.Scale(self, from_=-10, to=10, orient=tkinter.HORIZONTAL, label='Playback Speed')
+        self.playbackSpeedScale.grid(column=0, row=8 ,columnspan=2, sticky='W'+'E');
 
         self.toTrace = False
         traceCheck = tkinter.Checkbutton(self, text="Trace", variable=self.toTrace)
         traceCheck.grid(column=2, row=9, sticky='W')
 
     def startSimulation(self):
-        sim.main()
+        # TODO: Handle unselected combobox case
+        self.stadium = self.stadiumList.get(first=None, last=None)
+        self.ballF = self.ballFormationList.get(first=None, last=None)
 
+        self.initVel = self.initialVelScale.get(self)
+        self.initX = self.initialXScale.get(self)
+        self.initY = self.initialYScale.get(self)
+        self.playbackSpeed = self.playbackSpeedScale.get(self)
+        sim.main()
 
 if __name__ == '__main__':
     app=simulation(None)
