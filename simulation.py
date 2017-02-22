@@ -1,4 +1,5 @@
 import pygame
+import sys
 import random
 import math
 
@@ -88,11 +89,10 @@ class PygameSim(object):
             my_particles.append(particle)
 
         selected_particle = None
-        running = True
-        while running:
+        while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    running = False
+                    pygame.quit()
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     (mouseX, mouseY) = pygame.mouse.get_pos()
                     selected_particle = findParticle(my_particles, mouseX, mouseY)
