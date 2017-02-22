@@ -17,7 +17,7 @@ class simulation(tkinter.Tk):
         #cliked
         button = tkinter.Button(self,text=u'Start simulation',
             command=self.startSimulation)
-        button.grid(column=1,row=1)
+        button.grid(column=1,row=9)
         #open image using PIL
         if platform.system == 'Windows':
             image=Image.open('images\HLS-EFS-CSC-Owl.bmp')
@@ -40,25 +40,26 @@ class simulation(tkinter.Tk):
                                    scrolledlist_items = ('Test1', 'Test2'), dropdown=1)
         stadiumList.grid(column = 0, row = 1);
 
-        ballFormationList = Pmw.ComboBox(self, label_text='Choose Stadium', labelpos='nw', selectioncommand=None,
+        ballFormationList = Pmw.ComboBox(self, label_text='Choose Ball Formation', labelpos='nw', selectioncommand=None,
                                    scrolledlist_items=('Test1', 'Test2'), dropdown=1)
         ballFormationList.grid(column=0, row=2);
 
         initialVelScale = tkinter.Scale(self, from_=-10, to=10, orient=tkinter.HORIZONTAL, label='Initial Velocity')
-        initialVelScale.grid(column = 0, row = 3);
+        initialVelScale.grid(column = 0, row = 3,columnspan=2, sticky='W'+'E');
 
         # note to bound these next two sliders based on size of stadium
         initialXScale = tkinter.Scale(self, from_=-10, to=10 , orient=tkinter.HORIZONTAL, label='Initial Position (X)')
-        initialXScale.grid(column=0, row=4);
+        initialXScale.grid(column=0, row=4,columnspan=2, sticky='W'+'E');
 
         initialYScale = tkinter.Scale(self, from_=-10, to=10, orient=tkinter.HORIZONTAL, label='Initial Position (Y)')
-        initialYScale.grid(column=0, row=5);
+        initialYScale.grid(column=0, row=5,columnspan=2, sticky='W'+'E');
 
-        playbackSpeedScale = tkinter.Scale(self, from_=-10, to=10, orient=tkinter.HORIZONTAL, label='Initial Position (Y)')
-        playbackSpeedScale.grid(column=0, row=9);
+        playbackSpeedScale = tkinter.Scale(self, from_=-10, to=10, orient=tkinter.HORIZONTAL, label='Playback Speed')
+        playbackSpeedScale.grid(column=0, row=8 ,columnspan=2, sticky='W'+'E');
 
         self.toTrace = False
         traceCheck = tkinter.Checkbutton(self, text="Trace", variable=self.toTrace)
+        traceCheck.grid(column=2, row=9, sticky='W')
 
     def startSimulation(self):
         sim.main()
