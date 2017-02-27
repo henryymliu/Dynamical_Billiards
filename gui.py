@@ -1,6 +1,6 @@
 import tkinter
 import Pmw
-import simulation as sim
+import Dynamical-Billiards.simulation as sim
 from PIL import Image, ImageTk
 import platform
 
@@ -61,8 +61,11 @@ class simulation(tkinter.Tk):
         traceCheck = tkinter.Checkbutton(self, text="Trace", variable=self.toTrace)
         traceCheck.grid(column=2, row=9, sticky='W')
 
+    #runs when start simulation button is pressed
     def startSimulation(self):
         # TODO: Handle unselected combobox case
+
+        #put all selections into dictionary
         simArgs=dict()
         simArgs['stadium'] = self.stadiumList.get(first=None, last=None)
         simArgs['ballF'] = self.ballFormationList.get(first=None, last=None)
@@ -71,7 +74,10 @@ class simulation(tkinter.Tk):
         simArgs['initX'] = self.initialXScale.get()
         simArgs['initY'] = self.initialYScale.get()
         simArgs['playbackSpeed'] = self.playbackSpeedScale.get()
+
+        #create simulation
         game=sim.PygameSim(**simArgs)
+        #run simulation
         game.main()
 
 if __name__ == '__main__':
