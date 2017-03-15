@@ -1,6 +1,6 @@
 import tkinter
 import Pmw
-import Dynamical-Billiards.simulation as sim
+import simulation as sim
 from PIL import Image, ImageTk
 import platform
 
