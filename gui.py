@@ -13,7 +13,7 @@ class Main(tkinter.Tk):
 
     def initialize(self):
         # Stadium selection
-        stadiums = ('Test1', 'Test2')
+        stadiums = ('Test1', 'Square')
         # Ball Formation Selection
         ballFormations = ('Test1', 'Test2')
 
@@ -24,26 +24,15 @@ class Main(tkinter.Tk):
         button = tkinter.Button(self, text=u'Start simulation',
                                 command=self.startSimulation)
         button.grid(column=1, row=9)
-        # open image using PIL
-        if platform.system == 'Windows':
-            image = Image.open('images\HLS-EFS-CSC-Owl.bmp')
-        else:
-            image = Image.open('images/HLS-EFS-CSC-Owl.bmp')
-        # make Tk compatible PhotoImage object, must save as object parameter
-        # to avoid garbage collection
-        self.photo = ImageTk.PhotoImage(image)
-        # make canvas and add photo
-        preview = tkinter.Canvas(self, width=275, height=183)
-        preview.grid(column=2, row=1)
-        preview.create_image(0, 0, anchor='nw', image=self.photo)
+
 
         self.grid_columnconfigure(0, weight=1)
         # self.resizable(True,False)
 
-        self.stadiumList = Pmw.ComboBox(self, label_text='Choose Stadium', labelpos='nw', selectioncommand=None,
+        self.stadiumList = Pmw.ComboBox(self, label_text='Choose Stadium', labelpos='nw', selectioncommand=self.changeImage,
                                         scrolledlist_items=stadiums, dropdown=1)
         self.stadiumList.grid(column=0, row=1)
-        self.stadiumList.selectitem(0)
+        self.stadiumList.selectitem(1)
 
         self.ballFormationList = Pmw.ComboBox(self, label_text='Choose Ball Formation', labelpos='nw',
                                               selectioncommand=None,
@@ -51,26 +40,54 @@ class Main(tkinter.Tk):
         self.ballFormationList.grid(column=0, row=2)
         self.ballFormationList.selectitem(0)
 
-        self.initialVelScale = tkinter.Scale(self, from_=-10, to=10, orient=tkinter.HORIZONTAL,
-                                             label='Initial Velocity')
-        self.initialVelScale.grid(column=0, row=3, columnspan=2, sticky='W' + 'E')
+        self.initialXVelScale = tkinter.Scale(self, from_=-3, to=3, orient=tkinter.HORIZONTAL,
+                                             label='Initial X Velocity',resolution=0.1)
+        self.initialXVelScale.grid(column=0, row=3, columnspan=2, sticky='W' + 'E')
+
+        self.initialYVelScale = tkinter.Scale(self, from_=-3, to=3, orient=tkinter.HORIZONTAL,
+                                             label='Initial Y Velocity',resolution=0.1)
+        self.initialYVelScale.grid(column=0, row=4, columnspan=2, sticky='W' + 'E')
 
         # note to bound these next two sliders based on size of stadium
-        self.initialXScale = tkinter.Scale(self, from_=-10, to=10, orient=tkinter.HORIZONTAL,
-                                           label='Initial Position (X)')
-        self.initialXScale.grid(column=0, row=4, columnspan=2, sticky='W' + 'E')
+        self.initialXScale = tkinter.Scale(self, from_=0, to=2, orient=tkinter.HORIZONTAL,
+                                           label='Initial X Position',resolution=0.1)
+        self.initialXScale.grid(column=0, row=5, columnspan=2, sticky='W' + 'E')
 
-        self.initialYScale = tkinter.Scale(self, from_=-10, to=10, orient=tkinter.HORIZONTAL,
-                                           label='Initial Position (Y)')
-        self.initialYScale.grid(column=0, row=5, columnspan=2, sticky='W' + 'E')
+        self.initialYScale = tkinter.Scale(self, from_=0, to=2, orient=tkinter.HORIZONTAL,
+                                           label='Initial Y Position',resolution=0.1)
+        self.initialYScale.grid(column=0, row=6, columnspan=2, sticky='W' + 'E')
 
         self.playbackSpeedScale = tkinter.Scale(self, from_=-10, to=10, orient=tkinter.HORIZONTAL,
                                                 label='Playback Speed')
         self.playbackSpeedScale.grid(column=0, row=8, columnspan=2, sticky='W' + 'E')
 
-        self.toTrace = False
+        self.toTrace = tkinter.BooleanVar()
         traceCheck = tkinter.Checkbutton(self, text="Trace", variable=self.toTrace)
         traceCheck.grid(column=2, row=9, sticky='W')
+
+        # make canvas
+        self.preview = tkinter.Canvas(self, width=400, height=300)
+        self.preview.grid(column=2, row=1, rowspan=5)
+        self.changeImage()
+
+    #changes the preview image when a new stadium is selected
+    def changeImage(self,*args):
+        #get the current stadium
+        stadium = self.stadiumList.get(first=None, last=None)
+        #select image based on operating system
+        if platform.system == 'Windows':
+            directory='images\{}.png'.format(stadium)
+            image = Image.open(directory)
+        else:
+            directory='images/{}.png'.format(stadium)
+            image = Image.open(directory)
+
+        # make Tk compatible PhotoImage object, must save as object parameter
+        # to avoid garbage collection
+        self.photo = ImageTk.PhotoImage(image)
+        #display image
+        self.preview.create_image(0, 0, anchor='nw', image=self.photo)
+
 
     #runs when start simulation button is pressed
     def startSimulation(self):
@@ -81,15 +98,18 @@ class Main(tkinter.Tk):
         simArgs['stadium'] = self.stadiumList.get(first=None, last=None)
         simArgs['ballF'] = self.ballFormationList.get(first=None, last=None)
 
-        simArgs['initVel'] = self.initialVelScale.get()
+        simArgs['initXVel'] = self.initialXVelScale.get()
+        simArgs['initYVel'] = self.initialYVelScale.get()
         simArgs['initX'] = self.initialXScale.get()
         simArgs['initY'] = self.initialYScale.get()
         simArgs['playbackSpeed'] = self.playbackSpeedScale.get()
+        simArgs['trace'] = self.toTrace.get()
+        print(self.toTrace.get())
 
         #create simulation
-        game = sim.SquareTable(**simArgs)
-        #run simulation
-        game.main()
+        simulation = sim.SquareTable(**simArgs)
+        simulation.main()
+
 
 
 if __name__ == '__main__':
