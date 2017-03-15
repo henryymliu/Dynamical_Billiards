@@ -1,11 +1,11 @@
 import tkinter
 import Pmw
-import simulation as sim
+import square as sim
 from PIL import Image, ImageTk
 import platform
 
 
-class simulation(tkinter.Tk):
+class Main(tkinter.Tk):
     def __init__(self, parent):
         tkinter.Tk.__init__(self, parent)
         self.parent = parent
@@ -87,12 +87,12 @@ class simulation(tkinter.Tk):
         simArgs['playbackSpeed'] = self.playbackSpeedScale.get()
 
         #create simulation
-        game = sim.PygameSim(**simArgs)
+        game = sim.SquareTable(**simArgs)
         #run simulation
         game.main()
 
 
 if __name__ == '__main__':
-    app = simulation(None)
-    app.title('Simulation')
+    app = Main(None)
+    app.title('Billiards Simulator')
     app.mainloop()
