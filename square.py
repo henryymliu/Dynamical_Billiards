@@ -12,6 +12,8 @@ class SquareTable(object):
     #each step increment Position
     def step(self,dt):
         #set new Position
+        mins=-0.1
+        maxs=2.1
         self.state[:2] += dt * self.state[2:]
         # check for crossing boundary
         crossed_x1 = self.state[0] < 0
@@ -22,26 +24,26 @@ class SquareTable(object):
         #reset the position to the boundry line
         if crossed_x1:
             fun=lambda y: self.state[2]/self.state[3]*(y-self.state[1])+self.state[0]
-            root=op.brentq(fun, 0, 2)
+            root=op.brentq(fun, mins, maxs)
             self.state[0]=0
             self.state[1]=root
             self.state[2]*=-1
         elif crossed_x2:
             fun=lambda y: self.state[2]/self.state[3]*(y-self.state[1])+self.state[0]-2
-            root=op.brentq(fun, 0, 2)
+            root=op.brentq(fun, mins, maxs)
             self.state[0]=2
             self.state[1]=root
             self.state[2]*=-1
 
         if crossed_y1:
             fun=lambda x: self.state[3]/self.state[2]*(x-self.state[0])+self.state[1]
-            root=op.brentq(fun, 0, 2)
+            root=op.brentq(fun, maxs, mins)
             self.state[0]=root
             self.state[1]=0
             self.state[3]*=-1
         elif crossed_y2:
             fun=lambda x: self.state[3]/self.state[2]*(x-self.state[0])+self.state[1]-2
-            root=op.brentq(fun, 0, 2)
+            root=op.brentq(fun, maxs, mins)
             self.state[0]=root
             self.state[1]=2
             self.state[3]*=-1
@@ -92,7 +94,7 @@ class SquareTable(object):
         ani = animation.FuncAnimation(fig, animate, frames=600,
                               interval=10, blit=True, init_func=init)
 
-                        
+
         plt.show()
 
 if __name__ == '__main__':
