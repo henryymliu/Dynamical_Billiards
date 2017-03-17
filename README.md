@@ -1,9 +1,8 @@
 # Dynamical-Billiards
-
+Uses Python 3.
 ## Dependency Installation
 
-1) Install PIL (pip install pillow)
+1) Install PIL, matplotlib, Pmw, scipy (pip install pillow matplotlib Pmw scipy)
 
-2) Run setup.py in Pmw-2.0.0 folder
 
 ## About
