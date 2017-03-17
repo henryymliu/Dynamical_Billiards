@@ -61,6 +61,7 @@ class RectTable(object):
         #make table
         table=plt.Rectangle((0,0), self.maxx, self.maxy,ec='none', lw=1, fc='none')
         ax.add_patch(table)
+        plt.axis('equal')
 
 
         #define time step for 30 fps
