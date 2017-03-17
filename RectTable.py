@@ -94,7 +94,7 @@ class RectTable(object):
             return particle, table, path
         #define animation
         ani = animation.FuncAnimation(fig, animate, frames=600,
-                              interval=10, blit=True, init_func=init)
+                              interval=np.ceil((1/self.parameters['playbackSpeed'])*10**3), blit=True, init_func=init)
 
 
         plt.show()

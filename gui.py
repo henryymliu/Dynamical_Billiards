@@ -33,47 +33,57 @@ class RectTab(tk.Frame):
 
     def initialize(self):
         # Ball Formation Selection
-        ballFormations = ["1 Ball"]
+        self.ballFormations = ["1 Ball", "2 Balls", "3 Balls", "4 Balls"]
         self.width=tk.IntVar()
         self.height=tk.IntVar()
+        self.balls=['Ball 1', 'Ball 2','Ball 3','Ball 4']
+        self.ballStates={'Ball 1':[0.5,0.5,1,0.5],'Ball 2':[1.5,1.5,1,-0.5],'Ball 3':[0.5,1.5,-1,0.5],'Ball 4':[1.5,0.5,-0.5,1]}
+        self.currentBall='Ball 1'
 
         self.grid()  # sets up grid
 
-        # define a button to start simulation, runs startSimulation() when
-        # clicked
-        button = tk.Button(self, text=u'Start simulation',
-                                command=self.startSimulation)
-        button.grid(column=1, row=9)
 
 
         self.grid_columnconfigure(0, weight=1)
         # self.resizable(True,False)
 
         self.ballFormationList = Pmw.ComboBox(self, label_text='Choose Ball Formation', labelpos='nw',
-                                              selectioncommand=self.changeImage,
-                                              scrolledlist_items=ballFormations, dropdown=1)
-        self.ballFormationList.grid(column=0, row=2)
+                                              selectioncommand=self.changeFormation,
+                                              scrolledlist_items=self.ballFormations, dropdown=1)
+        self.ballFormationList.grid(column=0, row=1)
         self.ballFormationList.selectitem(0)
+
+        self.ballLabel = tk.Label(self,text='Ball Parameters')
+        self.ballLabel.grid(column=0,row=2,sticky='ew')
+
+        # self.seperatorTop = ttk.Separator(self,orient=tk.HORIZONTAL)
+        # self.seperatorTop.grid(column=0,row=3)
+
+        self.ballSelector = Pmw.ComboBox(self, label_text='Choose Ball', labelpos='nw',
+                                              selectioncommand=self.changeBall,
+                                              scrolledlist_items=self.balls, dropdown=1)
+        self.ballSelector.grid(column=0,row=3)
+        self.ballSelector.selectitem(0)
 
         self.initialXVelScale = tk.Scale(self, from_=-3, to=3, orient=tk.HORIZONTAL,
                                              label='Initial X Velocity',resolution=0.1)
-        self.initialXVelScale.grid(column=0, row=3, columnspan=2, sticky='W' + 'E')
-        self.initialXVelScale.set(1)
+        self.initialXVelScale.grid(column=0, row=4, columnspan=2, sticky='W' + 'E')
+        self.initialXVelScale.set(self.ballStates[self.currentBall][2])
 
         self.initialYVelScale = tk.Scale(self, from_=-3, to=3, orient=tk.HORIZONTAL,
                                              label='Initial Y Velocity',resolution=0.1)
-        self.initialYVelScale.grid(column=0, row=4, columnspan=2, sticky='W' + 'E')
-        self.initialYVelScale.set(0.5)
+        self.initialYVelScale.grid(column=0, row=5, columnspan=2, sticky='W' + 'E')
+        self.initialYVelScale.set(self.ballStates[self.currentBall][3])
 
         self.initialXScale = tk.Scale(self, from_=0, to=2, orient=tk.HORIZONTAL,
                                            label='Initial X Position',resolution=0.1)
-        self.initialXScale.grid(column=0, row=5, columnspan=2, sticky='W' + 'E')
-        self.initialXScale.set(1)
+        self.initialXScale.grid(column=0, row=6, columnspan=2, sticky='W' + 'E')
+        self.initialXScale.set(self.ballStates[self.currentBall][0])
 
         self.initialYScale = tk.Scale(self, from_=0, to=2, orient=tk.HORIZONTAL,
                                            label='Initial Y Position',resolution=0.1)
-        self.initialYScale.grid(column=0, row=6, columnspan=2, sticky='W' + 'E')
-        self.initialYScale.set(1)
+        self.initialYScale.grid(column=0, row=7, columnspan=2, sticky='W' + 'E')
+        self.initialYScale.set(self.ballStates[self.currentBall][1])
 
         self.widthScale = tk.Scale(self, from_=1, to=5, orient=tk.HORIZONTAL,
                                            label='Width',resolution=1,variable=self.width,
@@ -87,24 +97,34 @@ class RectTab(tk.Frame):
         self.heightScale.grid(column=2, row=7, columnspan=1, sticky='W' + 'E')
         self.heightScale.set(2)
 
+        self.simLabel = tk.Label(self,text='Simulation Parameters')
+        self.simLabel.grid(column=0,row=9,sticky='ew')
+
         self.playbackSpeedScale = tk.Scale(self, from_=0, to=60, orient=tk.HORIZONTAL,
-                                                label='Playback Speed (fps)',resolution=0.1)
-        self.playbackSpeedScale.grid(column=0, row=8, columnspan=2, sticky='W' + 'E')
+                                                label='Playback Speed (fps)',resolution=1)
+        self.playbackSpeedScale.grid(column=0, row=10, columnspan=2, sticky='W' + 'E')
         self.playbackSpeedScale.set(30)
+
+        # define a button to start simulation, runs startSimulation() when
+        # clicked
+        self.button = tk.Button(self, text=u'Start simulation',
+                                command=self.startSimulation)
+        self.button.grid(column=1, row=11)
+
 
         self.toTrace = tk.BooleanVar()
         self.traceCheck = tk.Checkbutton(self, text="Trace", variable=self.toTrace)
-        self.traceCheck.grid(column=2, row=9, sticky='W')
+        self.traceCheck.grid(column=2, row=11, sticky='W')
         self.traceCheck.select()
 
 
         # make canvas
         self.preview = tk.Canvas(self, width=400, height=300)
         self.preview.grid(column=2, row=1, rowspan=5)
-        self.changeImage()
+        self.changeFormation()
 
     #changes the preview image when a new stadium is selected
-    def changeImage(self,*args):
+    def changeFormation(self,*args):
         #get the current stadium
         formation = self.ballFormationList.get(first=None, last=None)
         #select image based on operating system
@@ -121,9 +141,74 @@ class RectTab(tk.Frame):
         #display image
         self.preview.create_image(0, 0, anchor='nw', image=self.photo)
 
+        if formation == self.ballFormations[0]:
+            self.ballSelector.selectitem(0)
+        elif formation == self.ballFormations[1] and (self.ballSelector.get() == \
+                        self.balls[2] or self.ballSelector.get() == self.balls[3]):
+            self.ballSelector.selectitem(1)
+        elif formation == self.ballFormations[2] and self.ballSelector.get() == \
+                        self.balls[3]:
+            self.ballSelector.selectitem(2)
+
+        self.currentBall=self.ballSelector.get()
+
+        newX=self.ballStates[self.currentBall][0]
+        newY=self.ballStates[self.currentBall][1]
+        newXVel=self.ballStates[self.currentBall][2]
+        newYVel=self.ballStates[self.currentBall][3]
+
+        self.initialXScale.set(newX)
+        self.initialYScale.set(newY)
+        self.initialXVelScale.set(newXVel)
+        self.initialYVelScale.set(newYVel)
+
+
+
+
     def updateSize(self,*args):
-        self.initialXScale.config(to=self.width.get())
-        self.initialYScale.config(to=self.height.get())
+        width=self.width.get()
+        height=self.height.get()
+        self.initialXScale.config(to=width)
+        self.initialYScale.config(to=height)
+
+        for ball, state in self.ballStates.items():
+            if state[0] > width:
+                state[0] = width
+            if state[1] > height:
+                state[1] = height
+
+    def changeBall(self,*args):
+        formation = self.ballFormationList.get()
+        if formation == self.ballFormations[0]:
+            self.ballSelector.selectitem(0)
+        elif formation == self.ballFormations[1] and (self.ballSelector.get() == \
+                        self.balls[2] or self.ballSelector.get() == self.balls[3]):
+            self.ballSelector.selectitem(1)
+        elif formation == self.ballFormations[2] and self.ballSelector.get() == \
+                        self.balls[3]:
+            self.ballSelector.selectitem(2)
+
+        newBall=self.ballSelector.get()
+        x=self.initialXScale.get()
+        y=self.initialYScale.get()
+        xVel=self.initialXVelScale.get()
+        yVel=self.initialYVelScale.get()
+
+        self.ballStates[self.currentBall]=[x,y,xVel,yVel]
+
+        newX=self.ballStates[newBall][0]
+        newY=self.ballStates[newBall][1]
+        newXVel=self.ballStates[newBall][2]
+        newYVel=self.ballStates[newBall][3]
+
+        self.initialXScale.set(newX)
+        self.initialYScale.set(newY)
+        self.initialXVelScale.set(newXVel)
+        self.initialYVelScale.set(newYVel)
+
+        self.currentBall=newBall
+
+
 
 
     #runs when start simulation button is pressed
@@ -163,9 +248,9 @@ class LTab(tk.Frame):
 
         # define a button to start simulation, runs startSimulation() when
         # clicked
-        button = tk.Button(self, text=u'Start simulation',
+        self.button = tk.Button(self, text=u'Start simulation',
                                 command=self.startSimulation)
-        button.grid(column=1, row=9)
+        self.button.grid(column=1, row=9)
 
 
         self.grid_columnconfigure(0, weight=1)
