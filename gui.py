@@ -403,13 +403,13 @@ class CircTab(tk.Frame):
         self.initialYVelScale.grid(column=0, row=4, columnspan=2, sticky='W' + 'E')
         self.initialYVelScale.set(0.5)
 
-        self.initialXScale = tk.Scale(self, from_=-1, to=-1, orient=tk.HORIZONTAL,
-                                           label='Initial X Position',resolution=0.1,command=self.checkXPos)
+        self.initialXScale = tk.Scale(self, from_=-2, to=2, orient=tk.HORIZONTAL,
+                                           label='Initial X Position',resolution=0.1, command = None) #,command=self.checkXPos)
         self.initialXScale.grid(column=0, row=5, columnspan=2, sticky='W' + 'E')
         self.initialXScale.set(0)
 
-        self.initialYScale = tk.Scale(self, from_=-1, to=1, orient=tk.HORIZONTAL,
-                                           label='Initial Y Position',resolution=0.1,command=self.checkYPos)
+        self.initialYScale = tk.Scale(self, from_=-2, to=2, orient=tk.HORIZONTAL,
+                                           label='Initial Y Position',resolution=0.1,command= None)#self.checkYPos)
         self.initialYScale.grid(column=0, row=6, columnspan=2, sticky='W' + 'E')
         self.initialYScale.set(0)
 
@@ -451,7 +451,7 @@ class CircTab(tk.Frame):
         x=self.initialXScale.get()
         y=self.initialYScale.get()
 
-        if x**2+y**2 > 1:
+        if x**2+y**2 > 4:
             if y>0:
                 self.initialYScale.set((1-x**2)**(1/2))
             else:
@@ -460,7 +460,7 @@ class CircTab(tk.Frame):
         x=self.initialXScale.get()
         y=self.initialYScale.get()
 
-        if x**2+y**2 > 1:
+        if x**2+y**2 > 2:
             if y>0:
                 self.initialXScale.set((1-y**2)**(1/2))
             else:
