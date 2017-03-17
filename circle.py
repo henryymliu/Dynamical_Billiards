@@ -39,22 +39,23 @@ class CircleTable(object):
 
                 self.state[0] = root
                 self.state[1] = m * root + intercept
-                print((self.state[0], self.state[1]))
+                # print((self.state[0], self.state[1]))
 
-                vel_norm = np.linalg.norm([self.state[0], self.state[1]])
-                vel = [self.state[0], self.state[1]] / vel_norm
-                self.state[3] = self.state[2] - 2 * (
-                self.state[2] * self.state[0] / vel_norm + self.state[3] * self.state[1] / vel_norm) * self.state[
-                                                    0] / vel_norm
-                self.state[2] = self.state[3] - 2 * (
-                self.state[2] * self.state[0] / vel_norm + self.state[3] * self.state[1] / vel_norm) * self.state[
-                                                    1] / vel_norm
+                vel_norm = np.hypot(self.state[0],self.state[1])
+                dot = (self.state[2] * self.state[0] + self.state[3] * self.state[1]) / (vel_norm**2)
+                self.state[2] = self.state[2] - 2 * dot * self.state[0]
+                self.state[3] = self.state[3] - 2 * dot * self.state[1]
+
                 # self.state[3] *= -1/2;
                 # self.state[2] *= -1;
+                # print((self.state[2], self.state[3]))
+                print((self.state[0], self.state[1]))
+
+
             elif self.state[3] != 0:
                 m = self.state[2] / self.state[3]
                 intercept = m * -self.state[1]+ self.state[0]
-                # discrimanant
+                # discriminant
                 b = 2 * m * intercept
                 a = m ** 2 + 1
                 c = -4 + intercept ** 2
@@ -67,13 +68,13 @@ class CircleTable(object):
 
                 self.state[0] = m * root + intercept
                 self.state[1] = root
+                # print((self.state[0], self.state[1]))
+                vel_norm = np.hypot(self.state[0], self.state[1])
+                dot = (self.state[2] * self.state[0] + self.state[3] * self.state[1]) / (vel_norm ** 2)
+                self.state[2] = self.state[2] - 2 * dot * self.state[0]
+                self.state[3] = self.state[3] - 2 * dot * self.state[1]
+                # print((self.state[2], self.state[3]))
                 print((self.state[0], self.state[1]))
-                vel_norm = np.linalg.norm([self.state[0], self.state[1]])
-                #self.state[3] *= -1 / 2;
-                #self.state[2] *= -1;
-                self.state[2] = self.state[2] - 2 * (self.state[2] * self.state[0] + self.state[3] * self.state[1]/vel_norm) * self.state[0]/vel_norm
-                self.state[3] = self.state[3] - 2 * (self.state[2] * self.state[0] + self.state[3] * self.state[1]/vel_norm) * self.state[1]/vel_norm
-
 
 
     def main(self):
@@ -88,7 +89,7 @@ class CircleTable(object):
         path, =ax.plot([],[], 'r-',lw=1)
 
 
-        dt=1/1000
+        dt=1/30
         self.state=np.array([self.parameters['initX'],self.parameters['initY'],
             self.parameters['initXVel'],self.parameters['initYVel']])
         self.pathx=np.array([])

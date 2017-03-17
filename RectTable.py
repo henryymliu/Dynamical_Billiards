@@ -59,6 +59,7 @@ class RectTable(object):
         #make table
         table=plt.Rectangle((0,0), self.maxx, self.maxy,ec='none', lw=1, fc='none')
         ax.add_patch(table)
+        plt.axis('equal')
 
         #define particle and path objects
         particle, = ax.plot([], [], 'ro', ms=6)
