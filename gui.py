@@ -129,10 +129,10 @@ class RectTab(tk.Frame):
         formation = self.ballFormationList.get(first=None, last=None)
         #select image based on operating system
         if platform.system == 'Windows':
-            directory='images\Rect_{}.png'.format(formation).replace(' ','')
+            directory='images\Rect_1Ball.png'
             image = Image.open(directory)
         else:
-            directory='images/Rect_{}.png'.format(formation).replace(' ','')
+            directory='images/Rect_1Ball.png'
             image = Image.open(directory)
 
         # make Tk compatible PhotoImage object, must save as object parameter
@@ -140,6 +140,13 @@ class RectTab(tk.Frame):
         self.photo = ImageTk.PhotoImage(image)
         #display image
         self.preview.create_image(0, 0, anchor='nw', image=self.photo)
+
+        lastBall= self.ballSelector.get()
+        x=self.initialXScale.get()
+        y=self.initialYScale.get()
+        xVel=self.initialXVelScale.get()
+        yVel=self.initialYVelScale.get()
+        self.ballStates[lastBall]=[x,y,xVel,yVel]
 
         if formation == self.ballFormations[0]:
             self.ballSelector.selectitem(0)
@@ -213,20 +220,21 @@ class RectTab(tk.Frame):
 
     #runs when start simulation button is pressed
     def startSimulation(self):
-        # TODO: Handle unselected combobox case
+        x=self.initialXScale.get()
+        y=self.initialYScale.get()
+        xVel=self.initialXVelScale.get()
+        yVel=self.initialYVelScale.get()
+        self.ballStates[self.currentBall]=[x,y,xVel,yVel]
 
         #put all selections into dictionary
         simArgs = dict()
         simArgs['ballF'] = self.ballFormationList.get(first=None, last=None)
-
-        simArgs['initXVel'] = self.initialXVelScale.get()
-        simArgs['initYVel'] = self.initialYVelScale.get()
-        simArgs['initX'] = self.initialXScale.get()
-        simArgs['initY'] = self.initialYScale.get()
         simArgs['playbackSpeed'] = self.playbackSpeedScale.get()
         simArgs['trace'] = self.toTrace.get()
         simArgs['width'] = self.width.get()
         simArgs['height'] = self.height.get()
+        simArgs['balls'] = self.ballStates
+        simArgs['ballFormation'] = self.ballFormationList.get()
 
         #create simulation
         simulation = rect.RectTable(**simArgs)
