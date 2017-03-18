@@ -5,6 +5,7 @@ import RectTable as rect
 import LTable as Ltab
 import circle
 from PIL import Image, ImageTk
+import numpy as np
 import platform
 
 class AbstractTab(tk.Frame):
@@ -422,6 +423,8 @@ class CircTab(tk.Frame):
         self.initialize()
 
     def initialize(self):
+        global radius
+        radius = circle.CircleTable().radius
         # Ball Formation Selection
         ballFormations = ["1 Ball"]
 
@@ -453,15 +456,20 @@ class CircTab(tk.Frame):
         self.initialYVelScale.grid(column=0, row=4, columnspan=2, sticky='W' + 'E')
         self.initialYVelScale.set(0.5)
 
-        self.initialXScale = tk.Scale(self, from_=-2, to=2, orient=tk.HORIZONTAL,
-                                           label='Initial X Position',resolution=0.1, command = None) #,command=self.checkXPos)
+        self.initialXScale = tk.Scale(self, from_=-radius, to=radius, orient=tk.HORIZONTAL,
+                                           label='Initial X Position',resolution=0.1, command=self.checkXPos)
         self.initialXScale.grid(column=0, row=5, columnspan=2, sticky='W' + 'E')
         self.initialXScale.set(0)
 
-        self.initialYScale = tk.Scale(self, from_=-2, to=2, orient=tk.HORIZONTAL,
-                                           label='Initial Y Position',resolution=0.1,command= None)#self.checkYPos)
+        self.initialYScale = tk.Scale(self, from_=-radius, to=radius, orient=tk.HORIZONTAL,
+                                           label='Initial Y Position',resolution=0.1,command=self.checkYPos)
         self.initialYScale.grid(column=0, row=6, columnspan=2, sticky='W' + 'E')
         self.initialYScale.set(0)
+
+        self.radiusScale = tk.Scale(self, from_=1, to_= 5, orient = tk.HORIZONTAL, label = 'Radius',
+            resolution = 0.1,command = self.setRadius)
+        #self.radiusScale.grid(column = 2,  row = 7, columnspan = 1, sticky = 'W' + 'E')
+        self.radiusScale.set(2)
 
         self.playbackSpeedScale = tk.Scale(self, from_=0, to=60, orient=tk.HORIZONTAL,
                                                 label='Playback Speed (fps)',resolution=0.1)
@@ -485,7 +493,7 @@ class CircTab(tk.Frame):
         formation = self.ballFormationList.get(first=None, last=None)
         #select image based on operating system
         if platform.system == 'Windows':
-            directory='images\Circle_{}.png'.format(formation).replace(' ','')
+            directory='images\Circle_1Ball.png'.format(formation).replace(' ','')
             image = Image.open(directory)
         else:
             directory='images/Circle_{}.png'.format(formation).replace(' ','')
@@ -496,25 +504,28 @@ class CircTab(tk.Frame):
         self.photo = ImageTk.PhotoImage(image)
         #display image
         self.preview.create_image(0, 0, anchor='nw', image=self.photo)
-    #TODO these don't work as expected
+
     def checkYPos(self,*args):
         x=self.initialXScale.get()
         y=self.initialYScale.get()
 
-        if x**2+y**2 > 4:
+        if x**2+y**2 > radius**2:
             if y>0:
-                self.initialYScale.set((1-x**2)**(1/2))
+                self.initialYScale.set(np.sqrt(abs(radius**2 -x**2)))
             else:
-                self.initialYScale.set(-(1-x**2)**(1/2))
+                self.initialYScale.set(-np.sqrt(abs((radius**2 -x**2))))
     def checkXPos(self,*args):
         x=self.initialXScale.get()
         y=self.initialYScale.get()
 
-        if x**2+y**2 > 2:
-            if y>0:
-                self.initialXScale.set((1-y**2)**(1/2))
+        if x**2+y**2 > radius**2:
+            if x>0:
+                self.initialXScale.set(np.sqrt(radius**2 -y**2))
             else:
-                self.initialXScale.set(-(1-y**2)**(1/2))
+                self.initialXScale.set(-np.sqrt(radius**2 -y**2))
+
+    def setRadius(self, *args):
+        radius = self.radiusScale.get();
 
     #runs when start simulation button is pressed
     def startSimulation(self):
@@ -528,6 +539,7 @@ class CircTab(tk.Frame):
         simArgs['initYVel'] = self.initialYVelScale.get()
         simArgs['initX'] = self.initialXScale.get()
         simArgs['initY'] = self.initialYScale.get()
+        simArgs['radius'] = radius
         simArgs['playbackSpeed'] = self.playbackSpeedScale.get()
         simArgs['trace'] = self.toTrace.get()
 

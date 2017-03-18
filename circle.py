@@ -8,10 +8,10 @@ class CircleTable(object):
     def __init__(self, **kwargs):
         super().__init__()
         self.parameters = kwargs
-
+        self.radius = 2
+    # define radius
 
     def step(self,dt):
-
         self.state[:2] += dt * self.state[2:]
         # check for crossing boundary
         if np.hypot(self.state[0], self.state[1]) > 2:
@@ -29,7 +29,7 @@ class CircleTable(object):
                 #discrimanant
                 b = 2*m*intercept
                 a = m**2 + 1
-                c = -4 + intercept**2
+                c = -self.radius**2 + intercept**2
 
                 # choose root based on proximity with x
                 root = -b/(2 * a)
@@ -59,7 +59,7 @@ class CircleTable(object):
                 # discriminant
                 b = 2 * m * intercept
                 a = m ** 2 + 1
-                c = -4 + intercept ** 2
+                c = -self.radius**2 + intercept ** 2
 
                 # choose root based on proximity with current y
                 root = -b / (2 * a)
@@ -84,10 +84,11 @@ class CircleTable(object):
 
 
     def main(self):
+        # self.radius = self.parameters['radius']
         fig, ax=plt.subplots()
         ax.set(xlim=[-2,2],ylim=[-2,2])
         ax.axis('off')
-        table=plt.Circle((0,0), 2, fc = 'none')
+        table=plt.Circle((0,0), self.radius, fc = 'none')
         plt.axis('equal')
         ax.add_patch(table)
 
@@ -95,7 +96,7 @@ class CircleTable(object):
         path, =ax.plot([],[], 'r-',lw=1)
 
 
-        dt=1/100
+        dt=1/30
         self.state=np.array([self.parameters['initX'],self.parameters['initY'],
             self.parameters['initXVel'],self.parameters['initYVel']])
         self.pathx=np.array([])
