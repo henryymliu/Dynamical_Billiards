@@ -7,35 +7,16 @@ import circle
 from PIL import Image, ImageTk
 import platform
 
-
-class Main(tk.Tk):
-    def __init__(self, parent):
-        tk.Tk.__init__(self, parent)
-        self.parent = parent
-        self.initialize()
-
-    def initialize(self):
-        n=ttk.Notebook(self)
-        f1=RectTab(self)
-        f2=LTab(self)
-        f3=CircTab(self)
-        n.add(f1,text='Rectangle')
-        n.add(f2,text='L')
-        n.add(f3,text='Circle ')
-        n.pack()
-
-
-class RectTab(tk.Frame):
+class AbstractTab(tk.Frame):
     def __init__(self, parent):
         tk.Frame.__init__(self, parent)
         self.parent = parent
+        self.initializeSuper()
         self.initialize()
 
-    def initialize(self):
+    def initializeSuper(self):
         # Ball Formation Selection
         self.ballFormations = ["1 Ball", "2 Balls", "3 Balls", "4 Balls"]
-        self.width=tk.IntVar()
-        self.height=tk.IntVar()
         self.balls=['Ball 1', 'Ball 2','Ball 3','Ball 4']
         self.ballStates={'Ball 1':[0.5,0.5,1,0.5],'Ball 2':[1.5,1.5,1,-0.5],'Ball 3':[0.5,1.5,-1,0.5],'Ball 4':[1.5,0.5,-0.5,1]}
         self.currentBall='Ball 1'
@@ -85,18 +66,6 @@ class RectTab(tk.Frame):
         self.initialYScale.grid(column=0, row=7, columnspan=2, sticky='W' + 'E')
         self.initialYScale.set(self.ballStates[self.currentBall][1])
 
-        self.widthScale = tk.Scale(self, from_=1, to=5, orient=tk.HORIZONTAL,
-                                           label='Width',resolution=1,variable=self.width,
-                                           command=self.updateSize)
-        self.widthScale.grid(column=2, row=6, columnspan=1, sticky='W' + 'E')
-        self.widthScale.set(2)
-
-        self.heightScale = tk.Scale(self, from_=1, to=5, orient=tk.HORIZONTAL,
-                                           label='Height',resolution=1,variable=self.height,
-                                           command=self.updateSize)
-        self.heightScale.grid(column=2, row=7, columnspan=1, sticky='W' + 'E')
-        self.heightScale.set(2)
-
         self.simLabel = tk.Label(self,text='Simulation Parameters')
         self.simLabel.grid(column=0,row=9,sticky='ew')
 
@@ -122,6 +91,9 @@ class RectTab(tk.Frame):
         self.preview = tk.Canvas(self, width=400, height=300)
         self.preview.grid(column=2, row=1, rowspan=5)
         self.changeFormation()
+    #must be implemented for each type
+    def initialize(self):
+        return None
 
     #changes the preview image when a new stadium is selected
     def changeFormation(self,*args):
@@ -171,18 +143,19 @@ class RectTab(tk.Frame):
 
 
 
-
+    #must be implemented for each type
     def updateSize(self,*args):
-        width=self.width.get()
-        height=self.height.get()
-        self.initialXScale.config(to=width)
-        self.initialYScale.config(to=height)
-
-        for ball, state in self.ballStates.items():
-            if state[0] > width:
-                state[0] = width
-            if state[1] > height:
-                state[1] = height
+        # width=self.width.get()
+        # height=self.height.get()
+        # self.initialXScale.config(to=width)
+        # self.initialYScale.config(to=height)
+        #
+        # for ball, state in self.ballStates.items():
+        #     if state[0] > width:
+        #         state[0] = width
+        #     if state[1] > height:
+        #         state[1] = height
+        return None
 
     def changeBall(self,*args):
         formation = self.ballFormationList.get()
@@ -217,6 +190,83 @@ class RectTab(tk.Frame):
 
 
 
+
+    #runs when start simulation button is pressed
+    #must be implemented for each type
+    def startSimulation(self):
+        # x=self.initialXScale.get()
+        # y=self.initialYScale.get()
+        # xVel=self.initialXVelScale.get()
+        # yVel=self.initialYVelScale.get()
+        # self.ballStates[self.currentBall]=[x,y,xVel,yVel]
+        #
+        # #put all selections into dictionary
+        # simArgs = dict()
+        # simArgs['ballF'] = self.ballFormationList.get(first=None, last=None)
+        # simArgs['playbackSpeed'] = self.playbackSpeedScale.get()
+        # simArgs['trace'] = self.toTrace.get()
+        # simArgs['width'] = self.width.get()
+        # simArgs['height'] = self.height.get()
+        # simArgs['balls'] = self.ballStates
+        # simArgs['ballFormation'] = self.ballFormationList.get()
+        #
+        # #create simulation
+        # simulation = rect.RectTable(**simArgs)
+        # simulation.main()
+        return None
+
+
+
+class Main(tk.Tk):
+    def __init__(self, parent):
+        tk.Tk.__init__(self, parent)
+        self.parent = parent
+        self.initialize()
+
+    def initialize(self):
+        n=ttk.Notebook(self)
+        f1=RectTab(self)
+        f2=LTab(self)
+        f3=CircTab(self)
+        n.add(f1,text='Rectangle')
+        n.add(f2,text='L')
+        n.add(f3,text='Circle ')
+        n.pack()
+
+
+class RectTab(AbstractTab):
+
+    def initialize(self):
+        self.width=tk.IntVar()
+        self.height=tk.IntVar()
+
+        self.widthScale = tk.Scale(self, from_=1, to=5, orient=tk.HORIZONTAL,
+                                           label='Width',resolution=1,variable=self.width,
+                                           command=self.updateSize)
+        self.widthScale.grid(column=2, row=6, columnspan=1, sticky='W' + 'E')
+        self.widthScale.set(2)
+
+        self.heightScale = tk.Scale(self, from_=1, to=5, orient=tk.HORIZONTAL,
+                                           label='Height',resolution=1,variable=self.height,
+                                           command=self.updateSize)
+        self.heightScale.grid(column=2, row=7, columnspan=1, sticky='W' + 'E')
+        self.heightScale.set(2)
+    #changes the preview image when a new stadium is selected
+
+
+
+
+    def updateSize(self,*args):
+        width=self.width.get()
+        height=self.height.get()
+        self.initialXScale.config(to=width)
+        self.initialYScale.config(to=height)
+
+        for ball, state in self.ballStates.items():
+            if state[0] > width:
+                state[0] = width
+            if state[1] > height:
+                state[1] = height
 
     #runs when start simulation button is pressed
     def startSimulation(self):
