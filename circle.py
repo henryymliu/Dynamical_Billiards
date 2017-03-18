@@ -8,11 +8,10 @@ class CircleTable(object):
     def __init__(self, **kwargs):
         super().__init__()
         self.parameters = kwargs
-
+        self.radius = 2
+    # define radius
 
     def step(self,dt):
-
-        #TODO: CHANGE
         self.state[:2] += dt * self.state[2:]
         # check for crossing boundary
         if np.hypot(self.state[0], self.state[1]) > 2:
@@ -23,64 +22,73 @@ class CircleTable(object):
             #dy/dx
             #intercept = self.state[3] * -self.state[0] / self.state[2] + self.state[1]
 
-            if self.state[2] != 0:
+            if abs(self.state[3] / self.state[2]) <= 1:
                 m = self.state[3] / self.state[2]
                 intercept = m * -self.state[0] + self.state[1]
 
                 #discrimanant
                 b = 2*m*intercept
                 a = m**2 + 1
-                c = -4 + intercept**2
-                if self.state[0] > 0:
-                    root = (-b + np.sqrt(abs(b**2 - 4*a*c)))/(2*a);
-                else:
-                    root = (-b - np.sqrt(abs(b**2 - 4 * a * c))) / (2 * a);
+                c = -self.radius**2 + intercept**2
 
+                # choose root based on proximity with x
+                root = -b/(2 * a)
+                dis = (np.sqrt(abs(b**2 - 4*a*c)))/(2*a)
+                if abs(self.state[0] - root - dis) < abs(self.state[0] - root + dis):
+                    root += dis
+                else:
+                    root -= dis
 
                 self.state[0] = root
                 self.state[1] = m * root + intercept
-                print((self.state[0], self.state[1]))
+                # print((self.state[0], self.state[1]))
 
-                vel_norm = np.linalg.norm([self.state[0], self.state[1]])
-                vel = [self.state[0], self.state[1]] / vel_norm
-                self.state[3] = self.state[2] - 2 * (
-                self.state[2] * self.state[0] / vel_norm + self.state[3] * self.state[1] / vel_norm) * self.state[
-                                                    0] / vel_norm
-                self.state[2] = self.state[3] - 2 * (
-                self.state[2] * self.state[0] / vel_norm + self.state[3] * self.state[1] / vel_norm) * self.state[
-                                                    1] / vel_norm
+                vel_norm = np.hypot(self.state[0],self.state[1])
+                dot = (self.state[2] * self.state[0] + self.state[3] * self.state[1]) / (vel_norm**2)
+                self.state[2] = self.state[2] - 2 * dot * self.state[0]
+                self.state[3] = self.state[3] - 2 * dot * self.state[1]
+
                 # self.state[3] *= -1/2;
                 # self.state[2] *= -1;
-            elif self.state[3] != 0:
+                # print((self.state[2], self.state[3]))
+                print((self.state[0], self.state[1]))
+
+            elif abs(self.state[2] / self.state[3]) <= 1:
                 m = self.state[2] / self.state[3]
                 intercept = m * -self.state[1]+ self.state[0]
-                # discrimanant
+                # discriminant
                 b = 2 * m * intercept
                 a = m ** 2 + 1
-                c = -4 + intercept ** 2
-                if self.state[1] > 0:
-                    root = (-b + np.sqrt(abs(b ** 2 - 4 * a * c))) / (2 * a);
-                else:
-                    root = (-b - np.sqrt(abs(b ** 2 - 4 * a * c))) / (2 * a);
+                c = -self.radius**2 + intercept ** 2
 
-                #vel = [self.state[0], self.state[1]] / vel_norm
+                # choose root based on proximity with current y
+                root = -b / (2 * a)
+                dis = (np.sqrt(abs(b ** 2 - 4 * a * c))) / (2 * a)
+                if abs(self.state[1] - root - dis) < abs(self.state[1] - root + dis):
+                    root += dis
+                else:
+                    root -= dis
+                # vel = [self.state[0], self.state[1]] / vel_norm
 
                 self.state[0] = m * root + intercept
                 self.state[1] = root
-                print((self.state[0], self.state[1]))
-                vel_norm = np.linalg.norm([self.state[0], self.state[1]])
-                #self.state[3] *= -1 / 2;
-                #self.state[2] *= -1;
-                self.state[2] = self.state[2] - 2 * (self.state[2] * self.state[0] + self.state[3] * self.state[1]/vel_norm) * self.state[0]/vel_norm
-                self.state[3] = self.state[3] - 2 * (self.state[2] * self.state[0] + self.state[3] * self.state[1]/vel_norm) * self.state[1]/vel_norm
+                # print((self.state[0], self.state[1]))
 
+                # update velocity based on r = d - 2(r.n)r
+                vel_norm = np.hypot(self.state[0], self.state[1])
+                dot = (self.state[2] * self.state[0] + self.state[3] * self.state[1]) / (vel_norm ** 2)
+                self.state[2] = self.state[2] - 2 * dot * self.state[0]
+                self.state[3] = self.state[3] - 2 * dot * self.state[1]
+                # print((self.state[2], self.state[3]))
+                print((self.state[0], self.state[1]))
 
 
     def main(self):
+        # self.radius = self.parameters['radius']
         fig, ax=plt.subplots()
         ax.set(xlim=[-2,2],ylim=[-2,2])
         ax.axis('off')
-        table=plt.Circle((0,0), 2, fc = 'none')
+        table=plt.Circle((0,0), self.radius, fc = 'none')
         plt.axis('equal')
         ax.add_patch(table)
 
@@ -88,7 +96,7 @@ class CircleTable(object):
         path, =ax.plot([],[], 'r-',lw=1)
 
 
-        dt=1/1000
+        dt=1/30
         self.state=np.array([self.parameters['initX'],self.parameters['initY'],
             self.parameters['initXVel'],self.parameters['initYVel']])
         self.pathx=np.array([])
