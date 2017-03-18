@@ -4,28 +4,30 @@
 # http://en.wikipedia.org/wiki/Dynamical_billiards
 import math
 import random
+
 from PIL import Image, ImageDraw
+
 imgx = 800
 imgy = 600
 image = Image.new("RGB", (imgx, imgy))
 draw = ImageDraw.Draw(image)
 
 # Only 1 ball is used!
-maxSteps = 20000 # of steps of ball motion (in constant speed)
+maxSteps = 20000  # of steps of ball motion (in constant speed)
 
-n = random.randint(1, 7) # of circular obstacles
-crMax = int(min(imgx - 1, imgy - 1) / 4) # max circle radius
-crMin = 10 # min circle radius
+n = random.randint(1, 7)  # of circular obstacles
+crMax = int(min(imgx - 1, imgy - 1) / 4)  # max circle radius
+crMin = 10  # min circle radius
 
 # create circular obstacle(s)
 cxList = []
 cyList = []
 crList = []
 for i in range(n):
-    while(True): # circle(s) must not overlap
-        cr = random.randint(crMin, crMax) # circle radius
-        cx = random.randint(cr, imgx - 1 - cr) # circle center x
-        cy = random.randint(cr, imgy - 1 - cr) # circle center y
+    while (True):  # circle(s) must not overlap
+        cr = random.randint(crMin, crMax)  # circle radius
+        cx = random.randint(cr, imgx - 1 - cr)  # circle center x
+        cy = random.randint(cr, imgy - 1 - cr)  # circle center y
         flag = True
         if i > 0:
             for j in range(i):
@@ -40,7 +42,7 @@ for i in range(n):
     crList.append(cr)
 
 # initial location of the ball must be outside of the circle(s)
-while(True):
+while (True):
     x = float(random.randint(0, imgx - 1))
     y = float(random.randint(0, imgy - 1))
     flag = False
@@ -50,7 +52,7 @@ while(True):
             break
     if flag == False:
         break
-    
+
 # initial direction of the ball
 a = 2.0 * math.pi * random.random()
 s = math.sin(a)
@@ -85,5 +87,5 @@ for i in range(maxSteps):
 
     x = xnew
     y = ynew
-    
+
 image.save("Dynamical_Billiards.png", "PNG")

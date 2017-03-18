@@ -6,30 +6,32 @@
 import math
 import random
 import time
+
 from PIL import Image, ImageDraw
+
 imgx = 300
 imgy = 200
 image = Image.new("RGB", (imgx, imgy))
 draw = ImageDraw.Draw(image)
 
-coloring = random.randint(0, 7) # choose a coloring method
-print ('Using the coloring method: ' + str(coloring))
+coloring = random.randint(0, 7)  # choose a coloring method
+print('Using the coloring method: ' + str(coloring))
 
-maxSteps = 200 # of steps of ball motion (in constant speed)
+maxSteps = 200  # of steps of ball motion (in constant speed)
 
-n = random.randint(1, 7) # of circular obstacles
-crMax = int(min(imgx - 1, imgy - 1) / 4) # max circle radius
-crMin = 10 # min circle radius
+n = random.randint(1, 7)  # of circular obstacles
+crMax = int(min(imgx - 1, imgy - 1) / 4)  # max circle radius
+crMin = 10  # min circle radius
 
 # create circular obstacle(s)
 cxList = []
 cyList = []
 crList = []
 for i in range(n):
-    while(True): # circle(s) must not overlap
-        cr = random.randint(crMin, crMax) # circle radius
-        cx = random.randint(cr, imgx - 1 - cr) # circle center x
-        cy = random.randint(cr, imgy - 1 - cr) # circle center y
+    while (True):  # circle(s) must not overlap
+        cr = random.randint(crMin, crMax)  # circle radius
+        cx = random.randint(cr, imgx - 1 - cr)  # circle center x
+        cy = random.randint(cr, imgy - 1 - cr)  # circle center y
         flag = True
         if i > 0:
             for j in range(i):
@@ -58,7 +60,7 @@ for y0 in range(imgy):
         # print '%completed' every 10 seconds
         t = time.time()
         if t - t0 >= 10:
-            print ('%' + str(int(100 * (imgx * y0 + x0) / (imgx * imgy))))
+            print('%' + str(int(100 * (imgx * y0 + x0) / (imgx * imgy))))
             t0 = t
 
         # initial location of the ball must be outside of the circle(s)
@@ -128,7 +130,7 @@ for y0 in range(imgy):
             if coloring >= 6:
                 # convert the angle from -pi..pi to 0..2pi
                 if ang < 0: ang = 2 * math.pi - math.fabs(ang)
-                d = ang / 2 * math.pi # convert the angle to 0..1
+                d = ang / 2 * math.pi  # convert the angle to 0..1
 
             k = int(d * 255)
             rd = k % 8 * 32
@@ -136,5 +138,5 @@ for y0 in range(imgy):
             bl = k % 32 * 16
             image.putpixel((x0, y0), (rd, gr, bl))
 
-print ('Calculations completed.')
+print('Calculations completed.')
 image.save('Dynamical_Billiards_Map_color' + str(coloring) + '.png', 'PNG')

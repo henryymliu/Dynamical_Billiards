@@ -7,12 +7,11 @@ website: http://jakevdp.github.com
 license: BSD
 Please feel free to use and modify this, but keep the above information. Thanks!
 """
+import matplotlib.animation as animation
+import matplotlib.pyplot as plt
 import numpy as np
 from scipy.spatial.distance import pdist, squareform
 
-import matplotlib.pyplot as plt
-import scipy.integrate as integrate
-import matplotlib.animation as animation
 
 class ParticleBox:
     """Orbits class
@@ -24,14 +23,15 @@ class ParticleBox:
 
     bounds is the size of the box: [xmin, xmax, ymin, ymax]
     """
+
     def __init__(self,
-                 init_state = [[1, 0, 0, -1],
-                               [-0.5, 0.5, 0.5, 0.5],
-                               [-0.5, -0.5, -0.5, 0.5]],
-                 bounds = [-2, 2, -2, 2],
-                 size = 0.04,
-                 M = 0.05,
-                 G = 9.8):
+                 init_state=[[1, 0, 0, -1],
+                             [-0.5, 0.5, 0.5, 0.5],
+                             [-0.5, -0.5, -0.5, 0.5]],
+                 bounds=[-2, 2, -2, 2],
+                 size=0.04,
+                 M=0.05,
+                 G=9.8):
         self.init_state = np.asarray(init_state, dtype=float)
         self.M = M * np.ones(self.init_state.shape[0])
         self.size = size
@@ -43,7 +43,7 @@ class ParticleBox:
     def step(self, dt):
         """step once by dt seconds"""
         self.time_elapsed += dt
-        
+
         # update positions
         self.state[:, :2] += dt * self.state[:, 2:]
 
@@ -82,9 +82,9 @@ class ParticleBox:
 
             # assign new velocities
             self.state[i1, 2:] = v_cm + v_rel * m2 / (m1 + m2)
-            self.state[i2, 2:] = v_cm - v_rel * m1 / (m1 + m2) 
+            self.state[i2, 2:] = v_cm - v_rel * m1 / (m1 + m2)
 
-        # check for crossing boundary
+            # check for crossing boundary
         crossed_x1 = (self.state[:, 0] < self.bounds[0] + self.size)
         crossed_x2 = (self.state[:, 0] > self.bounds[1] - self.size)
         crossed_y1 = (self.state[:, 1] < self.bounds[2] + self.size)
@@ -103,17 +103,16 @@ class ParticleBox:
         self.state[:, 3] -= self.M * self.G * dt
 
 
-#------------------------------------------------------------
+# ------------------------------------------------------------
 # set up initial state
 np.random.seed(0)
 init_state = -0.5 + np.random.random((50, 4))
 init_state[:, :2] *= 3.9
 
 box = ParticleBox(init_state, size=0.04)
-dt = 1. / 30 # 30fps
+dt = 1. / 30  # 30fps
 
-
-#------------------------------------------------------------
+# ------------------------------------------------------------
 # set up figure and animation
 fig = plt.figure()
 fig.subplots_adjust(left=0, right=1, bottom=0, top=1)
@@ -130,12 +129,14 @@ rect = plt.Rectangle(box.bounds[::2],
                      ec='none', lw=2, fc='none')
 ax.add_patch(rect)
 
+
 def init():
     """initialize animation"""
     global box, rect
     particles.set_data([], [])
     rect.set_edgecolor('none')
     return particles, rect
+
 
 def animate(i):
     """perform animation step"""
@@ -144,22 +145,22 @@ def animate(i):
 
     ms = int(fig.dpi * 2 * box.size * fig.get_figwidth()
              / np.diff(ax.get_xbound())[0])
-    
+
     # update pieces of the animation
     rect.set_edgecolor('k')
     particles.set_data(box.state[:, 0], box.state[:, 1])
     particles.set_markersize(ms)
     return particles, rect
 
+
 ani = animation.FuncAnimation(fig, animate, frames=600,
                               interval=10, blit=True, init_func=init)
-
 
 # save the animation as an mp4.  This requires ffmpeg or mencoder to be
 # installed.  The extra_args ensure that the x264 codec is used, so that
 # the video can be embedded in html5.  You may need to adjust this for
 # your system: for more information, see
 # http://matplotlib.sourceforge.net/api/animation_api.html
-#ani.save('particle_box.mp4', fps=30, extra_args=['-vcodec', 'libx264'])
+# ani.save('particle_box.mp4', fps=30, extra_args=['-vcodec', 'libx264'])
 
 plt.show()
