@@ -1,5 +1,7 @@
 from matplotlib import pyplot as plt
 from matplotlib import animation
+import matplotlib.patches as mpatches
+import matplotlib.axes as axes
 import numpy as np
 from scipy import optimize as op
 
@@ -163,44 +165,32 @@ class Buminovich(object):
                 self.state[0] = self.state[0] + self.length
 
     def main(self):
-        # self.radius = self.parameters['radius']
         fig, ax=plt.subplots()
-        ax.set(xlim=[-2,7],ylim=[-3,3])
+        ax.set(xlim=[-(self.minlinex + self.radius + 0.5),(self.length + self.radius + 0.5)],ylim=[-(self.radius + 0.5),self.radius + 0.5])
         ax.axis('off')
-        table=plt.Circle((0,0), self.radius, fc = 'none')
-        #plt.axis('equal')
-        ax.add_patch(table)
 
-        #TODO replace hardcoded values of line with self.whatever
-        #x1 = np.array([0, 4])
-        #y1 = np.array([2, 2])
-        x2 = np.array([0, 4])
-        y2 = np.array([-2, -2])
+        #x1 = np.array([0, self.length])
+        #y1 = np.array([self.radius, self.radius])
+        #x2 = np.array([0, self.length])
+        #y2 = np.array([-self.radius, -self.radius])
 
-        #TODO replace hardset axis limits with self.whatever + a bit
-        #fig, ax = plt.subplots()
-        #ax.set(xlim=[-3, 7], ylim=[-3, 3])
-        #ax.axis('off')
         #table = ax.plot(x1, y1, 'k-', lw=1)
         #table = ax.plot(x2, y2, 'k-', lw=1)
 
-        #fig, ax=plt.subplots()
-        #ax.set(xlim=[-2,2],ylim=[-2,2])
-        #ax.axis('off')
-        #table = plt.Arc((0, 0), self.radius, self.radius, 0, 90, 270)
-        #plt.axis('equal')
-        #ax.add_patch(table)
-        #table = plt.Arc((self.length, 0), self.radius, self.radius, 0, 270, 450)
-        #plt.axis('equal')
-        #ax.add_patch(table)
+        table = mpatches.Arc((0, 0), self.height, self.height, 0, 90, 270)
+        plt.axis('equal')
+        ax.add_patch(table)
+        table = mpatches.Arc((self.length, 0), self.height, self.height, 0, 270, 450)
+        plt.axis('equal')
+        ax.add_patch(table)
+        table = plt.hlines([-self.radius, self.radius], 0, self.length)
 
         particle, = ax.plot([], [], 'ro', ms=6)
-        path, =ax.plot([],[], 'r-',lw=1)
+        path, = ax.plot([],[], 'r-',lw=1)
 
-
-        dt=1/30
-        self.state=np.array([self.parameters['initX'],self.parameters['initY'],
-            self.parameters['initXVel'],self.parameters['initYVel']])
+        dt = 1/30
+        self.state = np.array([self.parameters['initX'],self.parameters['initY'],
+                self.parameters['initXVel'],self.parameters['initYVel']])
         self.pathx=np.array([])
         self.pathy=np.array([])
 
