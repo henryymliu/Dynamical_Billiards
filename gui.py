@@ -11,6 +11,7 @@ import Pmw
 import RectTable as rect
 import LTable as Ltab
 import circle
+import Buminovich
 from PIL import Image, ImageTk
 import platform
 
@@ -240,9 +241,11 @@ class Main(tk.Tk):
         f1=RectTab(self)
         f2=LTab(self)
         f3=CircTab(self)
+        f4=BuminTab(self)
         n.add(f1,text='Rectangle')
         n.add(f2,text='L')
         n.add(f3,text='Circle ')
+        n.add(f4,text='Buminovich')
         n.pack()
 
 class RectTab(AbstractTab):
@@ -544,6 +547,126 @@ class CircTab(tk.Frame):
 
         #create simulation
         simulation = circle.CircleTable(**simArgs)
+        simulation.main()
+
+class BuminTab(tk.Frame):
+    def __init__(self, parent):
+        tk.Frame.__init__(self, parent)
+        self.parent = parent
+        self.initialize()
+
+    def initialize(self):
+        # Ball Formation Selection
+        ballFormations = ["1 Ball"]
+
+        self.grid()  # sets up grid
+
+        # define a button to start simulation, runs startSimulation() when
+        # clicked
+        button = tk.Button(self, text=u'Start simulation',
+                                command=self.startSimulation)
+        button.grid(column=1, row=9)
+
+
+        self.grid_columnconfigure(0, weight=1)
+        # self.resizable(True,False)
+
+        self.numberOfBallsSelector = Pmw.ComboBox(self, label_text='Choose Ball Formation', labelpos='nw',
+                                              selectioncommand=self.changeImage,
+                                              scrolledlist_items=ballFormations, dropdown=1)
+        self.numberOfBallsSelector.grid(column=0, row=2)
+        self.numberOfBallsSelector.selectitem(0)
+
+        self.initialXVelScale = tk.Scale(self, from_=-3, to=3, orient=tk.HORIZONTAL,
+                                             label='Initial X Velocity',resolution=0.1)
+        self.initialXVelScale.grid(column=0, row=3, columnspan=2, sticky='W' + 'E')
+        self.initialXVelScale.set(1)
+
+        self.initialYVelScale = tk.Scale(self, from_=-3, to=3, orient=tk.HORIZONTAL,
+                                             label='Initial Y Velocity',resolution=0.1)
+        self.initialYVelScale.grid(column=0, row=4, columnspan=2, sticky='W' + 'E')
+        self.initialYVelScale.set(0.5)
+
+        self.initialXScale = tk.Scale(self, from_=-2, to=2, orient=tk.HORIZONTAL,
+                                           label='Initial X Position',resolution=0.1, command = None) #,command=self.checkXPos)
+        self.initialXScale.grid(column=0, row=5, columnspan=2, sticky='W' + 'E')
+        self.initialXScale.set(0)
+
+        self.initialYScale = tk.Scale(self, from_=-2, to=2, orient=tk.HORIZONTAL,
+                                           label='Initial Y Position',resolution=0.1,command= None)#self.checkYPos)
+        self.initialYScale.grid(column=0, row=6, columnspan=2, sticky='W' + 'E')
+        self.initialYScale.set(0)
+
+        self.playbackSpeedScale = tk.Scale(self, from_=0, to=60, orient=tk.HORIZONTAL,
+                                                label='Playback Speed (fps)',resolution=0.1)
+        self.playbackSpeedScale.grid(column=0, row=8, columnspan=2, sticky='W' + 'E')
+        self.playbackSpeedScale.set(30)
+
+        self.toTrace = tk.BooleanVar()
+        self.traceCheck = tk.Checkbutton(self, text="Trace", variable=self.toTrace)
+        self.traceCheck.grid(column=2, row=9, sticky='W')
+        self.traceCheck.select()
+
+
+        # make canvas
+        self.preview = tk.Canvas(self, width=400, height=300)
+        self.preview.grid(column=2, row=1, rowspan=5)
+        self.changeImage()
+
+    #changes the preview image when a new stadium is selected
+    def changeImage(self,*args):
+        #get the current stadium
+        formation = self.numberOfBallsSelector.get(first=None, last=None)
+        #select image based on operating system
+        if platform.system == 'Windows':
+            directory='images\Circle_{}.png'.format(formation).replace(' ','')
+            image = Image.open(directory)
+        else:
+            directory='images/Circle_{}.png'.format(formation).replace(' ','')
+            image = Image.open(directory)
+
+        # make Tk compatible PhotoImage object, must save as object parameter
+        # to avoid garbage collection
+        self.photo = ImageTk.PhotoImage(image)
+        #display image
+        self.preview.create_image(0, 0, anchor='nw', image=self.photo)
+    #TODO these don't work as expected
+    def checkYPos(self,*args):
+        x=self.initialXScale.get()
+        y=self.initialYScale.get()
+
+        if x**2+y**2 > 4:
+            if y>0:
+                self.initialYScale.set((1-x**2)**(1/2))
+            else:
+                self.initialYScale.set(-(1-x**2)**(1/2))
+    def checkXPos(self,*args):
+        x=self.initialXScale.get()
+        y=self.initialYScale.get()
+
+        if x**2+y**2 > 2:
+            if y>0:
+                self.initialXScale.set((1-y**2)**(1/2))
+            else:
+                self.initialXScale.set(-(1-y**2)**(1/2))
+
+    #runs when start simulation button is pressed
+    def startSimulation(self):
+        # TODO: Handle unselected combobox case
+
+        #put all selections into dictionary
+        simArgs = dict()
+        simArgs['ballF'] = self.numberOfBallsSelector.get(first=None, last=None)
+
+        simArgs['initXVel'] = self.initialXVelScale.get()
+        simArgs['initYVel'] = self.initialYVelScale.get()
+        simArgs['initX'] = self.initialXScale.get()
+        simArgs['initY'] = self.initialYScale.get()
+        simArgs['playbackSpeed'] = self.playbackSpeedScale.get()
+        simArgs['trace'] = self.toTrace.get()
+
+        #create simulation
+        simulation = Buminovich.Buminovich(**simArgs)
         simulation.main()
 
 if __name__ == '__main__':
