@@ -10,8 +10,8 @@ class Buminovich(object):
     def __init__(self, **kwargs):
         super().__init__()
         self.parameters = kwargs
-        self.length = 4
-        self.height = 4
+        self.length = 6
+        self.height = 6
         self.minlinex = 0
         self.minliney = 0
         self.radius = self.height / 2

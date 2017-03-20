@@ -14,6 +14,7 @@ import LTable as Ltab
 import RectTable as rect
 import circle
 import Buminovich
+import Lorentz
 from PIL import Image, ImageTk
 import platform
 
@@ -246,10 +247,12 @@ class Main(tk.Tk):
         f2 = LTab(self)
         f3 = CircTab(self)
         f4 = BuminTab(self)
+        f5 = LorentzTab(self)
         n.add(f1, text='Rectangle')
         n.add(f2, text='L')
         n.add(f3, text='Circle ')
         n.add(f4, text='Buminovich')
+        n.add(f5, text='Lorentz')
         n.pack()
 
 
@@ -441,6 +444,54 @@ class BuminTab(AbstractTab):
 
         # create simulation
         simulation = Buminovich.Buminovich(**simArgs)
+        simulation.main()
+
+class LorentzTab(AbstractTab):
+    def __init__(self, AbstractTab):
+        super(LorentzTab, self).__init__(AbstractTab, 'images\Lorentz_1Ball.png')
+
+    # TODO: update when finished
+    def initialize(self):
+        return None
+
+    # changes the preview image when a new stadium is selected
+
+    def checkYPos(self, *args):
+        x = self.initialXScale.get()
+        y = self.initialYScale.get()
+
+        if x ** 2 + y ** 2 > 4:
+            if y > 0:
+                self.initialYScale.set(np.sqrt(4 - x ** 2))
+            else:
+                self.initialYScale.set(-np.sqrt(4 - x ** 2))
+
+    def checkXPos(self, *args):
+        x = self.initialXScale.get()
+        y = self.initialYScale.get()
+
+        if x ** 2 + y ** 2 > 4:
+            if x > 0:
+                self.initialXScale.set(np.sqrt(4 - y ** 2))
+            else:
+                self.initialXScale.set(-np.sqrt(4 - y ** 2))
+
+    # runs when start simulation button is pressed
+    def startSimulation(self):
+
+        # put all selections into dictionary
+        simArgs = dict()
+        simArgs['ballF'] = self.numberOfBallsSelector.get(first=None, last=None)
+
+        simArgs['initXVel'] = self.initialXVelScale.get()
+        simArgs['initYVel'] = self.initialYVelScale.get()
+        simArgs['initX'] = self.initialXScale.get()
+        simArgs['initY'] = self.initialYScale.get()
+        simArgs['playbackSpeed'] = self.playbackSpeedScale.get()
+        simArgs['trace'] = self.toTrace.get()
+
+        # create simulation
+        simulation = Lorentz.Lorentz(**simArgs)
         simulation.main()
 
 

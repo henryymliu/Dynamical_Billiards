@@ -2,392 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6e4e8a11-8197-499c-a426-30f0c7ca9a97" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/square.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/PKG-INFO" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/bin/bundlepmw.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/contrib/DirBrowser.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/contrib/MCListbox.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/contrib/PmwFileDialog.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/contrib/PmwFullTimeCounter.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/contrib/PmwVerticalGauge.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/contrib/README" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/contrib/TreeBrowser.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/AboutDialog.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/All.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/Args.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/Balloon.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/BltGraph.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/BltTabset.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/ButtonBox.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/Colors.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/ComboBox.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/ComboBoxDialog.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/ConfigClass.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/Counter.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/CounterDialog.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/DemoVersion.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/Dialog.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/EntryField.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/ErrorHandling.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/ExampleDemo.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/Grid.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/Group.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/HistoryText.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/LabeledWidget.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/LogicalFont.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/MainMenuBar.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/MenuBar.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/MessageBar.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/MessageDialog.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/MessageInfo.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/MultiLineLabel.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/NestedDialogs.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/NoteBook.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/NoteBook_2.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/NoteBook_3.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/OptionMenu.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/PanedWidget.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/PanedWidget_2.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/PromptDialog.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/RadioSelect.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/Resources.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/Resources_Pmw.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/ScrolledCanvas.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/ScrolledField.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/ScrolledFrame.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/ScrolledListBox.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/ScrolledText.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/ScrolledText_2.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/SelectionDialog.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/ShowBusy.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/SpecialCounter.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/SpecialEntry.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/Spectrum.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/SpeedTest.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/SubClassing.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/TextDialog.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/TextDisplay.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/TimeCounter.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/demos/WidgetDestroy.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/AboutDialog.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/AboutDialog.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/Balloon.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/Balloon.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/Blt.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/ButtonBox.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/ButtonBox.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/Color.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/ComboBox.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/ComboBox.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/ComboBoxDialog.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/ComboBoxDialog.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/Counter.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/Counter.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/CounterDialog.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/CounterDialog.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/Dialog.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/Dialog.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/EntryField.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/EntryField.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/ExampleDemo.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/Group.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/Group.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/HistoryText.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/HistoryText.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/LabeledWidget.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/LabeledWidget.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/MainMenuBar.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/MainMenuBar.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/MegaArchetype.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/MegaToplevel.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/MegaWidget.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/MenuBar.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/MenuBar.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/MessageBar.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/MessageBar.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/MessageDialog.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/MessageDialog.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/NoteBook.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/NoteBook.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/OptionMenu.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/OptionMenu.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/PanedWidget.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/PanedWidget.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/PmwFunctions.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/PromptDialog.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/PromptDialog.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/RadioSelect.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/RadioSelect.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/ScrolledCanvas.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/ScrolledCanvas.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/ScrolledField.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/ScrolledField.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/ScrolledFrame.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/ScrolledFrame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/ScrolledListBox.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/ScrolledListBox.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/ScrolledText.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/ScrolledText.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/ScrolledText_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/SelectionDialog.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/SelectionDialog.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/TextDialog.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/TextDialog.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/TimeCounter.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/TimeCounter.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/blue_line.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/blueball.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/bugs.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/changes.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/copyright.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/counter1.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/counter2.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/demosandtests.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/dynamicloader.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/example.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/example1.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/example2.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/exercises.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/features.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/halfblueball.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/howtobuild.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/howtouse.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/porting.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/refindex.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/scale1.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/scale2.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/starting.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/todo.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/doc/transdove.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/tests/AboutDialog_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/tests/All.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/tests/Blt_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/tests/ButtonBox_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/tests/Colors_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/tests/ComboBox_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/tests/CounterDialog_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/tests/Counter_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/tests/Dialog_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/tests/EntryField_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/tests/LabeledWidget_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/tests/ManualTests.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/tests/MegaWidget_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/tests/MessageDialog_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/tests/NoteBook_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/tests/OptionMenu_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/tests/Options_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/tests/PanedWidget_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/tests/PmwBase_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/tests/PromptDialog_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/tests/RadioSelect_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/tests/ScrolledCanvas_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/tests/ScrolledField_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/tests/ScrolledFrame_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/tests/ScrolledListBox_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/tests/ScrolledText_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/tests/SelectionDialog_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/tests/Test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/tests/TestVersion.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/tests/TextDialog_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/tests/Tkinter_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/tests/earthris.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_1_3_3/tests/flagup.bmp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/bin/bundlepmw.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/contrib/DirBrowser.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/contrib/MCListbox.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/contrib/PmwFileDialog.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/contrib/PmwFullTimeCounter.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/contrib/PmwVerticalGauge.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/contrib/README" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/contrib/TreeBrowser.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/AboutDialog.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/All.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/Args.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/Balloon.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/BltGraph.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/BltTabset.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/ButtonBox.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/Colors.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/ComboBox.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/ComboBoxDialog.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/ConfigClass.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/Counter.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/CounterDialog.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/DemoVersion.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/Dialog.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/EntryField.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/ErrorHandling.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/ExampleDemo.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/Grid.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/Group.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/HistoryText.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/LabeledWidget.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/LogicalFont.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/MainMenuBar.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/MenuBar.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/MessageBar.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/MessageDialog.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/MessageInfo.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/MultiLineLabel.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/NestedDialogs.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/NoteBook.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/NoteBook_2.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/NoteBook_3.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/OptionMenu.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/PanedWidget.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/PanedWidget_2.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/PromptDialog.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/RadioSelect.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/Resources.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/Resources_Pmw.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/ScrolledCanvas.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/ScrolledField.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/ScrolledFrame.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/ScrolledListBox.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/ScrolledText.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/ScrolledText_2.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/SelectionDialog.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/ShowBusy.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/SpecialCounter.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/SpecialEntry.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/Spectrum.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/SpeedTest.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/SubClassing.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/TextDialog.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/TextDisplay.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/TimeCounter.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/demos/WidgetDestroy.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/AboutDialog.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/AboutDialog.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/Balloon.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/Balloon.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/Blt.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/ButtonBox.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/ButtonBox.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/Color.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/ComboBox.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/ComboBox.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/ComboBoxDialog.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/ComboBoxDialog.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/Counter.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/Counter.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/CounterDialog.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/CounterDialog.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/Dialog.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/Dialog.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/EntryField.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/EntryField.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/ExampleDemo.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/Group.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/Group.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/HistoryText.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/HistoryText.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/LabeledWidget.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/LabeledWidget.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/MainMenuBar.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/MainMenuBar.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/MegaArchetype.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/MegaToplevel.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/MegaWidget.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/MenuBar.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/MenuBar.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/MessageBar.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/MessageBar.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/MessageDialog.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/MessageDialog.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/NoteBook.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/NoteBook.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/OptionMenu.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/OptionMenu.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/PanedWidget.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/PanedWidget.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/PmwFunctions.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/PromptDialog.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/PromptDialog.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/RadioSelect.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/RadioSelect.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/ScrolledCanvas.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/ScrolledCanvas.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/ScrolledField.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/ScrolledField.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/ScrolledFrame.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/ScrolledFrame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/ScrolledListBox.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/ScrolledListBox.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/ScrolledText.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/ScrolledText.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/ScrolledText_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/SelectionDialog.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/SelectionDialog.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/TextDialog.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/TextDialog.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/TimeCounter.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/TimeCounter.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/blue_line.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/blueball.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/bugs.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/changes.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/copyright.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/counter1.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/counter2.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/demosandtests.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/dynamicloader.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/example.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/example1.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/example2.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/exercises.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/features.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/halfblueball.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/howtobuild.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/howtouse.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/porting.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/refindex.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/scale1.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/scale2.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/starting.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/todo.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/doc/transdove.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/tests/AboutDialog_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/tests/All.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/tests/Blt_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/tests/ButtonBox_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/tests/Colors_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/tests/ComboBox_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/tests/CounterDialog_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/tests/Counter_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/tests/Dialog_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/tests/EntryField_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/tests/LabeledWidget_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/tests/ManualTests.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/tests/MegaWidget_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/tests/MessageDialog_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/tests/NoteBook_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/tests/OptionMenu_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/tests/Options_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/tests/PanedWidget_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/tests/PmwBase_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/tests/PromptDialog_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/tests/RadioSelect_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/tests/ScrolledCanvas_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/tests/ScrolledField_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/tests/ScrolledFrame_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/tests/ScrolledListBox_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/tests/ScrolledText_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/tests/SelectionDialog_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/tests/Test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/tests/TestVersion.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/tests/TextDialog_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/tests/Tkinter_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/tests/earthris.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/Pmw_2_0_0/tests/flagup.bmp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/Pmw/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Pmw-2.0.0/setup.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tableConfig.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tableMain.py" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/Lorentz_1Ball.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Lorentz.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Buminovich.py" afterPath="$PROJECT_DIR$/Buminovich.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gui.py" afterPath="$PROJECT_DIR$/gui.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -403,25 +21,105 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="600">
-      <file leaf-file-name="gui.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="gui.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/gui.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2493">
-              <caret line="1" column="10" lean-forward="false" selection-start-line="1" selection-start-column="10" selection-end-line="1" selection-end-column="10" />
-              <folding />
+            <state relative-caret-position="376">
+              <caret line="450" column="69" lean-forward="false" selection-start-line="450" selection-start-column="69" selection-end-line="450" selection-end-column="69" />
+              <folding>
+                <element signature="e#123#143#0" expanded="true" />
+                <element signature="e#5492#5645#0" expanded="false" />
+                <element signature="e#5693#7826#0" expanded="false" />
+                <element signature="e#7909#7920#0" expanded="false" />
+                <element signature="e#7963#9120#0" expanded="false" />
+                <element signature="e#9201#9212#0" expanded="false" />
+                <element signature="e#13113#15142#0" expanded="false" />
+                <element signature="e#15178#16710#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LTable.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/LTable.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-40">
+              <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Buminovich.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Buminovich.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="171" column="15" lean-forward="false" selection-start-line="171" selection-start-column="15" selection-end-line="171" selection-end-column="15" />
+              <folding>
+                <element signature="e#0#36#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Lorentz.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Lorentz.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="393">
+              <caret line="135" column="71" lean-forward="false" selection-start-line="135" selection-start-column="71" selection-end-line="135" selection-end-column="71" />
+              <folding>
+                <element signature="e#0#36#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RectTable.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/RectTable.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="480">
+              <caret line="63" column="0" lean-forward="true" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="circle.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/circle.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="364">
+              <caret line="93" column="27" lean-forward="true" selection-start-line="93" selection-start-column="27" selection-end-line="93" selection-end-column="27" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
+    <option name="UPDATE_TYPE" value="MERGE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/RectTable.py" />
+        <option value="$PROJECT_DIR$/Buminovich.py" />
         <option value="$PROJECT_DIR$/gui.py" />
+        <option value="$PROJECT_DIR$/Lorentz.py" />
       </list>
     </option>
   </component>
@@ -446,6 +144,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -460,13 +160,134 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$USER_HOME$/Miniconda3/envs/billiards/python.exe" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Phoenix\Documents\Dynamical_Billiards\images" />
+    </key>
+  </component>
+  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
+    <UpdatedFiles>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Updated from server" />
+        <option name="myStatusName" value="Changed on server" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="CHANGED_ON_SERVER" />
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Updated" />
+          <option name="myStatusName" value="Changed" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="UPDATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/RectTable.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/circle.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/gui.py</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Created" />
+          <option name="myStatusName" value="Created" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="CREATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/LICENCE.md</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Deleted" />
+          <option name="myStatusName" value="Deleted" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="true" />
+          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/examples/example_1.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/examples/example_2.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/examples/example_3.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/examples/particle_box.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/examples/resources.txt</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Restored" />
+          <option name="myStatusName" value="Will be restored" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="RESTORED" />
+        </FILE-GROUP>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Modified" />
+        <option name="myStatusName" value="Modified" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MODIFIED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Skipped" />
+        <option name="myStatusName" value="Skipped" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SKIPPED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with conflicts" />
+        <option name="myStatusName" value="Will be merged with conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_CONFLICTS" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with tree conflicts" />
+        <option name="myStatusName" value="Merged with tree conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with property conflicts" />
+        <option name="myStatusName" value="Will be merged with property conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged" />
+        <option name="myStatusName" value="Will be merged" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Not in repository" />
+        <option name="myStatusName" value="Not in repository" />
+        <option name="mySupportsDeletion" value="true" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="UNKNOWN" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally added" />
+        <option name="myStatusName" value="Locally added" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_ADDED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally removed" />
+        <option name="myStatusName" value="Locally removed" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_REMOVED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Switched" />
+        <option name="myStatusName" value="Switched" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SWITCHED" />
+      </FILE-GROUP>
+    </UpdatedFiles>
   </component>
   <component name="RunManager" selected="Python.gui">
     <configuration default="false" name="gui" type="PythonConfigurationType" factoryName="Python" temporary="true">
@@ -643,33 +464,35 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-16" y="-16" width="3232" height="1732" extended-state="6" />
+    <frame x="-16" y="-16" width="3232" height="1732" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24984127" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13968255" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298466" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298466" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12133891" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298466" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19874477" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33124128" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20153417" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298466" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="2" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
@@ -677,7 +500,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#123#143#0" expanded="true" />
+            <element signature="e#5492#5645#0" expanded="false" />
+            <element signature="e#5693#7826#0" expanded="false" />
+            <element signature="e#7909#7920#0" expanded="false" />
+            <element signature="e#7963#9120#0" expanded="false" />
+            <element signature="e#9201#9212#0" expanded="false" />
+            <element signature="e#13113#15142#0" expanded="false" />
+            <element signature="e#15178#16710#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -685,15 +517,105 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#123#143#0" expanded="true" />
+            <element signature="e#5492#5645#0" expanded="false" />
+            <element signature="e#5693#7826#0" expanded="false" />
+            <element signature="e#7909#7920#0" expanded="false" />
+            <element signature="e#7963#9120#0" expanded="false" />
+            <element signature="e#9201#9212#0" expanded="false" />
+            <element signature="e#13113#15142#0" expanded="false" />
+            <element signature="e#15178#16710#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gui.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2493">
-          <caret line="1" column="10" lean-forward="false" selection-start-line="1" selection-start-column="10" selection-end-line="1" selection-end-column="10" />
-          <folding />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#123#143#0" expanded="true" />
+            <element signature="e#5492#5645#0" expanded="false" />
+            <element signature="e#5693#7826#0" expanded="false" />
+            <element signature="e#7909#7920#0" expanded="false" />
+            <element signature="e#7963#9120#0" expanded="false" />
+            <element signature="e#9201#9212#0" expanded="false" />
+            <element signature="e#13113#15142#0" expanded="false" />
+            <element signature="e#15178#16710#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LTable.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-40">
+          <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/images/Bumin_1Ball.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gui.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="376">
+          <caret line="450" column="69" lean-forward="false" selection-start-line="450" selection-start-column="69" selection-end-line="450" selection-end-column="69" />
+          <folding>
+            <element signature="e#123#143#0" expanded="true" />
+            <element signature="e#5492#5645#0" expanded="false" />
+            <element signature="e#5693#7826#0" expanded="false" />
+            <element signature="e#7909#7920#0" expanded="false" />
+            <element signature="e#7963#9120#0" expanded="false" />
+            <element signature="e#9201#9212#0" expanded="false" />
+            <element signature="e#13113#15142#0" expanded="false" />
+            <element signature="e#15178#16710#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RectTable.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="63" column="0" lean-forward="true" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/circle.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="364">
+          <caret line="93" column="27" lean-forward="true" selection-start-line="93" selection-start-column="27" selection-end-line="93" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Buminovich.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="171" column="15" lean-forward="false" selection-start-line="171" selection-start-column="15" selection-end-line="171" selection-end-column="15" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lorentz.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="393">
+          <caret line="135" column="71" lean-forward="false" selection-start-line="135" selection-start-column="71" selection-end-line="135" selection-end-column="71" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
