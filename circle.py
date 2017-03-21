@@ -35,7 +35,7 @@ class CircleTable(object):
 
                 # choose root based on proximity with x
                 root = -b / (2 * a)
-                dis = (np.sqrt(abs(b ** 2 - 4 * a * c))) / (2 * a)
+                dis = (np.sqrt(np.fabs(b ** 2 - 4 * a * c))) / (2 * a)
                 if abs(self.state[0] - root - dis) < abs(self.state[0] - root + dis):
                     root += dis
                 else:
@@ -54,6 +54,8 @@ class CircleTable(object):
                 # self.state[2] *= -1;
                 # print((self.state[2], self.state[3]))
                 # print((self.state[0], self.state[1]))
+                # print(np.hypot(self.state[2], self.state[3]))
+
 
             elif abs(self.state[2] / self.state[3]) <= 1:
                 m = self.state[2] / self.state[3]
@@ -83,6 +85,7 @@ class CircleTable(object):
                 self.state[3] = self.state[3] - 2 * dot * self.state[1]
                 # print((self.state[2], self.state[3]))
                 # print((self.state[0], self.state[1]))
+                # print(np.hypot(self.state[2], self.state[3]))
 
     def main(self):
         # self.radius = self.parameters['radius']
@@ -98,9 +101,9 @@ class CircleTable(object):
 
         dt = 1 / 30
         self.state = np.array([self.parameters['initX'], self.parameters['initY'],
-                               self.parameters['initXVel'], self.parameters['initYVel']])
-        self.pathx = np.array([])
-        self.pathy = np.array([])
+                               self.parameters['initXVel'], self.parameters['initYVel']])#.astype(np.longdouble)
+        self.pathx = np.array([])#.astype(np.longdouble)
+        self.pathy = np.array([])#.astype(np.longdouble)
 
         def init():
             """initialize animation"""

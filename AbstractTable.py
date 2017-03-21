@@ -10,12 +10,14 @@ from scipy import optimize as op
 #       setep through each particle (done)
 
 
-class Particle(object):
+class Ball:
     def __init__(self, **kwargs):
         # x , y, xvel, yvel
+        # super().__init__()
         self.parameters = kwargs
-        self.particle.state = self.parameters['initparticle.state']
+        self.state = self.parameters['initstate']
         self.color = self.parameters['color']
+
 
 class AbstractTable(object):
     """docstring for AbstractTable."""
@@ -24,7 +26,8 @@ class AbstractTable(object):
         super().__init__()
         self.parameters = kwargs
         self.colorlist = ['r', 'g', 'b', 'y']
-        self.particlelist = []
+        self.ballList = []
+        self.nBalls = 1 # TODO use number of balls as parameter instead of string
     # each table must implement this function
     # each step increment Position
     def step(self, particle, dt):
@@ -62,11 +65,15 @@ class AbstractTable(object):
             particle.state[1] = self.maxy
             particle.state[3] *= -1
 
-    def stepall(self,dt):
-            for particle in self.particle_list:
-                particle.state[:2] += dt * particle.state[2:]
+    def stepall(self, dt):
+            for particle in self.ballList:
+                # particle.state[:2] += dt * particle.state[2:]
+                particle.state[0] += dt * particle.state[2]
+                particle.state[1] += dt * particle.state[3]
+
                 self.step(particle, dt)
 
+    # TODO separate table plotting stuff from ball selection
     def main(self):
         self.maxx = self.parameters['width']
         self.maxy = self.parameters['height']
@@ -82,10 +89,35 @@ class AbstractTable(object):
 
         # define time step for 30 fps
         dt = 1 / 30
-        # set initial conditons
-        self.particle.state = self.parameters['balls']
-        for ball, particle in self.particle.state.items():
-            self.particle.state[ball] = np.array(particle.state)
+
+        # temporary workaround; will later directly use number
+        if self.parameters['ballFormation'] == '1 Ball':
+            self.nBalls = 1
+        elif self.parameters['ballFormation'] == '2 Balls':
+            self.nBalls = 2
+        elif self.parameters['ballFormation'] == '3 Balls':
+            self.nBalls = 3
+        elif self.parameters['ballFormation'] == '4 Balls':
+            self.nBalls = 4
+
+        # initialize balls
+        particles = []
+        paths = []
+        self.pathx = {}
+        self.pathy = {}
+
+        for i in range(0, self.nBalls):
+            self.ballList.append(Ball(**{'color': self.colorlist[i], 'initstate': self.parameters['balls']['Ball ' + str(i + 1)]}))
+            particles.append(ax.plot([], [], self.ballList[i].color + 'o', ms=6)[0])
+            paths.append(ax.plot([], [], self.ballList[i].color + '-', lw=1)[0])
+            # paths[i], = ax.plot([], [], self.ballList[i -1].color + '-', lw=1)
+            self.pathx[i] = np.array([])
+            self.pathy[i] = np.array([])
+        # set initial conditions
+        # self.particle.state = self.parameters['balls']
+        # for :
+
+           # particle.state[ball] = np.array(particle.state)
 
         # self.dotStyle = {'Ball 1': 'ro', 'Ball 2': 'bo', 'Ball 3': 'go', 'Ball 4': 'yo'}
         # self.lineStyle = {'Ball 1': 'r-', 'Ball 2': 'b-', 'Ball 3': 'g-', 'Ball 4': 'y-'}
@@ -111,69 +143,64 @@ class AbstractTable(object):
         #                      'Ball 3': self.dotStyle['Ball 3'], 'Ball 4': self.dotStyle['Ball 4']}
         #     self.lineStyle = {'Ball 1': self.lineStyle['Ball 1'], 'Ball 2': self.lineStyle['Ball 2'],
         #                       'Ball 3': self.lineStyle['Ball 3'], 'Ball 4': self.lineStyle['Ball 4']}
-        particles = {}
-        paths = {}
-        self.pathx = {}
-        self.pathy = {}
 
-        for ball in self.dotStyle.keys():
-            particles[ball], = ax.plot([], [], self.dotStyle[ball], ms=6)
-            paths[ball], = ax.plot([], [], self.lineStyle[ball], lw=1)
-            self.pathx[ball] = np.array([])
-            self.pathy[ball] = np.array([])
+        # for ball in self.dotStyle.keys():
+        #     particles[ball], = ax.plot([], [], self.dotStyle[ball], ms=6)
+        #     paths[ball], = ax.plot([], [], self.lineStyle[ball], lw=1)
+        #     self.pathx[ball] = np.array([])
+        #     self.pathy[ball] = np.array([])
 
         # init function for animation
+        # TODO: possibly cleanup return statements?
         def init():
             """initialize animation"""
-            for ball in particles.keys():
-                particles[ball].set_data([], [])
-                paths[ball].set_data([], [])
+            for ball in particles:
+                ball.set_data([], [])
+                ball.set_data([], [])
             table.set_edgecolor('none')
 
             if self.parameters['ballFormation'] == '4 Balls':
-                return particles['Ball 1'], particles['Ball 2'], \
-                       particles['Ball 3'], particles['Ball 4'], table, \
-                       paths['Ball 1'], paths['Ball 2'], paths['Ball 3'], \
-                       paths['Ball 4']
-            elif self.parameters['ballFormation'] == '3 Balls':
-                return particles['Ball 1'], particles['Ball 2'], \
-                       particles['Ball 3'], table, paths['Ball 1'], paths['Ball 2'], \
-                       paths['Ball 3']
-            elif self.parameters['ballFormation'] == '2 Balls':
-                return particles['Ball 1'], particles['Ball 2'], table, \
-                       paths['Ball 1'], paths['Ball 2']
-            else:
-                return particles['Ball 1'], table, paths['Ball 1']
 
-        def animate(i):
+                return particles[0], particles[1], particles[2], particles[3], \
+                        table, paths[0], paths[1],paths[2],paths[3]
+
+            elif self.parameters['ballFormation'] == '3 Balls':
+                return particles[0], particles[1], particles[2], \
+                       table, paths[0], paths[1], paths[2]
+            elif self.parameters['ballFormation'] == '2 Balls':
+                return particles[0], particles[1], \
+                       table, paths[0], paths[1]
+            else:
+                return particles[0], table, paths[0]
+
+        def animate(k):
             """perform animation step"""
             # trace the particle if check box is selected
             if self.parameters['trace']:
-                for ball in self.pathx.keys():
-                    self.pathx[ball] = np.append(self.pathx[ball], self.particle.state[ball][0])
-                    self.pathy[ball] = np.append(self.pathy[ball], self.particle.state[ball][1])
+                for i in range(0, self.nBalls):
+                    self.pathx[i] = np.append(self.pathx[i], self.ballList[i].state[0])
+                    self.pathy[i] = np.append(self.pathy[i], self.ballList[i].state[1])
             self.stepall(dt)
             # update pieces of the animation
             table.set_edgecolor('k')
 
-            for ball in particles.keys():
-                particles[ball].set_data(self.particle.state[ball][0], self.particle.state[ball][1])
+            for ball in range(0, self.nBalls):
+                particles[ball].set_data(self.ballList[ball].state[0], self.ballList[ball].state[1])
                 paths[ball].set_data(self.pathx[ball], self.pathy[ball])
 
             if self.parameters['ballFormation'] == '4 Balls':
-                return particles['Ball 1'], particles['Ball 2'], \
-                       particles['Ball 3'], particles['Ball 4'], table, \
-                       paths['Ball 1'], paths['Ball 2'], paths['Ball 3'], \
-                       paths['Ball 4']
+
+                return particles[0], particles[1], particles[2], particles[3], \
+                       table, paths[0], paths[1], paths[2], paths[3]
+
             elif self.parameters['ballFormation'] == '3 Balls':
-                return particles['Ball 1'], particles['Ball 2'], \
-                       particles['Ball 3'], table, paths['Ball 1'], paths['Ball 2'], \
-                       paths['Ball 3']
+                return particles[0], particles[1], particles[2], \
+                       table, paths[0], paths[1], paths[2]
             elif self.parameters['ballFormation'] == '2 Balls':
-                return particles['Ball 1'], particles['Ball 2'], table, \
-                       paths['Ball 1'], paths['Ball 2']
+                return particles[0], particles[1], \
+                       table, paths[0], paths[1]
             else:
-                return particles['Ball 1'], table, paths['Ball 1']
+                return particles[0], table, paths[0]
 
         # define animation
         ani = animation.FuncAnimation(fig, animate, frames=600,

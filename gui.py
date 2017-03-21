@@ -12,6 +12,7 @@ from PIL import Image, ImageTk
 import numpy as np
 import LTable as Ltab
 import RectTable as rect
+import AbstractTable as abT
 import circle
 import Buminovich
 import Lorentz
@@ -102,7 +103,7 @@ class AbstractTab(tk.Frame):
 
         # scale for initial y position
         self.initialYScale = tk.Scale(self, from_=0, to=2, orient=tk.HORIZONTAL,
-                                      label='Initial Y Position', resolution=0.1)
+                                      label='Initial Y Position', resolution=0.01)
         self.initialYScale.grid(column=0, row=7, columnspan=2, sticky='W' + 'E')
         self.initialYScale.set(self.ballStates[self.currentBall][1])
 
@@ -309,7 +310,9 @@ class RectTab(AbstractTab):
         simArgs['ballFormation'] = self.numberOfBallsSelector.get()
 
         # create simulation
-        simulation = rect.RectTable(**simArgs)
+        # simulation = rect.RectTable(**simArgs)
+        simulation = abT.AbstractTable(**simArgs)
+
         simulation.main()
 
 
@@ -347,38 +350,39 @@ class LTab(AbstractTab):
 class CircTab(AbstractTab):
     def __init__(self, AbstractTab):
         super(CircTab, self).__init__(AbstractTab, 'images\Circle_1Ball.png')
+        self.radius = circle.CircleTable().radius
 
     def initialize(self):
 
         self.initialXScale = tk.Scale(self, from_=-2, to=2, orient=tk.HORIZONTAL,
-                                      label='Initial X Position', resolution=0.1,
+                                      label='Initial X Position', resolution=0.01,
                                       command=self.checkXPos)
         self.initialXScale.grid(column=0, row=6, columnspan=2, sticky='W' + 'E')
         # self.initialXScale.set(0)
 
         self.initialYScale = tk.Scale(self, from_=-2, to=2, orient=tk.HORIZONTAL,
-                                      label='Initial Y Position', resolution=0.1, command=self.checkYPos)
+                                      label='Initial Y Position', resolution=0.01, command=self.checkYPos)
         self.initialYScale.grid(column=0, row=7, columnspan=2, sticky='W' + 'E')
 
     def checkYPos(self, *args):
         x = self.initialXScale.get()
         y = self.initialYScale.get()
 
-        if x ** 2 + y ** 2 > 4:
+        if x ** 2 + y ** 2 > self.radius**2:
             if y > 0:
-                self.initialYScale.set(np.sqrt(4 - x ** 2))
+                self.initialYScale.set(np.sqrt(self.radius**2 - x ** 2))
             else:
-                self.initialYScale.set(-(4 - x ** 2) ** (1 / 2))
+                self.initialYScale.set(-np.sqrt(self.radius**2 - x ** 2))
 
     def checkXPos(self, *args):
         x = self.initialXScale.get()
         y = self.initialYScale.get()
 
-        if x ** 2 + y ** 2 > 4:
+        if x ** 2 + y ** 2 > self.radius**2:
             if x > 0:
-                self.initialXScale.set(np.sqrt(4 - y ** 2))
+                self.initialXScale.set(np.sqrt(self.radius**2 - y ** 2))
             else:
-                self.initialXScale.set(-np.sqrt(4 - y ** 2))
+                self.initialXScale.set(-np.sqrt(self.radius**2 - y ** 2))
 
     # runs when start simulation button is pressed
     def startSimulation(self):
