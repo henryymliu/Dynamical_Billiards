@@ -120,7 +120,7 @@ class AbstractTab(tk.Frame):
 
         # button to start simulation
         self.button = tk.Button(self, text=u'Start simulation',
-                                command=self.startSimulation)
+                                command=self.initSimulation)
         self.button.grid(column=1, row=11)
 
         # checkbox for wether or not to trace the path
@@ -232,6 +232,26 @@ class AbstractTab(tk.Frame):
         self.currentBall = newBall
 
     # must be implemented for each type
+    def initSimulation(self):
+        x = self.initialXScale.get()
+        y = self.initialYScale.get()
+        xVel = self.initialXVelScale.get()
+        yVel = self.initialYVelScale.get()
+        self.ballStates[self.currentBall] = [x, y, xVel, yVel]
+
+        # put all selections into dictionary
+        self.simArgs = dict()
+        self.simArgs['ballF'] = self.numberOfBallsSelector.get(first=None, last=None)
+        self.simArgs['playbackSpeed'] = self.playbackSpeedScale.get()
+        self.simArgs['trace'] = self.toTrace.get()
+        # self.simArgs['width'] = self.width.get()
+        # self.simArgs['height'] = self.height.get()
+        self.simArgs['balls'] = self.ballStates
+        self.simArgs['ballFormation'] = self.numberOfBallsSelector.get()
+
+        self.startSimulation()
+
+
     def startSimulation(self):
         return None
 
@@ -292,26 +312,14 @@ class RectTab(AbstractTab):
                 state[1] = height
 
     # runs when start simulation button is pressed
+
     def startSimulation(self):
-        x = self.initialXScale.get()
-        y = self.initialYScale.get()
-        xVel = self.initialXVelScale.get()
-        yVel = self.initialYVelScale.get()
-        self.ballStates[self.currentBall] = [x, y, xVel, yVel]
-
-        # put all selections into dictionary
-        simArgs = dict()
-        simArgs['ballF'] = self.numberOfBallsSelector.get(first=None, last=None)
-        simArgs['playbackSpeed'] = self.playbackSpeedScale.get()
-        simArgs['trace'] = self.toTrace.get()
-        simArgs['width'] = self.width.get()
-        simArgs['height'] = self.height.get()
-        simArgs['balls'] = self.ballStates
-        simArgs['ballFormation'] = self.numberOfBallsSelector.get()
-
         # create simulation
         # simulation = rect.RectTable(**simArgs)
-        simulation = abT.AbstractTable(**simArgs)
+        # self.initSimulation()
+        self.simArgs['width'] = self.width.get()
+        self.simArgs['height'] = self.height.get()
+        simulation = rect.RectTable(**self.simArgs)
 
         simulation.main()
 
@@ -331,21 +339,9 @@ class LTab(AbstractTab):
     #
     # # runs when start simulation button is pressed
     def startSimulation(self):
-        # put all selections into dictionary
-        simArgs = dict()
-        simArgs['ballF'] = self.numberOfBallsSelector.get(first=None, last=None)
-
-        simArgs['initXVel'] = self.initialXVelScale.get()
-        simArgs['initYVel'] = self.initialYVelScale.get()
-        simArgs['initX'] = self.initialXScale.get()
-        simArgs['initY'] = self.initialYScale.get()
-        simArgs['playbackSpeed'] = self.playbackSpeedScale.get()
-        simArgs['trace'] = self.toTrace.get()
-
         # create simulation
-        simulation = Ltab.LTable(**simArgs)
+        simulation = Ltab.LTable(**self.simArgs)
         simulation.main()
-
 
 class CircTab(AbstractTab):
     def __init__(self, AbstractTab):
@@ -386,23 +382,9 @@ class CircTab(AbstractTab):
 
     # runs when start simulation button is pressed
     def startSimulation(self):
-        # put all selections into dictionary
-        simArgs = dict()
-        simArgs['ballF'] = self.numberOfBallsSelector.get(first=None, last=None)
-
-        simArgs['initXVel'] = self.initialXVelScale.get()
-        simArgs['initYVel'] = self.initialYVelScale.get()
-        simArgs['initX'] = self.initialXScale.get()
-        simArgs['initY'] = self.initialYScale.get()
-        simArgs['playbackSpeed'] = self.playbackSpeedScale.get()
-        simArgs['trace'] = self.toTrace.get()
-        simArgs['balls'] = self.ballStates
-        simArgs['ballFormation'] = self.numberOfBallsSelector.get()
-
         # create simulation
-        simulation = circle.CircleTable( **simArgs)
+        simulation = circle.CircleTable(**self.simArgs)
         simulation.main()
-
 
 class BuminTab(AbstractTab):
     def __init__(self, AbstractTab):
@@ -436,20 +418,7 @@ class BuminTab(AbstractTab):
 
     # runs when start simulation button is pressed
     def startSimulation(self):
-
-        # put all selections into dictionary
-        simArgs = dict()
-        simArgs['ballF'] = self.numberOfBallsSelector.get(first=None, last=None)
-
-        simArgs['initXVel'] = self.initialXVelScale.get()
-        simArgs['initYVel'] = self.initialYVelScale.get()
-        simArgs['initX'] = self.initialXScale.get()
-        simArgs['initY'] = self.initialYScale.get()
-        simArgs['playbackSpeed'] = self.playbackSpeedScale.get()
-        simArgs['trace'] = self.toTrace.get()
-
-        # create simulation
-        simulation = Buminovich.Buminovich(**simArgs)
+        simulation = Buminovich.Buminovich(**self.simArgs)
         simulation.main()
 
 class LorentzTab(AbstractTab):
@@ -484,20 +453,7 @@ class LorentzTab(AbstractTab):
 
     # runs when start simulation button is pressed
     def startSimulation(self):
-
-        # put all selections into dictionary
-        simArgs = dict()
-        simArgs['ballF'] = self.numberOfBallsSelector.get(first=None, last=None)
-
-        simArgs['initXVel'] = self.initialXVelScale.get()
-        simArgs['initYVel'] = self.initialYVelScale.get()
-        simArgs['initX'] = self.initialXScale.get()
-        simArgs['initY'] = self.initialYScale.get()
-        simArgs['playbackSpeed'] = self.playbackSpeedScale.get()
-        simArgs['trace'] = self.toTrace.get()
-
-        # create simulation
-        simulation = Lorentz.Lorentz(**simArgs)
+        simulation = Lorentz.Lorentz(**self.simArgs)
         simulation.main()
 
 
