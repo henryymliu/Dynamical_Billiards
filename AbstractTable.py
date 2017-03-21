@@ -21,6 +21,7 @@ class Ball:
 
 class AbstractTable(object):
     """docstring for AbstractTable."""
+    """each table must implement step and drawTable"""
 
     def __init__(self, **kwargs):
         super().__init__()
@@ -28,42 +29,61 @@ class AbstractTable(object):
         self.colorlist = ['r', 'g', 'b', 'y']
         self.ballList = []
         self.nBalls = 1 # TODO use number of balls as parameter instead of string
+
+        # self.maxx = self.parameters['width']
+        # self.maxy = self.parameters['height']
+
+    # each table must implement this
+    # use self.fig, self.ax, and self.table for plotting
+    def drawTable(self):
+
+        # TODO this needs tweaking to make aspect always the same
+        # self.fig, self.ax = plt.subplots(figsize=(10, 10))
+        # self.fig.canvas.set_window_title('Rectangle Billiards Simulation')
+        # self.ax.set(xlim=[-0.5, self.maxx + 0.5], ylim=[-0.5, self.maxy + 0.5])
+        # # ax.axis('off')
+        # # make table
+        # self.table = plt.Rectangle((0, 0), self.maxx, self.maxy, ec='none', lw=1, fc='none')
+        # self.ax.add_patch(self.table)
+        # plt.axis('equal')
+        return None
     # each table must implement this function
     # each step increment Position
     def step(self, particle, dt):
         # set new Position
         # check for crossing boundary
-        crossed_x1 = particle.state[0] < 0
-        crossed_x2 = particle.state[0] > self.maxx
-        crossed_y1 = particle.state[1] < 0
-        crossed_y2 = particle.state[1] > self.maxy
-
-        # reset the position to the boundry line
-        if crossed_x1:
-            fun = lambda y: particle.state[2] / particle.state[3] * (y - particle.state[1]) + particle.state[0]
-            root = op.brentq(fun, -0.1, self.maxy + 0.1)
-            particle.state[0] = 0
-            particle.state[1] = root
-            particle.state[2] *= -1
-        elif crossed_x2:
-            fun = lambda y: particle.state[2] / particle.state[3] * (y - particle.state[1]) + particle.state[0] - self.maxx
-            root = op.brentq(fun, -0.1, self.maxy + 0.1)
-            particle.state[0] = self.maxx
-            particle.state[1] = root
-            particle.state[2] *= -1
-
-        if crossed_y1:
-            fun = lambda x: particle.state[3] / particle.state[2] * (x - particle.state[0]) + particle.state[1]
-            root = op.brentq(fun, -0.1, self.maxx + 0.1)
-            particle.state[0] = root
-            particle.state[1] = 0
-            particle.state[3] *= -1
-        elif crossed_y2:
-            fun = lambda x: particle.state[3] / particle.state[2] * (x - particle.state[0]) + particle.state[1] - self.maxy
-            root = op.brentq(fun, -0.1, self.maxx + 0.1)
-            particle.state[0] = root
-            particle.state[1] = self.maxy
-            particle.state[3] *= -1
+        # crossed_x1 = particle.state[0] < 0
+        # crossed_x2 = particle.state[0] > self.maxx
+        # crossed_y1 = particle.state[1] < 0
+        # crossed_y2 = particle.state[1] > self.maxy
+        #
+        # # reset the position to the boundry line
+        # if crossed_x1:
+        #     fun = lambda y: particle.state[2] / particle.state[3] * (y - particle.state[1]) + particle.state[0]
+        #     root = op.brentq(fun, -0.1, self.maxy + 0.1)
+        #     particle.state[0] = 0
+        #     particle.state[1] = root
+        #     particle.state[2] *= -1
+        # elif crossed_x2:
+        #     fun = lambda y: particle.state[2] / particle.state[3] * (y - particle.state[1]) + particle.state[0] - self.maxx
+        #     root = op.brentq(fun, -0.1, self.maxy + 0.1)
+        #     particle.state[0] = self.maxx
+        #     particle.state[1] = root
+        #     particle.state[2] *= -1
+        #
+        # if crossed_y1:
+        #     fun = lambda x: particle.state[3] / particle.state[2] * (x - particle.state[0]) + particle.state[1]
+        #     root = op.brentq(fun, -0.1, self.maxx + 0.1)
+        #     particle.state[0] = root
+        #     particle.state[1] = 0
+        #     particle.state[3] *= -1
+        # elif crossed_y2:
+        #     fun = lambda x: particle.state[3] / particle.state[2] * (x - particle.state[0]) + particle.state[1] - self.maxy
+        #     root = op.brentq(fun, -0.1, self.maxx + 0.1)
+        #     particle.state[0] = root
+        #     particle.state[1] = self.maxy
+        #     particle.state[3] *= -1
+        return None
 
     def stepall(self, dt):
             for particle in self.ballList:
@@ -75,17 +95,7 @@ class AbstractTable(object):
 
     # TODO separate table plotting stuff from ball selection
     def main(self):
-        self.maxx = self.parameters['width']
-        self.maxy = self.parameters['height']
-        # TODO this needs tweaking to make aspect always the same
-        fig, ax = plt.subplots(figsize=(10, 10))
-        fig.canvas.set_window_title('Rectangle Billiards Simulation')
-        ax.set(xlim=[-0.5, self.maxx + 0.5], ylim=[-0.5, self.maxy + 0.5])
-        # ax.axis('off')
-        # make table
-        table = plt.Rectangle((0, 0), self.maxx, self.maxy, ec='none', lw=1, fc='none')
-        ax.add_patch(table)
-        plt.axis('equal')
+        self.drawTable()
 
         # define time step for 30 fps
         dt = 1 / 30
@@ -108,8 +118,8 @@ class AbstractTable(object):
 
         for i in range(0, self.nBalls):
             self.ballList.append(Ball(**{'color': self.colorlist[i], 'initstate': self.parameters['balls']['Ball ' + str(i + 1)]}))
-            particles.append(ax.plot([], [], self.ballList[i].color + 'o', ms=6)[0])
-            paths.append(ax.plot([], [], self.ballList[i].color + '-', lw=1)[0])
+            particles.append(self.ax.plot([], [], self.ballList[i].color + 'o', ms=6)[0])
+            paths.append(self.ax.plot([], [], self.ballList[i].color + '-', lw=1)[0])
             # paths[i], = ax.plot([], [], self.ballList[i -1].color + '-', lw=1)
             self.pathx[i] = np.array([])
             self.pathy[i] = np.array([])
@@ -157,21 +167,21 @@ class AbstractTable(object):
             for ball in particles:
                 ball.set_data([], [])
                 ball.set_data([], [])
-            table.set_edgecolor('none')
+            self.table.set_edgecolor('none')
 
             if self.parameters['ballFormation'] == '4 Balls':
 
                 return particles[0], particles[1], particles[2], particles[3], \
-                        table, paths[0], paths[1],paths[2],paths[3]
+                        self.table, paths[0], paths[1],paths[2],paths[3]
 
             elif self.parameters['ballFormation'] == '3 Balls':
                 return particles[0], particles[1], particles[2], \
-                       table, paths[0], paths[1], paths[2]
+                       self.table, paths[0], paths[1], paths[2]
             elif self.parameters['ballFormation'] == '2 Balls':
                 return particles[0], particles[1], \
-                       table, paths[0], paths[1]
+                       self.table, paths[0], paths[1]
             else:
-                return particles[0], table, paths[0]
+                return particles[0], self.table, paths[0]
 
         def animate(k):
             """perform animation step"""
@@ -182,7 +192,7 @@ class AbstractTable(object):
                     self.pathy[i] = np.append(self.pathy[i], self.ballList[i].state[1])
             self.stepall(dt)
             # update pieces of the animation
-            table.set_edgecolor('k')
+            self.table.set_edgecolor('k')
 
             for ball in range(0, self.nBalls):
                 particles[ball].set_data(self.ballList[ball].state[0], self.ballList[ball].state[1])
@@ -191,19 +201,19 @@ class AbstractTable(object):
             if self.parameters['ballFormation'] == '4 Balls':
 
                 return particles[0], particles[1], particles[2], particles[3], \
-                       table, paths[0], paths[1], paths[2], paths[3]
+                       self.table, paths[0], paths[1], paths[2], paths[3]
 
             elif self.parameters['ballFormation'] == '3 Balls':
                 return particles[0], particles[1], particles[2], \
-                       table, paths[0], paths[1], paths[2]
+                       self.table, paths[0], paths[1], paths[2]
             elif self.parameters['ballFormation'] == '2 Balls':
                 return particles[0], particles[1], \
-                       table, paths[0], paths[1]
+                       self.table, paths[0], paths[1]
             else:
-                return particles[0], table, paths[0]
+                return particles[0], self.table, paths[0]
 
         # define animation
-        ani = animation.FuncAnimation(fig, animate, frames=600,
+        ani = animation.FuncAnimation(self.fig, animate, frames=600,
                                       interval=np.ceil((1 / self.parameters['playbackSpeed']) * 10 ** 3), blit=True,
                                       init_func=init)
 

@@ -350,7 +350,7 @@ class LTab(AbstractTab):
 class CircTab(AbstractTab):
     def __init__(self, AbstractTab):
         super(CircTab, self).__init__(AbstractTab, 'images\Circle_1Ball.png')
-        self.radius = circle.CircleTable().radius
+        self.radius = 2 # circle.CircleTable(abT.AbstractTable()).radius
 
     def initialize(self):
 
@@ -398,7 +398,7 @@ class CircTab(AbstractTab):
         simArgs['trace'] = self.toTrace.get()
 
         # create simulation
-        simulation = circle.CircleTable(**simArgs)
+        simulation = circle.CircleTable( **simArgs)
         simulation.main()
 
 
