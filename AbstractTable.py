@@ -9,7 +9,7 @@ from scipy import optimize as op
 #       somehow assign each color, possibly from a master color list?
 #       setep through each particle (done)
 
-
+# Ball object that stores its state (x, y, xvel, yvel) and plot color
 class Ball:
     def __init__(self, **kwargs):
         # x , y, xvel, yvel
@@ -47,44 +47,14 @@ class AbstractTable(object):
         # self.ax.add_patch(self.table)
         # plt.axis('equal')
         return None
+
     # each table must implement this function
-    # each step increment Position
+    # for each check particle, check if boundaries crossed and update velocity and position
     def step(self, particle, dt):
-        # set new Position
-        # check for crossing boundary
-        # crossed_x1 = particle.state[0] < 0
-        # crossed_x2 = particle.state[0] > self.maxx
-        # crossed_y1 = particle.state[1] < 0
-        # crossed_y2 = particle.state[1] > self.maxy
-        #
-        # # reset the position to the boundry line
-        # if crossed_x1:
-        #     fun = lambda y: particle.state[2] / particle.state[3] * (y - particle.state[1]) + particle.state[0]
-        #     root = op.brentq(fun, -0.1, self.maxy + 0.1)
-        #     particle.state[0] = 0
-        #     particle.state[1] = root
-        #     particle.state[2] *= -1
-        # elif crossed_x2:
-        #     fun = lambda y: particle.state[2] / particle.state[3] * (y - particle.state[1]) + particle.state[0] - self.maxx
-        #     root = op.brentq(fun, -0.1, self.maxy + 0.1)
-        #     particle.state[0] = self.maxx
-        #     particle.state[1] = root
-        #     particle.state[2] *= -1
-        #
-        # if crossed_y1:
-        #     fun = lambda x: particle.state[3] / particle.state[2] * (x - particle.state[0]) + particle.state[1]
-        #     root = op.brentq(fun, -0.1, self.maxx + 0.1)
-        #     particle.state[0] = root
-        #     particle.state[1] = 0
-        #     particle.state[3] *= -1
-        # elif crossed_y2:
-        #     fun = lambda x: particle.state[3] / particle.state[2] * (x - particle.state[0]) + particle.state[1] - self.maxy
-        #     root = op.brentq(fun, -0.1, self.maxx + 0.1)
-        #     particle.state[0] = root
-        #     particle.state[1] = self.maxy
-        #     particle.state[3] *= -1
+
         return None
 
+    # iterates through all particles; steps through time and then checks for boundaries
     def stepall(self, dt):
             for particle in self.ballList:
                 # particle.state[:2] += dt * particle.state[2:]
@@ -93,7 +63,6 @@ class AbstractTable(object):
 
                 self.step(particle, dt)
 
-    # TODO separate table plotting stuff from ball selection
     def main(self):
         self.drawTable()
 
@@ -123,42 +92,6 @@ class AbstractTable(object):
             # paths[i], = ax.plot([], [], self.ballList[i -1].color + '-', lw=1)
             self.pathx[i] = np.array([])
             self.pathy[i] = np.array([])
-        # set initial conditions
-        # self.particle.state = self.parameters['balls']
-        # for :
-
-           # particle.state[ball] = np.array(particle.state)
-
-        # self.dotStyle = {'Ball 1': 'ro', 'Ball 2': 'bo', 'Ball 3': 'go', 'Ball 4': 'yo'}
-        # self.lineStyle = {'Ball 1': 'r-', 'Ball 2': 'b-', 'Ball 3': 'g-', 'Ball 4': 'y-'}
-        # if self.parameters['ballFormation'] == '1 Ball':
-        #     self.particle.state = {'Ball 1': self.particle.state['Ball 1']}
-        #     self.dotStyle = {'Ball 1': self.dotStyle['Ball 1']}
-        #     self.lineStyle = {'Ball 1': self.lineStyle['Ball 1']}
-        # elif self.parameters['ballFormation'] == '2 Balls':
-        #     self.particle.state = {'Ball 1': self.particle.state['Ball 1'], 'Ball 2': self.particle.state['Ball 2']}
-        #     self.dotStyle = {'Ball 1': self.dotStyle['Ball 1'], 'Ball 2': self.dotStyle['Ball 2']}
-        #     self.lineStyle = {'Ball 1': self.lineStyle['Ball 1'], 'Ball 2': self.lineStyle['Ball 2']}
-        # elif self.parameters['ballFormation'] == '3 Balls':
-        #     self.particle.state = {'Ball 1': self.particle.state['Ball 1'], 'Ball 2': self.particle.state['Ball 2'],
-        #                   'Ball 3': self.particle.state['Ball 3']}
-        #     self.dotStyle = {'Ball 1': self.dotStyle['Ball 1'], 'Ball 2': self.dotStyle['Ball 2'],
-        #                      'Ball 3': self.dotStyle['Ball 3']}
-        #     self.lineStyle = {'Ball 1': self.lineStyle['Ball 1'], 'Ball 2': self.lineStyle['Ball 2'],
-        #                       'Ball 3': self.dotStyle['Ball 3']}
-        # elif self.parameters['ballFormation'] == '4 Balls':
-        #     self.particle.state = {'Ball 1': self.particle.state['Ball 1'], 'Ball 2': self.particle.state['Ball 2'],
-        #                   'Ball 3': self.particle.state['Ball 3'], 'Ball 4': self.particle.state['Ball 4']}
-        #     self.dotStyle = {'Ball 1': self.dotStyle['Ball 1'], 'Ball 2': self.dotStyle['Ball 2'],
-        #                      'Ball 3': self.dotStyle['Ball 3'], 'Ball 4': self.dotStyle['Ball 4']}
-        #     self.lineStyle = {'Ball 1': self.lineStyle['Ball 1'], 'Ball 2': self.lineStyle['Ball 2'],
-        #                       'Ball 3': self.lineStyle['Ball 3'], 'Ball 4': self.lineStyle['Ball 4']}
-
-        # for ball in self.dotStyle.keys():
-        #     particles[ball], = ax.plot([], [], self.dotStyle[ball], ms=6)
-        #     paths[ball], = ax.plot([], [], self.lineStyle[ball], lw=1)
-        #     self.pathx[ball] = np.array([])
-        #     self.pathy[ball] = np.array([])
 
         # init function for animation
         # TODO: possibly cleanup return statements?
@@ -169,15 +102,15 @@ class AbstractTable(object):
                 ball.set_data([], [])
             self.table.set_edgecolor('none')
 
-            if self.parameters['ballFormation'] == '4 Balls':
+            if self.nBalls == 4:
 
                 return particles[0], particles[1], particles[2], particles[3], \
                         self.table, paths[0], paths[1],paths[2],paths[3]
 
-            elif self.parameters['ballFormation'] == '3 Balls':
+            elif self.nBalls == 3:
                 return particles[0], particles[1], particles[2], \
                        self.table, paths[0], paths[1], paths[2]
-            elif self.parameters['ballFormation'] == '2 Balls':
+            elif self.nBalls == 2:
                 return particles[0], particles[1], \
                        self.table, paths[0], paths[1]
             else:
@@ -198,15 +131,15 @@ class AbstractTable(object):
                 particles[ball].set_data(self.ballList[ball].state[0], self.ballList[ball].state[1])
                 paths[ball].set_data(self.pathx[ball], self.pathy[ball])
 
-            if self.parameters['ballFormation'] == '4 Balls':
+            if self.nBalls == 4:
 
                 return particles[0], particles[1], particles[2], particles[3], \
                        self.table, paths[0], paths[1], paths[2], paths[3]
 
-            elif self.parameters['ballFormation'] == '3 Balls':
+            elif self.nBalls == 3:
                 return particles[0], particles[1], particles[2], \
                        self.table, paths[0], paths[1], paths[2]
-            elif self.parameters['ballFormation'] == '2 Balls':
+            elif self.nBalls == 2:
                 return particles[0], particles[1], \
                        self.table, paths[0], paths[1]
             else:
