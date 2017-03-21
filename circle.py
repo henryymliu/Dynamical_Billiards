@@ -24,7 +24,7 @@ class CircleTable(abT):
         self.ax.add_patch(self.table)
 
     def step(self, particle, dt):
-        particle.state[:2] += dt * particle.state[2:]
+        # particle.state[:2] += dt * particle.state[2:]
         # check for crossing boundary
         if np.hypot(particle.state[0], particle.state[1]) > 2:
             # circ = lambda x: np.sqrt(abs(4 - x**2)) - particle.state[3]/particle.state[2]*(x-particle.state[0])+particle.state[1]

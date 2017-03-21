@@ -396,6 +396,8 @@ class CircTab(AbstractTab):
         simArgs['initY'] = self.initialYScale.get()
         simArgs['playbackSpeed'] = self.playbackSpeedScale.get()
         simArgs['trace'] = self.toTrace.get()
+        simArgs['balls'] = self.ballStates
+        simArgs['ballFormation'] = self.numberOfBallsSelector.get()
 
         # create simulation
         simulation = circle.CircleTable( **simArgs)
