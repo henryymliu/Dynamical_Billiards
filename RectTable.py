@@ -9,8 +9,7 @@ class RectTable(abT):
     """docstring for RectTable."""
 
     def __init__(self, **kwargs):
-        abT.__init__(self, **kwargs)
-        self.parameters = kwargs
+        super(RectTable,self).__init__(**kwargs)
         self.maxx = self.parameters['width']
         self.maxy = self.parameters['height']
 
@@ -25,7 +24,7 @@ class RectTable(abT):
         plt.axis('equal')
 
     def update(self,**kwargs):
-        self.parameters=kwargs
+        super(RectTable,self).update(**kwargs)
         self.maxx = self.parameters['width']
         self.maxy = self.parameters['height']
 

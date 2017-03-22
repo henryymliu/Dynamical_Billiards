@@ -84,7 +84,7 @@ class AbstractTable(object):
         return f
 
     def update(self,**kwargs):
-        return None
+        self.parameters=kwargs
     def main(self):
         plt.close('all')
         self.drawTable()

@@ -147,9 +147,27 @@ class AbstractTab(tk.Frame):
         return None
 
     def saveParameters(self):
-        return None
+        x = self.initialXScale.get()
+        y = self.initialYScale.get()
+        xVel = self.initialXVelScale.get()
+        yVel = self.initialYVelScale.get()
+        self.ballStates[self.currentBall] = [x, y, xVel, yVel]
+        self.currentBall=self.ballSelector.get()
+        self.simArgs['balls']=self.ballStates
+        self.simArgs['ballF'] = self.numberOfBallsSelector.get(first=None, last=None)
+        self.simArgs['playbackSpeed'] = self.playbackSpeedScale.get()
+        self.simArgs['trace'] = self.toTrace.get()
+        for s in self.numberOfBallsSelector.get().split():
+            if s.isdigit():
+                self.simArgs['nBalls']=int(s)
+
     def generatePreview(self):
-        return None
+        self.saveParameters()
+        image=self.simulation.generatePreview()
+        self.photo = ImageTk.PhotoImage(image)
+
+        # display image
+        self.preview.create_image(0, 0, anchor='nw', image=self.photo)
 
     def changeFormation(self, *args):
         """
@@ -160,29 +178,6 @@ class AbstractTab(tk.Frame):
         # get the number of balls
         formation = self.numberOfBallsSelector.get(first=None, last=None)
 
-        # # select image based on operating system
-        # # TODO implement auto generating preview
-        # if platform.system == 'Windows':
-        #     # self.directory = 'images\Rect_1Ball.png'
-        #     image = Image.open(self.directory.replace("/", "\\"))
-        # else:
-        #     # self.directory = 'images/Rect_1Ball.png'
-        #     image = Image.open(self.directory.replace("\\", "/"))
-
-        # make Tk compatible PhotoImage object, must save as object parameter
-        # to avoid garbage collection
-        # self.photo = ImageTk.PhotoImage(image)
-        #
-        # # display image
-        # self.preview.create_image(0, 0, anchor='nw', image=self.photo)
-
-        # # save the state of the current ball
-        # lastBall = self.ballSelector.get()
-        # x = self.initialXScale.get()
-        # y = self.initialYScale.get()
-        # xVel = self.initialXVelScale.get()
-        # yVel = self.initialYVelScale.get()
-        # self.ballStates[lastBall] = [x, y, xVel, yVel]
         self.saveParameters()
 
         # sets the ball selector
@@ -230,7 +225,9 @@ class AbstractTab(tk.Frame):
 
     # must be implemented for each type
     def startSimulation(self):
-        return None
+        self.saveParameters()
+
+        self.simulation.main()
 
 
 class Main(tk.Tk):
@@ -288,44 +285,15 @@ class RectTab(AbstractTab):
             if state[1] > height:
                 state[1] = height
 
-    def generatePreview(self):
-        self.saveParameters()
-        image=self.simulation.generatePreview()
-        self.photo = ImageTk.PhotoImage(image)
-
-        # display image
-        self.preview.create_image(0, 0, anchor='nw', image=self.photo)
-
     def saveParameters(self):
-        x = self.initialXScale.get()
-        y = self.initialYScale.get()
-        xVel = self.initialXVelScale.get()
-        yVel = self.initialYVelScale.get()
-        self.ballStates[self.currentBall] = [x, y, xVel, yVel]
-        self.currentBall=self.ballSelector.get()
-        self.simArgs['balls']=self.ballStates
-        self.simArgs['ballF'] = self.numberOfBallsSelector.get(first=None, last=None)
-        self.simArgs['playbackSpeed'] = self.playbackSpeedScale.get()
-        self.simArgs['trace'] = self.toTrace.get()
+        super(RectTab,self).saveParameters()
         self.simArgs['width'] = self.width.get()
         self.simArgs['height'] = self.height.get()
-        self.simArgs['ballFormation'] = self.numberOfBallsSelector.get()
-        for s in self.numberOfBallsSelector.get().split():
-            if s.isdigit():
-                self.simArgs['nBalls']=int(s)
-
+        # self.simArgs['ballFormation'] = self.numberOfBallsSelector.get()
         try:
             self.simulation.update(**self.kwargs)
         except AttributeError:
             self.simulation = rect.RectTable(**self.simArgs)
-
-
-    # runs when start simulation button is pressed
-    def startSimulation(self):
-        self.saveParameters()
-
-        self.simulation.main()
-
 
 class LTab(AbstractTab):
     def __init__(self, AbstractTab):
@@ -341,21 +309,13 @@ class LTab(AbstractTab):
     #     self.lastXPos = self.initialXScale.get()
     #
     # # runs when start simulation button is pressed
-    def startSimulation(self):
-        # put all selections into dictionary
-        simArgs = dict()
-        simArgs['ballF'] = self.numberOfBallsSelector.get(first=None, last=None)
-
-        simArgs['initXVel'] = self.initialXVelScale.get()
-        simArgs['initYVel'] = self.initialYVelScale.get()
-        simArgs['initX'] = self.initialXScale.get()
-        simArgs['initY'] = self.initialYScale.get()
-        simArgs['playbackSpeed'] = self.playbackSpeedScale.get()
-        simArgs['trace'] = self.toTrace.get()
-
-        # create simulation
-        simulation = Ltab.LTable(**simArgs)
-        simulation.main()
+    def saveParameters(self):
+        super(LTab,self).saveParameters()
+        # self.simArgs['ballFormation'] = self.numberOfBallsSelector.get()
+        try:
+            self.simulation.update(**self.kwargs)
+        except AttributeError:
+            self.simulation = Ltab.LTable(**self.simArgs)
 
 
 class CircTab(AbstractTab):
