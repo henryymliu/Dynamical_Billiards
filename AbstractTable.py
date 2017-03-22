@@ -3,7 +3,6 @@ from matplotlib import animation
 from matplotlib import pyplot as plt
 from scipy import optimize as op
 from PIL import Image
-import io
 
 # plan for abstract table
 # create list of n particle objects

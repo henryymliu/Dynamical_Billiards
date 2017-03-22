@@ -7,23 +7,17 @@ class CircleTable(abT):
     """docstring for CircleTable."""
 
     def __init__(self, **kwargs):
-        # super(CircleTable, self).__init__(abT, **kwargs)
-        abT.__init__(self, **kwargs)
-
-        self.parameters = kwargs
+        super(CircleTable,self).__init__(**kwargs)
         self.radius = 2
 
     def drawTable(self,ec='none'):
-        self.fig, self.ax = plt.subplots((10,10))
+        self.fig, self.ax = plt.subplots(figsize=(10,10))
         self.fig.canvas.set_window_title('Circle Billiards Simulation')
         self.ax.set(xlim=[-2, 2], ylim=[-2, 2])
         self.ax.axis('off')
         self.table = plt.Circle((0, 0), self.radius, fc='none',ec=ec)
         plt.axis('equal')
         self.ax.add_patch(self.table)
-
-    def update(self,**kwargs):
-        self.parameters=kwargs
 
     def step(self, particle, dt):
         # particle.state[:2] += dt * particle.state[2:]

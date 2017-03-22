@@ -229,7 +229,6 @@ class AbstractTab(tk.Frame):
 
         self.simulation.main()
 
-
 class Main(tk.Tk):
     def __init__(self, parent):
         tk.Tk.__init__(self, parent)
@@ -250,10 +249,7 @@ class Main(tk.Tk):
         n.add(f5, text='Lorentz')
         n.pack()
 
-
 class RectTab(AbstractTab):
-    def __init__(self, AbstractTab):
-        super(RectTab, self).__init__(AbstractTab)
 
     def initialize(self):
         self.width = tk.IntVar()
@@ -324,16 +320,17 @@ class CircTab(AbstractTab):
         self.radius = 2 # circle.CircleTable(abT.AbstractTable()).radius
 
     def initialize(self):
-
-        self.initialXScale = tk.Scale(self, from_=-2, to=2, orient=tk.HORIZONTAL,
-                                      label='Initial X Position', resolution=0.01,
-                                      command=self.checkXPos)
-        self.initialXScale.grid(column=0, row=6, columnspan=2, sticky='W' + 'E')
-        # self.initialXScale.set(0)
-
-        self.initialYScale = tk.Scale(self, from_=-2, to=2, orient=tk.HORIZONTAL,
-                                      label='Initial Y Position', resolution=0.01, command=self.checkYPos)
-        self.initialYScale.grid(column=0, row=7, columnspan=2, sticky='W' + 'E')
+        self.initialXScale.config(from_=-2, to=2,command=self.checkXPos,resolution=0.01)
+        self.initialYScale.config(from_=-2, to=2,command=self.checkYPos,resolution=0.01)
+        # self.initialXScale = tk.Scale(self, from_=-2, to=2, orient=tk.HORIZONTAL,
+        #                               label='Initial X Position', resolution=0.01,
+        #                               command=self.checkXPos)
+        # self.initialXScale.grid(column=0, row=6, columnspan=2, sticky='W' + 'E')
+        # # self.initialXScale.set(0)
+        #
+        # self.initialYScale = tk.Scale(self, from_=-2, to=2, orient=tk.HORIZONTAL,
+        #                               label='Initial Y Position', resolution=0.01, command=self.checkYPos)
+        # self.initialYScale.grid(column=0, row=7, columnspan=2, sticky='W' + 'E')
 
     def checkYPos(self, *args):
         x = self.initialXScale.get()
@@ -355,122 +352,38 @@ class CircTab(AbstractTab):
             else:
                 self.initialXScale.set(-np.sqrt(self.radius**2 - y ** 2))
 
-    # runs when start simulation button is pressed
-    def startSimulation(self):
-        # put all selections into dictionary
-        simArgs = dict()
-        simArgs['ballF'] = self.numberOfBallsSelector.get(first=None, last=None)
-
-        simArgs['initXVel'] = self.initialXVelScale.get()
-        simArgs['initYVel'] = self.initialYVelScale.get()
-        simArgs['initX'] = self.initialXScale.get()
-        simArgs['initY'] = self.initialYScale.get()
-        simArgs['playbackSpeed'] = self.playbackSpeedScale.get()
-        simArgs['trace'] = self.toTrace.get()
-        simArgs['balls'] = self.ballStates
-        simArgs['ballFormation'] = self.numberOfBallsSelector.get()
-
-        # create simulation
-        simulation = circle.CircleTable(**simArgs)
-        simulation.main()
-
+    def saveParameters(self):
+        super(CircTab,self).saveParameters()
+        # self.simArgs['ballFormation'] = self.numberOfBallsSelector.get()
+        try:
+            self.simulation.update(**self.kwargs)
+        except AttributeError:
+            self.simulation = circle.CircleTable(**self.simArgs)
 
 class BuminTab(AbstractTab):
-    def __init__(self, AbstractTab):
-        super(BuminTab, self).__init__(AbstractTab)
 
     # TODO: update when finished
     def initialize(self):
         return None
 
-    # changes the preview image when a new stadium is selected
-
-    def checkYPos(self, *args):
-        x = self.initialXScale.get()
-        y = self.initialYScale.get()
-
-        if x ** 2 + y ** 2 > 4:
-            if y > 0:
-                self.initialYScale.set(np.sqrt(4 - x ** 2))
-            else:
-                self.initialYScale.set(-np.sqrt(4 - x ** 2))
-
-    def checkXPos(self, *args):
-        x = self.initialXScale.get()
-        y = self.initialYScale.get()
-
-        if x ** 2 + y ** 2 > 4:
-            if x > 0:
-                self.initialXScale.set(np.sqrt(4 - y ** 2))
-            else:
-                self.initialXScale.set(-np.sqrt(4 - y ** 2))
-
-    # runs when start simulation button is pressed
-    def startSimulation(self):
-
-        # put all selections into dictionary
-        simArgs = dict()
-        simArgs['ballF'] = self.numberOfBallsSelector.get(first=None, last=None)
-
-        simArgs['initXVel'] = self.initialXVelScale.get()
-        simArgs['initYVel'] = self.initialYVelScale.get()
-        simArgs['initX'] = self.initialXScale.get()
-        simArgs['initY'] = self.initialYScale.get()
-        simArgs['playbackSpeed'] = self.playbackSpeedScale.get()
-        simArgs['trace'] = self.toTrace.get()
-
-        # create simulation
-        simulation = Buminovich.Buminovich(**simArgs)
-        simulation.main()
+    def saveParameters(self):
+        super(BuminTab,self).saveParameters()
+        try:
+            self.simulation.update(**self.kwargs)
+        except AttributeError:
+            self.simulation = Buminovich.Buminovich(**self.simArgs)
 
 class LorentzTab(AbstractTab):
-    def __init__(self, AbstractTab):
-        super(LorentzTab, self).__init__(AbstractTab)
-
     # TODO: update when finished
     def initialize(self):
         return None
 
-    # changes the preview image when a new stadium is selected
-
-    def checkYPos(self, *args):
-        x = self.initialXScale.get()
-        y = self.initialYScale.get()
-
-        if x ** 2 + y ** 2 > 4:
-            if y > 0:
-                self.initialYScale.set(np.sqrt(4 - x ** 2))
-            else:
-                self.initialYScale.set(-np.sqrt(4 - x ** 2))
-
-    def checkXPos(self, *args):
-        x = self.initialXScale.get()
-        y = self.initialYScale.get()
-
-        if x ** 2 + y ** 2 > 4:
-            if x > 0:
-                self.initialXScale.set(np.sqrt(4 - y ** 2))
-            else:
-                self.initialXScale.set(-np.sqrt(4 - y ** 2))
-
-    # runs when start simulation button is pressed
-    def startSimulation(self):
-
-        # put all selections into dictionary
-        simArgs = dict()
-        simArgs['ballF'] = self.numberOfBallsSelector.get(first=None, last=None)
-
-        simArgs['initXVel'] = self.initialXVelScale.get()
-        simArgs['initYVel'] = self.initialYVelScale.get()
-        simArgs['initX'] = self.initialXScale.get()
-        simArgs['initY'] = self.initialYScale.get()
-        simArgs['playbackSpeed'] = self.playbackSpeedScale.get()
-        simArgs['trace'] = self.toTrace.get()
-
-        # create simulation
-        simulation = Lorentz.Lorentz(**simArgs)
-        simulation.main()
-
+    def saveParameters(self):
+        super(LorentzTab,self).saveParameters()
+        try:
+            self.simulation.update(**self.kwargs)
+        except AttributeError:
+            self.simulation = Lorentz.Lorentz(**self.simArgs)
 
 if __name__ == '__main__':
     app = Main(None)
