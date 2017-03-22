@@ -49,27 +49,27 @@ class Lorentz(abT):
         # reset the position to the boundary line
         if crossed_x1:
             fun = lambda y: particle.state[2] / particle.state[3] * (y - particle.state[1]) + particle.state[0] - self.minx
-            root = op.brentq(fun, -0.1, self.maxy + 0.1)
+            root = op.brentq(fun, -0.1+self.miny, self.maxy + 0.1)
             particle.state[0] = self.minx
             particle.state[1] = root
             particle.state[2] *= -1
 
         elif crossed_x2:
             fun = lambda y: particle.state[2] / particle.state[3] * (y - particle.state[1]) + particle.state[0] - self.maxx
-            root = op.brentq(fun, -0.1, self.maxy + 0.1)
+            root = op.brentq(fun, -0.1+self.miny, self.maxy + 0.1)
             particle.state[0] = self.maxx
             particle.state[1] = root
             particle.state[2] *= -1
 
         if crossed_y1:
             fun = lambda x: particle.state[3] / particle.state[2] * (x - particle.state[0]) + particle.state[1] - self.miny
-            root = op.brentq(fun, -0.1, self.maxx + 0.1)
+            root = op.brentq(fun, -0.1+self.minx, self.maxx + 0.1)
             particle.state[0] = root
             particle.state[1] = self.miny
             particle.state[3] *= -1
         elif crossed_y2:
             fun = lambda x: particle.state[3] / particle.state[2] * (x - particle.state[0]) + particle.state[1] - self.maxy
-            root = op.brentq(fun, -0.1, self.maxx + 0.1)
+            root = op.brentq(fun, -0.1+self.minx, self.maxx + 0.1)
             particle.state[0] = root
             particle.state[1] = self.maxy
             particle.state[3] *= -1
