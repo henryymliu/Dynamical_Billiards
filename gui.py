@@ -30,12 +30,12 @@ class AbstractTab(tk.Frame):
         startSimulation(self)
     """
 
-    def __init__(self, parent, dir):
+    def __init__(self, parent):
         tk.Frame.__init__(self, parent)
         self.parent = parent
-        self.directory = dir
         self.initializeSuper()
         self.initialize()
+        self.simArgs={}
 
     def initializeSuper(self):
         """
@@ -123,6 +123,12 @@ class AbstractTab(tk.Frame):
                                 command=self.startSimulation)
         self.button.grid(column=1, row=11)
 
+        # button to start simulation
+        self.previewButton = tk.Button(self, text=u'Generate Preview',
+                                command=self.generatePreview)
+        self.previewButton.grid(column=2, row=11)
+
+
         # checkbox for wether or not to trace the path
         self.toTrace = tk.BooleanVar()
         self.traceCheck = tk.Checkbutton(self, text="Trace", variable=self.toTrace)
@@ -130,17 +136,19 @@ class AbstractTab(tk.Frame):
         self.traceCheck.select()
 
         # table preview canvas
-        self.preview = tk.Canvas(self, width=400, height=300)
+        self.preview = tk.Canvas(self, width=300, height=300)
         self.preview.grid(column=2, row=1, rowspan=5)
-
-        # update canvas
-        self.changeFormation()
 
     def initialize(self):
         """
         must be implemented by subclass
         should setup any table specific widgets and adjust max and min values
         """
+        return None
+
+    def saveParameters(self):
+        return None
+    def generatePreview(self):
         return None
 
     def changeFormation(self, *args):
@@ -152,29 +160,30 @@ class AbstractTab(tk.Frame):
         # get the number of balls
         formation = self.numberOfBallsSelector.get(first=None, last=None)
 
-        # select image based on operating system
-        # TODO implement auto generating preview
-        if platform.system == 'Windows':
-            # self.directory = 'images\Rect_1Ball.png'
-            image = Image.open(self.directory.replace("/", "\\"))
-        else:
-            # self.directory = 'images/Rect_1Ball.png'
-            image = Image.open(self.directory.replace("\\", "/"))
+        # # select image based on operating system
+        # # TODO implement auto generating preview
+        # if platform.system == 'Windows':
+        #     # self.directory = 'images\Rect_1Ball.png'
+        #     image = Image.open(self.directory.replace("/", "\\"))
+        # else:
+        #     # self.directory = 'images/Rect_1Ball.png'
+        #     image = Image.open(self.directory.replace("\\", "/"))
 
         # make Tk compatible PhotoImage object, must save as object parameter
         # to avoid garbage collection
-        self.photo = ImageTk.PhotoImage(image)
+        # self.photo = ImageTk.PhotoImage(image)
+        #
+        # # display image
+        # self.preview.create_image(0, 0, anchor='nw', image=self.photo)
 
-        # display image
-        self.preview.create_image(0, 0, anchor='nw', image=self.photo)
-
-        # save the state of the current ball
-        lastBall = self.ballSelector.get()
-        x = self.initialXScale.get()
-        y = self.initialYScale.get()
-        xVel = self.initialXVelScale.get()
-        yVel = self.initialYVelScale.get()
-        self.ballStates[lastBall] = [x, y, xVel, yVel]
+        # # save the state of the current ball
+        # lastBall = self.ballSelector.get()
+        # x = self.initialXScale.get()
+        # y = self.initialYScale.get()
+        # xVel = self.initialXVelScale.get()
+        # yVel = self.initialYVelScale.get()
+        # self.ballStates[lastBall] = [x, y, xVel, yVel]
+        self.saveParameters()
 
         # sets the ball selector
         if formation == self.ballFormations[0]:
@@ -185,7 +194,7 @@ class AbstractTab(tk.Frame):
         elif formation == self.ballFormations[2] and self.ballSelector.get() == self.balls[3]:
             self.ballSelector.selectitem(2)
 
-        self.currentBall = self.ballSelector.get()
+        # self.currentBall = self.ballSelector.get()
 
         newX = self.ballStates[self.currentBall][0]
         newY = self.ballStates[self.currentBall][1]
@@ -211,25 +220,13 @@ class AbstractTab(tk.Frame):
         elif formation == self.ballFormations[2] and self.ballSelector.get() == self.balls[3]:
             self.ballSelector.selectitem(2)
 
-        newBall = self.ballSelector.get()
-        x = self.initialXScale.get()
-        y = self.initialYScale.get()
-        xVel = self.initialXVelScale.get()
-        yVel = self.initialYVelScale.get()
+        self.saveParameters()
+        newState = self.ballStates[self.currentBall]
 
-        self.ballStates[self.currentBall] = [x, y, xVel, yVel]
-
-        newX = self.ballStates[newBall][0]
-        newY = self.ballStates[newBall][1]
-        newXVel = self.ballStates[newBall][2]
-        newYVel = self.ballStates[newBall][3]
-
-        self.initialXScale.set(newX)
-        self.initialYScale.set(newY)
-        self.initialXVelScale.set(newXVel)
-        self.initialYVelScale.set(newYVel)
-
-        self.currentBall = newBall
+        self.initialXScale.set(newState[0])
+        self.initialYScale.set(newState[1])
+        self.initialXVelScale.set(newState[2])
+        self.initialYVelScale.set(newState[3])
 
     # must be implemented for each type
     def startSimulation(self):
@@ -259,7 +256,7 @@ class Main(tk.Tk):
 
 class RectTab(AbstractTab):
     def __init__(self, AbstractTab):
-        super(RectTab, self).__init__(AbstractTab, 'images/Rect_1Ball.png')
+        super(RectTab, self).__init__(AbstractTab)
 
     def initialize(self):
         self.width = tk.IntVar()
@@ -291,34 +288,48 @@ class RectTab(AbstractTab):
             if state[1] > height:
                 state[1] = height
 
-    # runs when start simulation button is pressed
-    def startSimulation(self):
+    def generatePreview(self):
+        self.saveParameters()
+        image=self.simulation.generatePreview()
+        self.photo = ImageTk.PhotoImage(image)
+
+        # display image
+        self.preview.create_image(0, 0, anchor='nw', image=self.photo)
+
+    def saveParameters(self):
         x = self.initialXScale.get()
         y = self.initialYScale.get()
         xVel = self.initialXVelScale.get()
         yVel = self.initialYVelScale.get()
         self.ballStates[self.currentBall] = [x, y, xVel, yVel]
+        self.currentBall=self.ballSelector.get()
+        self.simArgs['balls']=self.ballStates
+        self.simArgs['ballF'] = self.numberOfBallsSelector.get(first=None, last=None)
+        self.simArgs['playbackSpeed'] = self.playbackSpeedScale.get()
+        self.simArgs['trace'] = self.toTrace.get()
+        self.simArgs['width'] = self.width.get()
+        self.simArgs['height'] = self.height.get()
+        self.simArgs['ballFormation'] = self.numberOfBallsSelector.get()
+        for s in self.numberOfBallsSelector.get().split():
+            if s.isdigit():
+                self.simArgs['nBalls']=int(s)
 
-        # put all selections into dictionary
-        simArgs = dict()
-        simArgs['ballF'] = self.numberOfBallsSelector.get(first=None, last=None)
-        simArgs['playbackSpeed'] = self.playbackSpeedScale.get()
-        simArgs['trace'] = self.toTrace.get()
-        simArgs['width'] = self.width.get()
-        simArgs['height'] = self.height.get()
-        simArgs['balls'] = self.ballStates
-        simArgs['ballFormation'] = self.numberOfBallsSelector.get()
+        try:
+            self.simulation.update(**self.kwargs)
+        except AttributeError:
+            self.simulation = rect.RectTable(**self.simArgs)
 
-        # create simulation
-        # simulation = rect.RectTable(**simArgs)
-        simulation = abT.AbstractTable(**simArgs)
 
-        simulation.main()
+    # runs when start simulation button is pressed
+    def startSimulation(self):
+        self.saveParameters()
+
+        self.simulation.main()
 
 
 class LTab(AbstractTab):
     def __init__(self, AbstractTab):
-        super(LTab, self).__init__(AbstractTab, 'images\L_1Ball.png')
+        super(LTab, self).__init__(AbstractTab)
 
     # def checkPos(self, *args):
     #     if self.initialXScale.get() > 2 and self.initialYScale.get() > 2:
@@ -349,7 +360,7 @@ class LTab(AbstractTab):
 
 class CircTab(AbstractTab):
     def __init__(self, AbstractTab):
-        super(CircTab, self).__init__(AbstractTab, 'images\Circle_1Ball.png')
+        super(CircTab, self).__init__(AbstractTab)
         self.radius = 2 # circle.CircleTable(abT.AbstractTable()).radius
 
     def initialize(self):
@@ -400,13 +411,13 @@ class CircTab(AbstractTab):
         simArgs['ballFormation'] = self.numberOfBallsSelector.get()
 
         # create simulation
-        simulation = circle.CircleTable( **simArgs)
+        simulation = circle.CircleTable(**simArgs)
         simulation.main()
 
 
 class BuminTab(AbstractTab):
     def __init__(self, AbstractTab):
-        super(BuminTab, self).__init__(AbstractTab, 'images\Bumin_1Ball.png')
+        super(BuminTab, self).__init__(AbstractTab)
 
     # TODO: update when finished
     def initialize(self):
@@ -454,7 +465,7 @@ class BuminTab(AbstractTab):
 
 class LorentzTab(AbstractTab):
     def __init__(self, AbstractTab):
-        super(LorentzTab, self).__init__(AbstractTab, 'images\Lorentz_1Ball.png')
+        super(LorentzTab, self).__init__(AbstractTab)
 
     # TODO: update when finished
     def initialize(self):

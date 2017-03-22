@@ -91,3 +91,5 @@ ENV/
 # project
 workspace.xml
 tasks.xml
+
+preview.png

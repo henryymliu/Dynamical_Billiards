@@ -2,6 +2,8 @@ import numpy as np
 from matplotlib import animation
 from matplotlib import pyplot as plt
 from scipy import optimize as op
+from PIL import Image
+import io
 
 # plan for abstract table
 # create list of n particle objects
@@ -28,7 +30,7 @@ class AbstractTable(object):
         self.parameters = kwargs
         self.colorlist = ['r', 'g', 'b', 'y']
         self.ballList = []
-        self.nBalls = 1 # TODO use number of balls as parameter instead of string
+        self.nBalls = self.parameters['nBalls']
 
         # self.maxx = self.parameters['width']
         # self.maxy = self.parameters['height']
@@ -56,28 +58,39 @@ class AbstractTable(object):
 
     # iterates through all particles; steps through time and then checks for boundaries
     def stepall(self, dt):
-            for particle in self.ballList:
-                # particle.state[:2] += dt * particle.state[2:]
-                particle.state[0] += dt * particle.state[2]
-                particle.state[1] += dt * particle.state[3]
+        for particle in self.ballList:
+            # particle.state[:2] += dt * particle.state[2:]
+            particle.state[0] += dt * particle.state[2]
+            particle.state[1] += dt * particle.state[3]
 
-                self.step(particle, dt)
+            self.step(particle, dt)
 
+    def generatePreview(self):
+        # image = Image.open('images/Circle_1Ball.png')
+        # return image
+        self.drawTable('k')
+        balls=[]
+
+        for i in range(self.nBalls):
+            balls.append(Ball(color= self.colorlist[i], initstate= self.parameters['balls']['Ball ' + str(i + 1)]))
+            self.ax.plot(balls[i].state[0], balls[i].state[1],
+                balls[i].color + 'o', ms=6)
+
+        self.table.set_linewidth(6)
+
+        self.fig.savefig('preview.png')
+        f=Image.open('preview.png')
+        f=f.resize((300,300))
+        return f
+
+    def update(self,**kwargs):
+        return None
     def main(self):
+        plt.close('all')
         self.drawTable()
 
         # define time step for 30 fps
         dt = 1 / 30
-
-        # temporary workaround; will later directly use number
-        if self.parameters['ballFormation'] == '1 Ball':
-            self.nBalls = 1
-        elif self.parameters['ballFormation'] == '2 Balls':
-            self.nBalls = 2
-        elif self.parameters['ballFormation'] == '3 Balls':
-            self.nBalls = 3
-        elif self.parameters['ballFormation'] == '4 Balls':
-            self.nBalls = 4
 
         # initialize balls
         particles = []
@@ -85,8 +98,8 @@ class AbstractTable(object):
         self.pathx = {}
         self.pathy = {}
 
-        for i in range(0, self.nBalls):
-            self.ballList.append(Ball(**{'color': self.colorlist[i], 'initstate': self.parameters['balls']['Ball ' + str(i + 1)]}))
+        for i in range(self.nBalls):
+            self.ballList.append(Ball(color= self.colorlist[i], initstate= self.parameters['balls']['Ball ' + str(i + 1)]))
             particles.append(self.ax.plot([], [], self.ballList[i].color + 'o', ms=6)[0])
             paths.append(self.ax.plot([], [], self.ballList[i].color + '-', lw=1)[0])
             # paths[i], = ax.plot([], [], self.ballList[i -1].color + '-', lw=1)
@@ -103,10 +116,8 @@ class AbstractTable(object):
             self.table.set_edgecolor('none')
 
             if self.nBalls == 4:
-
                 return particles[0], particles[1], particles[2], particles[3], \
                         self.table, paths[0], paths[1],paths[2],paths[3]
-
             elif self.nBalls == 3:
                 return particles[0], particles[1], particles[2], \
                        self.table, paths[0], paths[1], paths[2]
@@ -127,7 +138,7 @@ class AbstractTable(object):
             # update pieces of the animation
             self.table.set_edgecolor('k')
 
-            for ball in range(0, self.nBalls):
+            for ball in range(self.nBalls):
                 particles[ball].set_data(self.ballList[ball].state[0], self.ballList[ball].state[1])
                 paths[ball].set_data(self.pathx[ball], self.pathy[ball])
 
