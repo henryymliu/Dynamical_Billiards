@@ -33,11 +33,9 @@ class AbstractTab(tk.Frame):
     def __init__(self, parent):
         tk.Frame.__init__(self, parent)
         self.parent = parent
-        self.initializeSuper()
         self.initialize()
-        self.simArgs={}
 
-    def initializeSuper(self):
+    def initialize(self):
         """
         Sets up base gui widgets that are used in every tab:
             initial x and y
@@ -47,6 +45,8 @@ class AbstractTab(tk.Frame):
             number of balls
             start simulation button
         """
+        # dictionary for the simulation arguments
+        self.simArgs={}
 
         # ComboBox item lists
         self.ballFormations = ["1 Ball", "2 Balls", "3 Balls", "4 Balls"]
@@ -59,13 +59,12 @@ class AbstractTab(tk.Frame):
         # sets up grid
         self.grid()
         self.grid_columnconfigure(0, weight=1)
-        # self.resizable(True,False)
 
         # set up selector for number of balls
         self.numberOfBallsSelector = Pmw.ComboBox(self,
-                                                  label_text='Choose Ball Formation', labelpos='nw',
-                                                  selectioncommand=self.changeFormation,
-                                                  scrolledlist_items=self.ballFormations, dropdown=1)
+            label_text='Choose Ball Formation', labelpos='nw',
+            selectioncommand=self.changeFormation,
+            scrolledlist_items=self.ballFormations, dropdown=1)
         self.numberOfBallsSelector.grid(column=0, row=1)
         self.numberOfBallsSelector.selectitem(0)
 
@@ -74,36 +73,35 @@ class AbstractTab(tk.Frame):
         self.ballLabel.grid(column=0, row=2, sticky='ew')
 
         # selector for which ball to adjust parameters for
-        self.ballSelector = Pmw.ComboBox(self,
-                                         label_text='Choose Ball', labelpos='nw',
-                                         selectioncommand=self.changeBall, scrolledlist_items=self.balls,
-                                         dropdown=1)
+        self.ballSelector = Pmw.ComboBox(self,label_text='Choose Ball',
+            labelpos='nw',selectioncommand=self.changeBall,
+            scrolledlist_items=self.balls,dropdown=1)
         self.ballSelector.grid(column=0, row=3)
         self.ballSelector.selectitem(0)
 
         # scale for initial x velocity
         self.initialXVelScale = tk.Scale(self, from_=-3, to=3,
-                                         orient=tk.HORIZONTAL, label='Initial X Velocity', resolution=0.1)
+            orient=tk.HORIZONTAL, label='Initial X Velocity', resolution=0.1)
         self.initialXVelScale.grid(column=0, row=4, columnspan=2,
-                                   sticky='W' + 'E')
+            sticky='W' + 'E')
         self.initialXVelScale.set(self.ballStates[self.currentBall][2])
 
         # scale for initial y velocity
         self.initialYVelScale = tk.Scale(self, from_=-3, to=3,
-                                         orient=tk.HORIZONTAL, label='Initial Y Velocity', resolution=0.1)
+            orient=tk.HORIZONTAL, label='Initial Y Velocity', resolution=0.1)
         self.initialYVelScale.grid(column=0, row=5, columnspan=2,
-                                   sticky='W' + 'E')
+            sticky='W' + 'E')
         self.initialYVelScale.set(self.ballStates[self.currentBall][3])
 
         # scale for initial x position
         self.initialXScale = tk.Scale(self, from_=0, to=2, orient=tk.HORIZONTAL,
-                                      label='Initial X Position', resolution=0.1)
+            label='Initial X Position', resolution=0.01)
         self.initialXScale.grid(column=0, row=6, columnspan=2, sticky='W' + 'E')
         self.initialXScale.set(self.ballStates[self.currentBall][0])
 
         # scale for initial y position
         self.initialYScale = tk.Scale(self, from_=0, to=2, orient=tk.HORIZONTAL,
-                                      label='Initial Y Position', resolution=0.01)
+            label='Initial Y Position', resolution=0.01)
         self.initialYScale.grid(column=0, row=7, columnspan=2, sticky='W' + 'E')
         self.initialYScale.set(self.ballStates[self.currentBall][1])
 
@@ -113,25 +111,26 @@ class AbstractTab(tk.Frame):
 
         # scale for playback speed
         self.playbackSpeedScale = tk.Scale(self, from_=0, to=60,
-                                           orient=tk.HORIZONTAL, label='Playback Speed (fps)', resolution=1)
+            orient=tk.HORIZONTAL, label='Playback Speed (fps)', resolution=1)
         self.playbackSpeedScale.grid(column=0, row=10, columnspan=2,
-                                     sticky='W' + 'E')
+            sticky='W' + 'E')
         self.playbackSpeedScale.set(30)
 
         # button to start simulation
         self.button = tk.Button(self, text=u'Start simulation',
-                                command=self.startSimulation)
+            command=self.startSimulation)
         self.button.grid(column=1, row=11)
 
         # button to start simulation
         self.previewButton = tk.Button(self, text=u'Generate Preview',
-                                command=self.generatePreview)
+            command=self.generatePreview)
         self.previewButton.grid(column=2, row=11)
 
 
         # checkbox for wether or not to trace the path
         self.toTrace = tk.BooleanVar()
-        self.traceCheck = tk.Checkbutton(self, text="Trace", variable=self.toTrace)
+        self.traceCheck = tk.Checkbutton(self, text="Trace",
+            variable=self.toTrace)
         self.traceCheck.grid(column=2, row=11, sticky='W')
         self.traceCheck.select()
 
@@ -139,31 +138,41 @@ class AbstractTab(tk.Frame):
         self.preview = tk.Canvas(self, width=300, height=300)
         self.preview.grid(column=2, row=1, rowspan=5)
 
-    def initialize(self):
-        """
-        must be implemented by subclass
-        should setup any table specific widgets and adjust max and min values
-        """
-        return None
-
     def saveParameters(self):
+        """
+        saves the current ball state.
+        puts all the general values in the simArgs dictionary
+
+        subclasses should implement
+        def saveParameters(self):
+            super(SubClass,self).saveParameters()
+
+            any extra stuff that table needs goes here
+        """
+        # save current scale values into the ball state for the current ball
         x = self.initialXScale.get()
         y = self.initialYScale.get()
         xVel = self.initialXVelScale.get()
         yVel = self.initialYVelScale.get()
         self.ballStates[self.currentBall] = [x, y, xVel, yVel]
+        # set new currentBall if changed
         self.currentBall=self.ballSelector.get()
+        # the states of all the balls to be simulated
         self.simArgs['balls']=self.ballStates
-        self.simArgs['ballF'] = self.numberOfBallsSelector.get(first=None, last=None)
         self.simArgs['playbackSpeed'] = self.playbackSpeedScale.get()
         self.simArgs['trace'] = self.toTrace.get()
+        # get number of balls from formation string
         for s in self.numberOfBallsSelector.get().split():
             if s.isdigit():
                 self.simArgs['nBalls']=int(s)
 
     def generatePreview(self):
+        """
+        Saves parameters, generates the preview and displays it to the canvas
+        """
         self.saveParameters()
         image=self.simulation.generatePreview()
+        # convert pil image to a tkinter image
         self.photo = ImageTk.PhotoImage(image)
 
         # display image
@@ -173,6 +182,8 @@ class AbstractTab(tk.Frame):
         """
         Changes what balls can be selected to change values for.
         Gets called when number of balls is changed
+
+        Also saves the parameters
         """
 
         # get the number of balls
@@ -180,17 +191,17 @@ class AbstractTab(tk.Frame):
 
         self.saveParameters()
 
-        # sets the ball selector
+        # set the ball selector based on what formation is chosen
         if formation == self.ballFormations[0]:
             self.ballSelector.selectitem(0)
-        elif formation == self.ballFormations[1] and (self.ballSelector.get() == self.balls[2]
-                                                      or self.ballSelector.get() == self.balls[3]):
+        elif formation == self.ballFormations[1] and (self.ballSelector.get()\
+            == self.balls[2] or self.ballSelector.get() == self.balls[3]):
             self.ballSelector.selectitem(1)
-        elif formation == self.ballFormations[2] and self.ballSelector.get() == self.balls[3]:
+        elif formation == self.ballFormations[2] and self.ballSelector.get() ==\
+            self.balls[3]:
             self.ballSelector.selectitem(2)
 
-        # self.currentBall = self.ballSelector.get()
-
+        # set sliders to new ball state if it was chaged above
         newX = self.ballStates[self.currentBall][0]
         newY = self.ballStates[self.currentBall][1]
         newXVel = self.ballStates[self.currentBall][2]
@@ -201,12 +212,22 @@ class AbstractTab(tk.Frame):
         self.initialXVelScale.set(newXVel)
         self.initialYVelScale.set(newYVel)
 
-    # must be implemented for each type
     def updateSize(self, *args):
+        """
+        should reset x and y sliders when they are moved outside the domain.
+        must be implemented for each subclass.
+        """
         return None
 
     def changeBall(self, *args):
+        """
+            run when a different ball is selected.
+            saveParameters and sets sliders to settings for new ball.
+            also checks that you have selected the appropriate number of balls.
+        """
+
         formation = self.numberOfBallsSelector.get()
+        # set ball selector if needed
         if formation == self.ballFormations[0]:
             self.ballSelector.selectitem(0)
         elif formation == self.ballFormations[1] and (self.ballSelector.get() == self.balls[2]
@@ -216,8 +237,8 @@ class AbstractTab(tk.Frame):
             self.ballSelector.selectitem(2)
 
         self.saveParameters()
+        # set sliders to state for new ball
         newState = self.ballStates[self.currentBall]
-
         self.initialXScale.set(newState[0])
         self.initialYScale.set(newState[1])
         self.initialXVelScale.set(newState[2])
@@ -225,17 +246,22 @@ class AbstractTab(tk.Frame):
 
     # must be implemented for each type
     def startSimulation(self):
+        """Saves parameters and starts simulation."""
         self.saveParameters()
-
         self.simulation.main()
 
 class Main(tk.Tk):
+    """
+    The tkinter window and Notebook that holds all the tabs
+    """
     def __init__(self, parent):
         tk.Tk.__init__(self, parent)
         self.parent = parent
         self.initialize()
 
     def initialize(self):
+        """makes the Notebook and adds all the frames for each table"""
+        # Notebook holds all the tabs
         n = ttk.Notebook(self)
         f1 = RectTab(self)
         f2 = LTab(self)
@@ -247,34 +273,45 @@ class Main(tk.Tk):
         n.add(f3, text='Circle ')
         n.add(f4, text='Buminovich')
         n.add(f5, text='Lorentz')
+        # need to pack for the Notebook to display
         n.pack()
 
 class RectTab(AbstractTab):
-
+    """
+    subclass of AbstractTab for the Rectangle table
+    """
     def initialize(self):
+        """
+        initializes the super class and adds the height and widthScale for
+        the Rectangle.
+        """
+
+        super(RectTab,self).initialize()
+        # special tkinter variables that will be changed with the scales
         self.width = tk.IntVar()
         self.height = tk.IntVar()
 
+        # make width scale
         self.widthScale = tk.Scale(self, from_=1, to=5, orient=tk.HORIZONTAL,
-                                   label='Width', resolution=1, variable=self.width,
-                                   command=self.updateSize)
+            label='Width', resolution=1, variable=self.width,
+            command=self.updateSize)
         self.widthScale.grid(column=2, row=6, columnspan=1, sticky='W' + 'E')
         self.widthScale.set(2)
 
+        # make height scale
         self.heightScale = tk.Scale(self, from_=1, to=5, orient=tk.HORIZONTAL,
-                                    label='Height', resolution=1, variable=self.height,
-                                    command=self.updateSize)
+            label='Height', resolution=1, variable=self.height,
+            command=self.updateSize)
         self.heightScale.grid(column=2, row=7, columnspan=1, sticky='W' + 'E')
         self.heightScale.set(2)
 
-    # changes the preview image when a new stadium is selected
-
     def updateSize(self, *args):
+        """sets range of x and y sliders, and validates states"""
         width = self.width.get()
         height = self.height.get()
         self.initialXScale.config(to=width)
         self.initialYScale.config(to=height)
-
+        # error check that state is not outside bounds
         for ball, state in self.ballStates.items():
             if state[0] > width:
                 state[0] = width
@@ -282,57 +319,59 @@ class RectTab(AbstractTab):
                 state[1] = height
 
     def saveParameters(self):
+        """
+        Saves super class parameters as well as height and width.
+        Also initializes simulation if not already done or updates it.
+        """
         super(RectTab,self).saveParameters()
         self.simArgs['width'] = self.width.get()
         self.simArgs['height'] = self.height.get()
-        # self.simArgs['ballFormation'] = self.numberOfBallsSelector.get()
+        # updates simulation if it exists
+        # makes one if it doesn't
         try:
             self.simulation.update(**self.kwargs)
         except AttributeError:
             self.simulation = rect.RectTable(**self.simArgs)
 
 class LTab(AbstractTab):
-    def __init__(self, AbstractTab):
-        super(LTab, self).__init__(AbstractTab)
-
-    # def checkPos(self, *args):
-    #     if self.initialXScale.get() > 2 and self.initialYScale.get() > 2:
-    #         if self.lastXPos < 2:
-    #             self.initialXScale.set(2)
-    #         else:
-    #             self.initialYScale.set(2)
-    #
-    #     self.lastXPos = self.initialXScale.get()
-    #
-    # # runs when start simulation button is pressed
+    """
+    subclass of AbstractTab for the L table
+    """
     def saveParameters(self):
+        """
+        saves superclass parameters and updates or initializes simulation
+        """
         super(LTab,self).saveParameters()
-        # self.simArgs['ballFormation'] = self.numberOfBallsSelector.get()
+        # updates simulation if it exists
+        # makes one if it doesn't
         try:
             self.simulation.update(**self.kwargs)
         except AttributeError:
             self.simulation = Ltab.LTable(**self.simArgs)
 
-
 class CircTab(AbstractTab):
-    def __init__(self, AbstractTab):
-        super(CircTab, self).__init__(AbstractTab)
-        self.radius = 2 # circle.CircleTable(abT.AbstractTable()).radius
+    """
+    subclass of AbstractTab for the Circle table
+    """
 
     def initialize(self):
-        self.initialXScale.config(from_=-2, to=2,command=self.checkXPos,resolution=0.01)
-        self.initialYScale.config(from_=-2, to=2,command=self.checkYPos,resolution=0.01)
-        # self.initialXScale = tk.Scale(self, from_=-2, to=2, orient=tk.HORIZONTAL,
-        #                               label='Initial X Position', resolution=0.01,
-        #                               command=self.checkXPos)
-        # self.initialXScale.grid(column=0, row=6, columnspan=2, sticky='W' + 'E')
-        # # self.initialXScale.set(0)
-        #
-        # self.initialYScale = tk.Scale(self, from_=-2, to=2, orient=tk.HORIZONTAL,
-        #                               label='Initial Y Position', resolution=0.01, command=self.checkYPos)
-        # self.initialYScale.grid(column=0, row=7, columnspan=2, sticky='W' + 'E')
-
+        """
+        initializes the super class and adds the radius. also changes the
+        x and y scales
+        """
+        super(CircTab,self).initialize()
+        self.radius = 2
+        # set x and y scales for the circle size and use checkXPos and
+        # checkYPos instead of updateSize
+        self.initialXScale.config(from_=-self.radius, to=self.radius,
+            command=self.checkXPos,resolution=0.01)
+        self.initialYScale.config(from_=-self.radius, to=self.radius,
+            command=self.checkYPos,resolution=0.01)
     def checkYPos(self, *args):
+        """
+        checks if the y position set will be outside the circle and will hold
+        it at that point
+        """
         x = self.initialXScale.get()
         y = self.initialYScale.get()
 
@@ -343,6 +382,10 @@ class CircTab(AbstractTab):
                 self.initialYScale.set(-np.sqrt(self.radius**2 - x ** 2))
 
     def checkXPos(self, *args):
+        """
+        checks if the x position set will be outside the circle and will hold
+        it at that point
+        """
         x = self.initialXScale.get()
         y = self.initialYScale.get()
 
@@ -353,33 +396,47 @@ class CircTab(AbstractTab):
                 self.initialXScale.set(-np.sqrt(self.radius**2 - y ** 2))
 
     def saveParameters(self):
+        """
+        Saves super class parameters.
+        Updates or initializes the simulation
+        """
         super(CircTab,self).saveParameters()
-        # self.simArgs['ballFormation'] = self.numberOfBallsSelector.get()
+        # updates simulation if it exists
+        # makes one if it doesn't
         try:
             self.simulation.update(**self.kwargs)
         except AttributeError:
             self.simulation = circle.CircleTable(**self.simArgs)
 
 class BuminTab(AbstractTab):
-
-    # TODO: update when finished
-    def initialize(self):
-        return None
-
+    """
+    subclass of AbstractTab for the Buminovich stadium
+    """
     def saveParameters(self):
+        """
+        Saves super class parameters.
+        Updates or initializes the simulation
+        """
         super(BuminTab,self).saveParameters()
+        # updates simulation if it exists
+        # makes one if it doesn't
         try:
             self.simulation.update(**self.kwargs)
         except AttributeError:
             self.simulation = Buminovich.Buminovich(**self.simArgs)
 
 class LorentzTab(AbstractTab):
-    # TODO: update when finished
-    def initialize(self):
-        return None
-
+    """
+    subclass of AbstractTab for the Lorentz table
+    """
     def saveParameters(self):
+        """
+        Saves super class parameters.
+        Updates or initializes the simulation
+        """
         super(LorentzTab,self).saveParameters()
+        # updates simulation if it exists
+        # makes one if it doesn't
         try:
             self.simulation.update(**self.kwargs)
         except AttributeError:

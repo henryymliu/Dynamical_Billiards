@@ -18,39 +18,57 @@ class Buminovich(abT):
         self.radius = self.height / 2
 
     def drawTable(self,ec='none'):
+        """
+        makes a fig and axes and adds the table as a collection of patches.
+        ec should be set to 'k' when generating a preview
+        """
         self.fig, self.ax = plt.subplots(figsize=(10, 10))
-        self.fig.canvas.set_window_title('Buminovich Stadium Billiards Simulation')
+        self.fig.canvas.set_window_title('Buminovich Stadium Billiards\
+            Simulation')
         self.ax.set(xlim=[-(self.minlinex + self.radius + 0.5),(self.length +\
             self.radius + 0.5)],ylim=[-(self.radius + 0.5),self.radius + 0.5])
         self.ax.axis('off')
-        # make table
+        # make empty patches list
         patches=[]
-        patches.append(mpatches.Arc((0, 0), self.height, self.height, 0, 90, 270))
-        patches.append(mpatches.Arc((self.length, 0), self.height, self.height, 0, 270, 450))
-        #line1 = plt.Polygon([-self.radius, self.radius], 0, self.length)
-        patches.append(plt.Polygon(np.array([[0,self.radius],[self.length,self.radius]])))
-        patches.append(plt.Polygon(np.array([[0,-self.radius],[self.length,-self.radius]])))
-
+        # define both side arcs as patches and add them to the patch list
+        patches.append(mpatches.Arc((0, 0), self.height, self.height, 0, 90,
+            270))
+        patches.append(mpatches.Arc((self.length, 0), self.height, self.height,
+            0, 270, 450))
+        # define both lines as patches and add them to patches list
+        patches.append(plt.Polygon(np.array([[0,self.radius],
+            [self.length,self.radius]])))
+        patches.append(plt.Polygon(np.array([[0,-self.radius],
+            [self.length,-self.radius]])))
+        # make the collection from the list
         self.table = PatchCollection(patches)
+        # set table edge parameters since the collection resets them all
         self.table.set_edgecolor(ec)
         self.table.set_linewidth(1)
         self.table.set_facecolor('none')
+        # put collection on figure
         self.ax.add_collection(self.table)
         plt.axis('equal')
 
     def step(self,particle, dt):
-        # check for crossing boundary
-        if particle.state[0] >= self.minlinex and particle.state[0] <= self.length:
+        """
+        checks for collissions and updates velocities accordinly for one
+        particle
+        """
+        if particle.state[0] >= self.minlinex and particle.state[0] <=\
+            self.length:
             crossed_ymax = particle.state[1] > self.radius
             crossed_ymin = particle.state[1] < -self.radius
             if crossed_ymin:
-                fun = lambda x: particle.state[3]/particle.state[2]*(x-particle.state[0])+particle.state[1] + self.radius
+                fun = lambda x: particle.state[3]/particle.state[2]*\
+                    (x-particle.state[0])+particle.state[1] + self.radius
                 root=op.brentq(fun, self.minlinex - 0.1, self.length + 0.1)
                 particle.state[0]=root
                 particle.state[1]=-self.radius
                 particle.state[3]*=-1
             if crossed_ymax:
-                fun = lambda x: particle.state[3]/particle.state[2]*(x-particle.state[0])+particle.state[1]-self.radius
+                fun = lambda x: particle.state[3]/particle.state[2]*\
+                    (x-particle.state[0])+particle.state[1]-self.radius
                 root=op.brentq(fun, self.minlinex - 0.1, self.length + 0.1)
                 particle.state[0]=root
                 particle.state[1]=self.radius
@@ -70,7 +88,8 @@ class Buminovich(abT):
                     # choose root based on proximity with x
                     root = -b / (2 * a)
                     dis = (np.sqrt(abs(b ** 2 - 4 * a * c))) / (2 * a)
-                    if abs(particle.state[0] - root - dis) < abs(particle.state[0] - root + dis):
+                    if abs(particle.state[0] - root - dis) <\
+                        abs(particle.state[0] - root + dis):
                         root += dis
                     else:
                         root -= dis
@@ -80,9 +99,12 @@ class Buminovich(abT):
                     # print((particle.state[0], particle.state[1]))
 
                     vel_norm = np.hypot(particle.state[0], particle.state[1])
-                    dot = (particle.state[2] * particle.state[0] + particle.state[3] * particle.state[1]) / (vel_norm ** 2)
-                    particle.state[2] = particle.state[2] - 2 * dot * particle.state[0]
-                    particle.state[3] = particle.state[3] - 2 * dot * particle.state[1]
+                    dot = (particle.state[2] * particle.state[0] +\
+                        particle.state[3] * particle.state[1]) / (vel_norm ** 2)
+                    particle.state[2] = particle.state[2] - 2 * dot *\
+                        particle.state[0]
+                    particle.state[3] = particle.state[3] - 2 * dot *\
+                        particle.state[1]
 
                     # particle.state[3] *= -1/2;
                     # particle.state[2] *= -1;
@@ -100,7 +122,8 @@ class Buminovich(abT):
                     # choose root based on proximity with current y
                     root = -b / (2 * a)
                     dis = (np.sqrt(abs(b ** 2 - 4 * a * c))) / (2 * a)
-                    if abs(particle.state[1] - root - dis) < abs(particle.state[1] - root + dis):
+                    if abs(particle.state[1] - root - dis) <\
+                        abs(particle.state[1] - root + dis):
                         root += dis
                     else:
                         root -= dis
@@ -112,14 +135,18 @@ class Buminovich(abT):
 
                     # update velocity based on r = d - 2(r.n)r
                     vel_norm = np.hypot(particle.state[0], particle.state[1])
-                    dot = (particle.state[2] * particle.state[0] + particle.state[3] * particle.state[1]) / (vel_norm ** 2)
-                    particle.state[2] = particle.state[2] - 2 * dot * particle.state[0]
-                    particle.state[3] = particle.state[3] - 2 * dot * particle.state[1]
+                    dot = (particle.state[2] * particle.state[0] +\
+                        particle.state[3] * particle.state[1]) / (vel_norm ** 2)
+                    particle.state[2] = particle.state[2] - 2 * dot *\
+                        particle.state[0]
+                    particle.state[3] = particle.state[3] - 2 * dot *\
+                        particle.state[1]
                     # print((particle.state[2], particle.state[3]))
                     #print((particle.state[0], particle.state[1]))
 
         elif particle.state[0] > self.length:
-            if np.hypot(particle.state[0] - self.length, particle.state[1]) > self.radius:
+            if np.hypot(particle.state[0] - self.length, particle.state[1]) >\
+                self.radius:
                 #shift table so that centre of right circle is origin
                 particle.state[0] = particle.state[0] - self.length
                 if abs(particle.state[3] / particle.state[2]) <= 1:
@@ -134,7 +161,8 @@ class Buminovich(abT):
                     # choose root based on proximity with x
                     root = -b / (2 * a)
                     dis = (np.sqrt(abs(b ** 2 - 4 * a * c))) / (2 * a)
-                    if abs(particle.state[0] - root - dis) < abs(particle.state[0] - root + dis):
+                    if abs(particle.state[0] - root - dis) <\
+                        abs(particle.state[0] - root + dis):
                         root += dis
                     else:
                         root -= dis
@@ -144,9 +172,12 @@ class Buminovich(abT):
                     # print((particle.state[0], particle.state[1]))
 
                     vel_norm = np.hypot(particle.state[0], particle.state[1])
-                    dot = (particle.state[2] * particle.state[0] + particle.state[3] * particle.state[1]) / (vel_norm ** 2)
-                    particle.state[2] = particle.state[2] - 2 * dot * particle.state[0]
-                    particle.state[3] = particle.state[3] - 2 * dot * particle.state[1]
+                    dot = (particle.state[2] * particle.state[0] +\
+                        particle.state[3] * particle.state[1]) / (vel_norm ** 2)
+                    particle.state[2] = particle.state[2] - 2 * dot *\
+                        particle.state[0]
+                    particle.state[3] = particle.state[3] - 2 * dot *\
+                        particle.state[1]
 
                     # particle.state[3] *= -1/2;
                     # particle.state[2] *= -1;
@@ -164,7 +195,8 @@ class Buminovich(abT):
                     # choose root based on proximity with current y
                     root = -b / (2 * a)
                     dis = (np.sqrt(abs(b ** 2 - 4 * a * c))) / (2 * a)
-                    if abs(particle.state[1] - root - dis) < abs(particle.state[1] - root + dis):
+                    if abs(particle.state[1] - root - dis) <\
+                        abs(particle.state[1] - root + dis):
                         root += dis
                     else:
                         root -= dis
@@ -176,69 +208,17 @@ class Buminovich(abT):
 
                     # update velocity based on r = d - 2(r.n)r
                     vel_norm = np.hypot(particle.state[0], particle.state[1])
-                    dot = (particle.state[2] * particle.state[0] + particle.state[3] * particle.state[1]) / (vel_norm ** 2)
-                    particle.state[2] = particle.state[2] - 2 * dot * particle.state[0]
-                    particle.state[3] = particle.state[3] - 2 * dot * particle.state[1]
+                    dot = (particle.state[2] * particle.state[0] +\
+                        particle.state[3] * particle.state[1]) / (vel_norm ** 2)
+                    particle.state[2] = particle.state[2] - 2 * dot *\
+                        particle.state[0]
+                    particle.state[3] = particle.state[3] - 2 * dot *\
+                        particle.state[1]
                     # print((particle.state[2], particle.state[3]))
                     #print((particle.state[0], particle.state[1]))
 
                 #reset table to original origin
                 particle.state[0] = particle.state[0] + self.length
-
-    # def main(self):
-    #     fig, ax=plt.subplots()
-    #     ax.set(xlim=[-(self.minlinex + self.radius + 0.5),(self.length + self.radius + 0.5)],ylim=[-(self.radius + 0.5),self.radius + 0.5])
-    #     ax.axis('off')
-    #
-    #     #x1 = np.array([0, self.length])
-    #     #y1 = np.array([self.radius, self.radius])
-    #     #x2 = np.array([0, self.length])
-    #     #y2 = np.array([-self.radius, -self.radius])
-    #
-    #     #table = ax.plot(x1, y1, 'k-', lw=1)
-    #     #table = ax.plot(x2, y2, 'k-', lw=1)
-    #
-    #     table = mpatches.Arc((0, 0), self.height, self.height, 0, 90, 270)
-    #     plt.axis('equal')
-    #     ax.add_patch(table)
-    #     table = mpatches.Arc((self.length, 0), self.height, self.height, 0, 270, 450)
-    #     plt.axis('equal')
-    #     ax.add_patch(table)
-    #     table = plt.hlines([-self.radius, self.radius], 0, self.length)
-    #
-    #     particle, = ax.plot([], [], 'ro', ms=6)
-    #     path, = ax.plot([],[], 'r-',lw=1)
-    #
-    #     dt = 1/30
-    #     particle.state = np.array([self.parameters['initX'],self.parameters['initY'],
-    #             self.parameters['initXVel'],self.parameters['initYVel']])
-    #     self.pathx=np.array([])
-    #     self.pathy=np.array([])
-    #
-    #     def init():
-    #         """initialize animation"""
-    #         particle.set_data([], [])
-    #         table.set_edgecolor('none')
-    #         path.set_data([], [])
-    #         return particle, table, path
-    #
-    #     def animate(i):
-    #         """perform animation step"""
-    #         if self.parameters['trace']:
-    #             self.pathx = np.append(self.pathx, particle.state[0])
-    #             self.pathy = np.append(self.pathy, particle.state[1])
-    #         self.step(dt)
-    #         # update pieces of the animation
-    #         table.set_edgecolor('k')
-    #         particle.set_data(particle.state[0], particle.state[1])
-    #         path.set_data(self.pathx, self.pathy)
-    #         return particle, table, path
-    #
-    #     ani = animation.FuncAnimation(fig, animate, frames=600,
-    #                                   interval=0.001, blit=True, init_func=init)
-    #
-    #     plt.show()
-
 
 if __name__ == '__main__':
     table = Buminovich()
