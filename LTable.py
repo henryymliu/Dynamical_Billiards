@@ -41,7 +41,7 @@ class LTable(abT):
 
         # check for crossing boundary
         crossed_x1 = particle.state[0] < self.Lwidth[0]
-        crossed_x2 = (particle.state[0] > self.Lwidth[1] andparticle.state[1]\
+        crossed_x2 = (particle.state[0] > self.Lwidth[1] and particle.state[1]\
             >= self.Lheight[1] and old_state[0] <= self.Lwidth[1])
         crossed_x3 = (particle.state[0] > self.Lwidth[2] and particle.state[1]\
             < self.Lheight[1])

@@ -83,6 +83,8 @@ class AbstractTable(object):
                 initstate= self.parameters['balls']['Ball ' + str(i + 1)]))
             self.ax.plot(balls[i].state[0], balls[i].state[1],
                 balls[i].color + 'o', ms=6)
+            self.ax.plot((balls[i].state[0],balls[i].state[0] + balls[i].state[2] * 0.1),\
+                         (balls[i].state[1], balls[i].state[1] + balls[i].state[3] * 0.1), balls[i].color + '-', ms=6)
         # linewidth needs to be larger than animating so it will be visible in
         # the preview
         self.table.set_linewidth(6)
