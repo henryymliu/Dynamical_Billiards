@@ -11,13 +11,13 @@ class Buminovich(abT):
     """docstring for Buminovich."""
     def __init__(self, **kwargs):
         super(Buminovich,self).__init__(**kwargs)
-        self.length = 6
-        self.height = 6
+        self.length = 2
+        self.height = 2
         self.minlinex = 0
         self.minliney = 0
         self.radius = self.height / 2
 
-    def drawTable(self,ec='none'):
+    def drawTable(self, ec='none'):
         """
         makes a fig and axes and adds the table as a collection of patches.
         ec should be set to 'k' when generating a preview
@@ -25,20 +25,19 @@ class Buminovich(abT):
         self.fig, self.ax = plt.subplots(figsize=(10, 10))
         self.fig.canvas.set_window_title('Buminovich Stadium Billiards\
             Simulation')
-        self.ax.set(xlim=[-(self.minlinex + self.radius + 0.5),(self.length +\
-            self.radius + 0.5)],ylim=[-(self.radius + 0.5),self.radius + 0.5])
+        self.ax.set(xlim=[-(self.minlinex + self.radius + 0.5),(self.length + self.radius + 0.5)],
+                    ylim=[-(self.radius + 0.5), self.radius + 0.5])
         self.ax.axis('off')
         # make empty patches list
         patches=[]
         # define both side arcs as patches and add them to the patch list
-        patches.append(mpatches.Arc((0, 0), self.height, self.height, 0, 90,
-            270))
+        patches.append(mpatches.Arc((0, 0), self.height, self.height, 0, 90, 270))
         patches.append(mpatches.Arc((self.length, 0), self.height, self.height,
             0, 270, 450))
         # define both lines as patches and add them to patches list
-        patches.append(plt.Polygon(np.array([[0,self.radius],
+        patches.append(plt.Polygon(np.array([[0, self.radius],
             [self.length,self.radius]])))
-        patches.append(plt.Polygon(np.array([[0,-self.radius],
+        patches.append(plt.Polygon(np.array([[0, -self.radius],
             [self.length,-self.radius]])))
         # make the collection from the list
         self.table = PatchCollection(patches)
@@ -55,8 +54,7 @@ class Buminovich(abT):
         checks for collissions and updates velocities accordinly for one
         particle
         """
-        if particle.state[0] >= self.minlinex and particle.state[0] <=\
-            self.length:
+        if particle.state[0] >= self.minlinex and particle.state[0] <= self.length:
             crossed_ymax = particle.state[1] > self.radius
             crossed_ymin = particle.state[1] < -self.radius
             if crossed_ymin:
