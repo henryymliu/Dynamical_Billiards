@@ -49,6 +49,7 @@ class AbstractTab(tk.Frame):
         self.simArgs={}
 
         # ComboBox item lists
+        self.nBalls = 1
         self.ballFormations = ["1 Ball", "2 Balls", "3 Balls", "4 Balls"]
         self.balls = ['Ball 1', 'Ball 2', 'Ball 3', 'Ball 4']
         # initial states
@@ -61,12 +62,14 @@ class AbstractTab(tk.Frame):
         self.grid_columnconfigure(0, weight=1)
 
         # set up selector for number of balls
-        self.numberOfBallsSelector = Pmw.ComboBox(self,
-            label_text='Choose Ball Formation', labelpos='nw',
-            selectioncommand=self.changeFormation,
-            scrolledlist_items=self.ballFormations, dropdown=1)
+        # self.numberOfBallsSelector = Pmw.ComboBox(self,
+        #     label_text='Choose Ball Formation', labelpos='nw',
+        #     selectioncommand=self.changeFormation,
+        #     scrolledlist_items=self.ballFormations, dropdown=1)
+        self.numberOfBallsSelector = Pmw.EntryField(self, validate=Pmw.numericvalidator, label_text='# balls',
+                                                    labelpos='nw', modifiedcommand=self.changeFormation)
         self.numberOfBallsSelector.grid(column=0, row=1)
-        self.numberOfBallsSelector.selectitem(0)
+        self.numberOfBallsSelector.setvalue(1)
 
         # label for ball parameters
         self.ballLabel = tk.Label(self, text='Ball Parameters')
@@ -75,7 +78,7 @@ class AbstractTab(tk.Frame):
         # selector for which ball to adjust parameters for
         self.ballSelector = Pmw.ComboBox(self,label_text='Choose Ball',
             labelpos='nw',selectioncommand=self.changeBall,
-            scrolledlist_items=self.balls,dropdown=1)
+            scrolledlist_items=tuple(map(str, range(1, self.nBalls+1))), dropdown=1)
         self.ballSelector.grid(column=0, row=3)
         self.ballSelector.selectitem(0)
 
@@ -187,30 +190,25 @@ class AbstractTab(tk.Frame):
         """
 
         # get the number of balls
-        formation = self.numberOfBallsSelector.get(first=None, last=None)
-
-        self.saveParameters()
+        # formation = self.numberOfBallsSelector.get(first=None, last=None)
+        self.nBalls = self.numberOfBallsSelector.get()
+        # self.saveParameters()
+        self.ballSelector = Pmw.ComboBox(self, label_text='Choose Ball',
+                                         labelpos='nw', selectioncommand=self.changeBall,
+                                         scrolledlist_items=tuple(map(str, range(1, self.nBalls+1))), dropdown=1)
 
         # set the ball selector based on what formation is chosen
-        if formation == self.ballFormations[0]:
-            self.ballSelector.selectitem(0)
-        elif formation == self.ballFormations[1] and (self.ballSelector.get()\
-            == self.balls[2] or self.ballSelector.get() == self.balls[3]):
-            self.ballSelector.selectitem(1)
-        elif formation == self.ballFormations[2] and self.ballSelector.get() ==\
-            self.balls[3]:
-            self.ballSelector.selectitem(2)
+        # if formation == self.ballFormations[0]:
+        #     self.ballSelector.selectitem(0)
+        # elif formation == self.ballFormations[1] and (self.ballSelector.get()\
+        #     == self.balls[2] or self.ballSelector.get() == self.balls[3]):
+        #     self.ballSelector.selectitem(1)
+        # elif formation == self.ballFormations[2] and self.ballSelector.get() ==\
+        #     self.balls[3]:
+        #     self.ballSelector.selectitem(2)
 
         # set sliders to new ball state if it was chaged above
-        newX = self.ballStates[self.currentBall][0]
-        newY = self.ballStates[self.currentBall][1]
-        newXVel = self.ballStates[self.currentBall][2]
-        newYVel = self.ballStates[self.currentBall][3]
-
-        self.initialXScale.set(newX)
-        self.initialYScale.set(newY)
-        self.initialXVelScale.set(newXVel)
-        self.initialYVelScale.set(newYVel)
+        # r
 
     def updateSize(self, *args):
         """
