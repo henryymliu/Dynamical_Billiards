@@ -6,7 +6,6 @@ All the different tables will be a subclass of this abstract superclass
 import numpy as np
 from matplotlib import animation
 from matplotlib import pyplot as plt
-import matplotlib.patches as patches
 from scipy import optimize as op
 from PIL import Image
 
@@ -83,13 +82,13 @@ class AbstractTable(object):
             balls.append(Ball(color= self.colorlist[i],
                 initstate= self.parameters['balls']['Ball ' + str(i + 1)]))
             self.ax.plot(balls[i].state[0], balls[i].state[1],
-                balls[i].color + 'o', ms=8)
-            # plot arrow indicating velocity vector
-            self.ax.add_patch(patches.Arrow(balls[i].state[0], balls[i].state[1], balls[i].state[2]*0.3,
-                                            balls[i].state[3]*0.3, width=0.05, ls='-', color=balls[i].color))
+                balls[i].color + 'o', ms=6)
+            self.ax.plot((balls[i].state[0],balls[i].state[0] + balls[i].state[2] * 0.1),\
+                         (balls[i].state[1], balls[i].state[1] + balls[i].state[3] * 0.1), balls[i].color + '-', ms=6)
         # linewidth needs to be larger than animating so it will be visible in
         # the preview
         self.table.set_linewidth(6)
+
         self.fig.savefig('preview.png')
         f=Image.open('preview.png')
         # resize object so it will fit in tkinter canvas
@@ -195,3 +194,4 @@ class AbstractTable(object):
             blit=True,init_func=init)
         # show matplotlib window
         plt.show()
+        return ani
