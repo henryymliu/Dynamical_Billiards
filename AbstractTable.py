@@ -38,6 +38,7 @@ class AbstractTable(object):
         self.colorlist = ['r', 'g', 'b', 'y']
         self.ballList = []
         self.nBalls = self.parameters['nBalls']
+        self.cmap = plt.cm.get_cmap("rainbow", self.nBalls + 1)
 
     def drawTable(self,ec='none'):
         """
@@ -79,14 +80,14 @@ class AbstractTable(object):
         self.drawTable('k')
         balls=[]
         # initialize all the balls and their positions
-        for i in range(self.nBalls):
-            balls.append(Ball(color= self.colorlist[i],
-                initstate= self.parameters['balls']['Ball ' + str(i + 1)]))
-            self.ax.plot(balls[i].state[0], balls[i].state[1],
-                balls[i].color + 'o', ms=8)
+        for i in range(1, self.nBalls+1):
+            balls.append(Ball(color=self.cmap(i),
+                initstate= self.parameters['balls'][i]))
+            self.ax.plot(balls[i-1].state[0], balls[i-1].state[1],
+                color=self.cmap(i), marker = 'o', ms=8)
             # plot arrow indicating velocity vector
-            self.ax.add_patch(patches.Arrow(balls[i].state[0], balls[i].state[1], balls[i].state[2]*0.3,
-                                            balls[i].state[3]*0.3, width=0.05, ls='-', color=balls[i].color))
+            self.ax.add_patch(patches.Arrow(balls[i-1].state[0], balls[i-1].state[1], balls[i-1].state[2]*0.3,
+                                            balls[i-1].state[3]*0.3, width=0.05, ls='-', color=self.cmap(i)))
         # linewidth needs to be larger than animating so it will be visible in
         # the preview
         self.table.set_linewidth(6)
@@ -98,7 +99,7 @@ class AbstractTable(object):
 
     def update(self,**kwargs):
         """saves new parameters for the Simulation"""
-        self.parameters=kwargs
+        self.parameters = kwargs
 
     def main(self):
         """
@@ -118,15 +119,19 @@ class AbstractTable(object):
         self.pathx = {}
         self.pathy = {}
 
-        for i in range(self.nBalls):
+        for i in range(1, self.nBalls+1):
             # make ball object and add it to ball list
-            self.ballList.append(Ball(color= self.colorlist[i],
-                initstate=self.parameters['balls']['Ball ' + str(i + 1)]))
+            self.ballList.append(Ball(color= self.cmap(i),
+                initstate=self.parameters['balls'][i]))
             # initialize particles and paths that will be plotted
-            particles.append(self.ax.plot([], [], self.ballList[i].color + 'o',
-                ms=6)[0])
-            paths.append(self.ax.plot([], [], self.ballList[i].color + '-',
-                lw=1)[0])
+            # particles.append(self.ax.plot([], [], self.ballList[i].color + 'o',
+            #     ms=6)[0])
+            # paths.append(self.ax.plot([], [], self.ballList[i].color + '-',
+            #     lw=1)[0])
+            particles.append(self.ax.plot([], [], color=self.cmap(i), marker='o',
+                                          ms=6)[0])
+            paths.append(self.ax.plot([], [], color=self.cmap(i), ls='-',
+                                      lw=1)[0])
             self.pathx[i] = np.array([])
             self.pathy[i] = np.array([])
 
@@ -160,17 +165,17 @@ class AbstractTable(object):
             """perform animation step"""
             # trace the particle if check box is selected
             if self.parameters['trace']:
-                for i in range(0, self.nBalls):
+                for i in range(1, self.nBalls+1):
                     self.pathx[i] = np.append(self.pathx[i],
                         self.ballList[i].state[0])
                     self.pathy[i] = np.append(self.pathy[i],
                         self.ballList[i].state[1])
-            # update position and check for collissions
+            # update position and check for collisions
             self.stepall(dt)
             # update table
             self.table.set_edgecolor('k')
             # set particle position and path data
-            for ball in range(self.nBalls):
+            for ball in range(1,self.nBalls+1):
                 particles[ball].set_data(self.ballList[ball].state[0],
                     self.ballList[ball].state[1])
                 paths[ball].set_data(self.pathx[ball], self.pathy[ball])

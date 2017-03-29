@@ -50,12 +50,14 @@ class AbstractTab(tk.Frame):
 
         # ComboBox item lists
         self.nBalls = 1
-        self.ballFormations = ["1 Ball", "2 Balls", "3 Balls", "4 Balls"]
-        self.balls = ['Ball 1', 'Ball 2', 'Ball 3', 'Ball 4']
+
+        # self.ballFormations = ["1 Ball", "2 Balls", "3 Balls", "4 Balls"]
+        # # self.balls = ['Ball 1', 'Ball 2', 'Ball 3', 'Ball 4']
+        self.balls = tuple(map(str, range(1, self.nBalls+1)))
         # initial states
-        self.ballStates = {'Ball 1': [0.5, 0.5, 1, 0.5], 'Ball 2': [1.5, 1.5, 1, -0.5],
-                           'Ball 3': [0.5, 1.5, -1, 0.5], 'Ball 4': [1.5, 0.5, -0.5, 1]}
-        self.currentBall = 'Ball 1'
+        self.initBallState = [1, 1, 1, -3]
+        self.ballStates = {1 : self.initBallState}
+        self.currentBall = 1
 
         # sets up grid
         self.grid()
@@ -78,7 +80,8 @@ class AbstractTab(tk.Frame):
         # selector for which ball to adjust parameters for
         self.ballSelector = Pmw.ComboBox(self,label_text='Choose Ball',
             labelpos='nw',selectioncommand=self.changeBall,
-            scrolledlist_items=tuple(map(str, range(1, self.nBalls+1))), dropdown=1)
+            scrolledlist_items=self.balls, dropdown=1)
+        #
         self.ballSelector.grid(column=0, row=3)
         self.ballSelector.selectitem(0)
 
@@ -159,15 +162,16 @@ class AbstractTab(tk.Frame):
         yVel = self.initialYVelScale.get()
         self.ballStates[self.currentBall] = [x, y, xVel, yVel]
         # set new currentBall if changed
-        self.currentBall=self.ballSelector.get()
+        self.currentBall = int(self.ballSelector.get())
         # the states of all the balls to be simulated
         self.simArgs['balls']=self.ballStates
         self.simArgs['playbackSpeed'] = self.playbackSpeedScale.get()
         self.simArgs['trace'] = self.toTrace.get()
         # get number of balls from formation string
-        for s in self.numberOfBallsSelector.get().split():
-            if s.isdigit():
-                self.simArgs['nBalls']=int(s)
+        self.simArgs['nBalls'] = self.nBalls
+        # for s in self.numberOfBallsSelector.get().split():
+        #     if s.isdigit():
+        #         self.simArgs['nBalls']=int(s)
 
     def generatePreview(self):
         """
@@ -191,12 +195,22 @@ class AbstractTab(tk.Frame):
 
         # get the number of balls
         # formation = self.numberOfBallsSelector.get(first=None, last=None)
-        self.nBalls = self.numberOfBallsSelector.get()
+        upnballs = int(self.numberOfBallsSelector.get())
+        if upnballs > self.nBalls:
+            self.createmorestates = True
+            for i in range(self.nBalls, upnballs +1):
+                self.ballStates[i] = self.initBallState
+                self.ballStates[i][3] +=0.1
+
+        self.nBalls = upnballs
+        self.balls = tuple(map(str, range(1, self.nBalls + 1)))
         # self.saveParameters()
+        # recreate combobox with updated number of balls
         self.ballSelector = Pmw.ComboBox(self, label_text='Choose Ball',
                                          labelpos='nw', selectioncommand=self.changeBall,
-                                         scrolledlist_items=tuple(map(str, range(1, self.nBalls+1))), dropdown=1)
-
+                                         scrolledlist_items=self.balls, dropdown=1)
+        self.ballSelector.grid(column=0, row=3)
+        self.ballSelector.selectitem(0)
         # set the ball selector based on what formation is chosen
         # if formation == self.ballFormations[0]:
         #     self.ballSelector.selectitem(0)
@@ -224,15 +238,15 @@ class AbstractTab(tk.Frame):
             also checks that you have selected the appropriate number of balls.
         """
 
-        formation = self.numberOfBallsSelector.get()
-        # set ball selector if needed
-        if formation == self.ballFormations[0]:
-            self.ballSelector.selectitem(0)
-        elif formation == self.ballFormations[1] and (self.ballSelector.get() == self.balls[2]
-                                                      or self.ballSelector.get() == self.balls[3]):
-            self.ballSelector.selectitem(1)
-        elif formation == self.ballFormations[2] and self.ballSelector.get() == self.balls[3]:
-            self.ballSelector.selectitem(2)
+        # formation = self.numberOfBallsSelector.get()
+        # # set ball selector if needed
+        # if formation == self.ballFormations[0]:
+        #     self.ballSelector.selectitem(0)
+        # elif formation == self.ballFormations[1] and (self.ballSelector.get() == self.balls[2]
+        #                                               or self.ballSelector.get() == self.balls[3]):
+        #     self.ballSelector.selectitem(1)
+        # elif formation == self.ballFormations[2] and self.ballSelector.get() == self.balls[3]:
+        #     self.ballSelector.selectitem(2)
 
         self.saveParameters()
         # set sliders to state for new ball
