@@ -51,7 +51,7 @@ class AbstractTab(tk.Frame):
 
         self.balls = tuple(map(str, range(self.nBalls)))
         # initial states
-        self.initBallState = [1.5, 0.75, 1, -3]
+        self.initBallState = [1.5, 0.75, 0, 0]
 
         # balls zero-indexed for easier code
         self.ballStates = {0 : self.initBallState}
@@ -193,17 +193,18 @@ class AbstractTab(tk.Frame):
 
         # get the number of balls
         # formation = self.numberOfBallsSelector.get(first=None, last=None)
-        upnballs = int(self.numberOfBallsSelector.get())
+        newNBalls = int(self.numberOfBallsSelector.get())
 
-        if upnballs >= self.nBalls:
-            for i in range(self.nBalls, upnballs):
-                self.ballStates[i] = [1.5,0.75,0,1]
-                # for some reason self.initballstate gets updated; must be a reference
+        if newNBalls >= self.nBalls:
+            for i in range(self.nBalls, newNBalls):
+                # for some reason self.initballstate gets edited if ballstates gets edited
+                self.ballStates[i] = [1.5, 0.75, 0, 0]
+
                 # TODO: change this later after we figure out proper initial ball locations
-                self.ballStates[i][2] = random.uniform(-3,3)
-                self.ballStates[i][3] = random.uniform(-3,3)
+                self.ballStates[i][2] += random.uniform(-3, 3)
+                self.ballStates[i][3] += random.uniform(-3, 3)
 
-        self.nBalls = upnballs
+        self.nBalls = newNBalls
         self.balls = tuple(map(str, range(self.nBalls)))
         # self.saveParameters()
         # recreate combobox with updated number of balls

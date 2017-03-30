@@ -41,7 +41,7 @@ class AbstractTable(object):
         # use colormap for many colors
         self.cmap = plt.cm.get_cmap("rainbow", self.nBalls + 1)
 
-    def drawTable(self,ec='none'):
+    def drawTable(self, ec='none'):
         """
         Each table must implement this function
         should make a figure and axes in self and should draw the table as a
@@ -83,9 +83,9 @@ class AbstractTable(object):
         # initialize all the balls and their positions
         for i in range(self.nBalls):
             balls.append(Ball(color=self.cmap(i),
-                initstate= self.parameters['balls'][i]))
+                              initstate=self.parameters['balls'][i]))
             self.ax.plot(balls[i].state[0], balls[i].state[1],
-                color=self.cmap(i), marker = 'o', ms=8)
+                         color=self.cmap(i), marker = 'o', ms=8)
             # plot arrow indicating velocity vector
             self.ax.add_patch(patches.Arrow(balls[i].state[0], balls[i].state[1], balls[i].state[2]*0.3,
                                             balls[i].state[3]*0.3, width=0.05, ls='-', color=self.cmap(i)))
@@ -98,7 +98,7 @@ class AbstractTable(object):
         f=f.resize((300,300))
         return f
 
-    def update(self,**kwargs):
+    def update(self, **kwargs):
         """saves new parameters for the Simulation"""
         self.parameters = kwargs
 
@@ -124,11 +124,8 @@ class AbstractTable(object):
             # make ball object and add it to ball list
             self.ballList.append(Ball(color= self.cmap(i),
                 initstate=self.parameters['balls'][i]))
+
             # initialize particles and paths that will be plotted
-            # particles.append(self.ax.plot([], [], self.ballList[i].color + 'o',
-            #     ms=6)[0])
-            # paths.append(self.ax.plot([], [], self.ballList[i].color + '-',
-            #     lw=1)[0])
             particles.append(self.ax.plot([], [], color=self.cmap(i), marker='o',
                                           ms=6)[0])
             paths.append(self.ax.plot([], [], color=self.cmap(i), ls='-',
