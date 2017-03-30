@@ -17,7 +17,6 @@ class Ball(object):
         self.state = self.parameters['initstate']
         self.color = self.parameters['color']
 
-
 class AbstractTable(object):
     """
     Abstract class for a table that simulates collissions
@@ -37,6 +36,7 @@ class AbstractTable(object):
         self.colorlist = ['r', 'g', 'b', 'y']
         self.ballList = []
         self.nBalls = self.parameters['nBalls']
+        self.drag = 0.999 # TODO: possibly change this with entrybox
 
     def drawTable(self,ec='none'):
         """
@@ -62,6 +62,9 @@ class AbstractTable(object):
         updates position of each ball and checks boundaries using step
         """
         for particle in self.ballList:
+            if self.parameters['friction']:
+                particle.state[2] *= self.drag
+                particle.state[3] *= self.drag
             particle.state[0] += dt * particle.state[2]
             particle.state[1] += dt * particle.state[3]
 
@@ -126,6 +129,7 @@ class AbstractTable(object):
                 ms=6)[0])
             paths.append(self.ax.plot([], [], self.ballList[i].color + '-',
                 lw=1)[0])
+            # self.ballList[i].state[3] *= np.sqrt(2)
             self.pathx[i] = np.array([])
             self.pathy[i] = np.array([])
 
