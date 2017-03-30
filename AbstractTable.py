@@ -37,7 +37,8 @@ class AbstractTable(object):
         self.colorlist = ['r', 'g', 'b', 'y']
         self.ballList = []
         self.nBalls = self.parameters['nBalls']
-        self.drag= 0.99
+        self.drag = 0.999 # TODO: possibly change this with entrybox
+
     def drawTable(self,ec='none'):
         """
         Each table must implement this function
@@ -62,8 +63,9 @@ class AbstractTable(object):
         updates position of each ball and checks boundaries using step
         """
         for particle in self.ballList:
-            particle.state[2] *= self.drag
-            particle.state[3] *= self.drag
+            if self.parameters['friction']:
+                particle.state[2] *= self.drag
+                particle.state[3] *= self.drag
             particle.state[0] += dt * particle.state[2]
             particle.state[1] += dt * particle.state[3]
 
