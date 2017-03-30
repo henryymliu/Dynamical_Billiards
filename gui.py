@@ -42,22 +42,19 @@ class AbstractTab(tk.Frame):
             initial velocity
             trace checkbox
             ball formation selection
-            number of balls
+            number of balls (0-indexed)
             start simulation button
         """
         # dictionary for the simulation arguments
         self.simArgs={}
 
-        # ComboBox item lists
-
-
-        # self.ballFormations = ["1 Ball", "2 Balls", "3 Balls", "4 Balls"]
-        # # self.balls = ['Ball 1', 'Ball 2', 'Ball 3', 'Ball 4']
         self.balls = tuple(map(str, range(self.nBalls)))
         # initial states
         self.initBallState = [1, 1, 1, -3]
-        self.ballStates = {1 : self.initBallState}
-        self.currentBall = 1
+
+        # balls zero-indexed for easier code
+        self.ballStates = {0 : self.initBallState}
+        self.currentBall = 0
 
         # sets up grid
         self.grid()
