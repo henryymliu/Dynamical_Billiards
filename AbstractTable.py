@@ -7,7 +7,6 @@ import numpy as np
 from matplotlib import animation
 from matplotlib import pyplot as plt
 import matplotlib.patches as patches
-from scipy import optimize as op
 from PIL import Image
 
 class Ball(object):
@@ -21,9 +20,9 @@ class Ball(object):
 
 class AbstractTable(object):
     """
-    Abstract class for a table that simulates collissions
-    this superclass takes care of the animating and preview genration
-    subclasses will take care of detecting collissions and drawing the table
+    Abstract class for a table that simulates collisions
+    this superclass takes care of the animating and preview generation
+    subclasses will take care of detecting collisions and drawing the table
 
     subclasses must implement:
         drawTable
@@ -80,14 +79,14 @@ class AbstractTable(object):
         self.drawTable('k')
         balls=[]
         # initialize all the balls and their positions
-        for i in range(1, self.nBalls+1):
+        for i in range(self.nBalls):
             balls.append(Ball(color=self.cmap(i),
                 initstate= self.parameters['balls'][i]))
-            self.ax.plot(balls[i-1].state[0], balls[i-1].state[1],
+            self.ax.plot(balls[i].state[0], balls[i].state[1],
                 color=self.cmap(i), marker = 'o', ms=8)
             # plot arrow indicating velocity vector
-            self.ax.add_patch(patches.Arrow(balls[i-1].state[0], balls[i-1].state[1], balls[i-1].state[2]*0.3,
-                                            balls[i-1].state[3]*0.3, width=0.05, ls='-', color=self.cmap(i)))
+            self.ax.add_patch(patches.Arrow(balls[i].state[0], balls[i].state[1], balls[i].state[2]*0.3,
+                                            balls[i].state[3]*0.3, width=0.05, ls='-', color=self.cmap(i)))
         # linewidth needs to be larger than animating so it will be visible in
         # the preview
         self.table.set_linewidth(6)
@@ -119,7 +118,7 @@ class AbstractTable(object):
         self.pathx = {}
         self.pathy = {}
 
-        for i in range(1, self.nBalls+1):
+        for i in range(self.nBalls):
             # make ball object and add it to ball list
             self.ballList.append(Ball(color= self.cmap(i),
                 initstate=self.parameters['balls'][i]))
@@ -149,23 +148,24 @@ class AbstractTable(object):
 
             # return proper number of objects as we can't return the whole list
             # TODO Find a way to clean this up
-            if self.nBalls == 4:
-                return particles[0], particles[1], particles[2], particles[3], \
-                        self.table, paths[0], paths[1],paths[2],paths[3]
-            elif self.nBalls == 3:
-                return particles[0], particles[1], particles[2], \
-                       self.table, paths[0], paths[1], paths[2]
-            elif self.nBalls == 2:
-                return particles[0], particles[1], \
-                       self.table, paths[0], paths[1]
-            else:
-                return particles[0], self.table, paths[0]
+            # if self.nBalls == 4:
+            #     return particles[0], particles[1], particles[2], particles[3], \
+            #             self.table, paths[0], paths[1],paths[2],paths[3]
+            # elif self.nBalls == 3:
+            #     return particles[0], particles[1], particles[2], \
+            #            self.table, paths[0], paths[1], paths[2]
+            # elif self.nBalls == 2:
+            #     return particles[0], particles[1], \
+            #            self.table, paths[0], paths[1]
+            # else:
+            #     return particles[0], self.table, paths[0]
+            return tuple(particles) + (self.table,) + tuple(paths)
 
         def animate(k):
             """perform animation step"""
             # trace the particle if check box is selected
             if self.parameters['trace']:
-                for i in range(1, self.nBalls+1):
+                for i in range(self.nBalls):
                     self.pathx[i] = np.append(self.pathx[i],
                         self.ballList[i].state[0])
                     self.pathy[i] = np.append(self.pathy[i],
@@ -175,28 +175,28 @@ class AbstractTable(object):
             # update table
             self.table.set_edgecolor('k')
             # set particle position and path data
-            for ball in range(1,self.nBalls+1):
+            for ball in range(self.nBalls):
                 particles[ball].set_data(self.ballList[ball].state[0],
                     self.ballList[ball].state[1])
                 paths[ball].set_data(self.pathx[ball], self.pathy[ball])
-
+            return tuple(particles) + (self.table,) + tuple(paths)
             # return proper number of objects as we can't return the whole list
             # TODO Find a way to clean this up
-            if self.nBalls == 4:
-                return particles[0], particles[1], particles[2], particles[3], \
-                       self.table, paths[0], paths[1], paths[2], paths[3]
-            elif self.nBalls == 3:
-                return particles[0], particles[1], particles[2], \
-                       self.table, paths[0], paths[1], paths[2]
-            elif self.nBalls == 2:
-                return particles[0], particles[1], \
-                       self.table, paths[0], paths[1]
-            else:
-                return particles[0], self.table, paths[0]
+            # if self.nBalls == 4:
+            #     return particles[0], particles[1], particles[2], particles[3], \
+            #            self.table, paths[0], paths[1], paths[2], paths[3]
+            # elif self.nBalls == 3:
+            #     return particles[0], particles[1], particles[2], \
+            #            self.table, paths[0], paths[1], paths[2]
+            # elif self.nBalls == 2:
+            #     return particles[0], particles[1], \
+            #            self.table, paths[0], paths[1]
+            # else:
+            #     return particles[0], self.table, paths[0]
 
         # define animation with appropriate playbackSpeed
         ani = animation.FuncAnimation(self.fig, animate, frames=600,
             interval=np.ceil((1 / self.parameters['playbackSpeed']) * 10 ** 3),
-            blit=True,init_func=init)
+            blit=True, init_func=init)
         # show matplotlib window
         plt.show()

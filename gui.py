@@ -12,7 +12,6 @@ from PIL import Image, ImageTk
 import numpy as np
 import LTable as Ltab
 import RectTable as rect
-import AbstractTable as abT
 import circle
 import Buminovich
 import Lorentz
@@ -33,6 +32,7 @@ class AbstractTab(tk.Frame):
     def __init__(self, parent):
         tk.Frame.__init__(self, parent)
         self.parent = parent
+        self.nBalls = 1
         self.initialize()
 
     def initialize(self):
@@ -49,11 +49,11 @@ class AbstractTab(tk.Frame):
         self.simArgs={}
 
         # ComboBox item lists
-        self.nBalls = 1
+
 
         # self.ballFormations = ["1 Ball", "2 Balls", "3 Balls", "4 Balls"]
         # # self.balls = ['Ball 1', 'Ball 2', 'Ball 3', 'Ball 4']
-        self.balls = tuple(map(str, range(1, self.nBalls+1)))
+        self.balls = tuple(map(str, range(self.nBalls)))
         # initial states
         self.initBallState = [1, 1, 1, -3]
         self.ballStates = {1 : self.initBallState}
@@ -127,7 +127,7 @@ class AbstractTab(tk.Frame):
             command=self.startSimulation)
         self.button.grid(column=1, row=11)
 
-        # button to start simulation
+        # button to generate preview image
         self.previewButton = tk.Button(self, text=u'Generate Preview',
             command=self.generatePreview)
         self.previewButton.grid(column=2, row=11)
@@ -196,14 +196,16 @@ class AbstractTab(tk.Frame):
         # get the number of balls
         # formation = self.numberOfBallsSelector.get(first=None, last=None)
         upnballs = int(self.numberOfBallsSelector.get())
-        if upnballs > self.nBalls:
-            self.createmorestates = True
-            for i in range(self.nBalls, upnballs +1):
+        if upnballs >= self.nBalls:
+            # self.createmorestates = True
+            for i in range(self.nBalls, upnballs):
                 self.ballStates[i] = self.initBallState
+
+                # TODO: change this later after we figure out proper initial ball locations
                 self.ballStates[i][3] +=0.1
 
         self.nBalls = upnballs
-        self.balls = tuple(map(str, range(1, self.nBalls + 1)))
+        self.balls = tuple(map(str, range(self.nBalls)))
         # self.saveParameters()
         # recreate combobox with updated number of balls
         self.ballSelector = Pmw.ComboBox(self, label_text='Choose Ball',
@@ -211,6 +213,7 @@ class AbstractTab(tk.Frame):
                                          scrolledlist_items=self.balls, dropdown=1)
         self.ballSelector.grid(column=0, row=3)
         self.ballSelector.selectitem(0)
+        # self.saveParameters()
         # set the ball selector based on what formation is chosen
         # if formation == self.ballFormations[0]:
         #     self.ballSelector.selectitem(0)
