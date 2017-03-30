@@ -138,6 +138,11 @@ class AbstractTab(tk.Frame):
         self.traceCheck.grid(column=2, row=11, sticky='W')
         self.traceCheck.select()
 
+        # checkbox for friction
+        self.friction = tk.BooleanVar()
+        self.fricCheck = tk.Checkbutton(self, text="Friction", variable=self.friction)
+        self.fricCheck.grid(column=2, row=10, sticky='W')
+
         # table preview canvas
         self.preview = tk.Canvas(self, width=300, height=300)
         self.preview.grid(column=2, row=1, rowspan=5)
@@ -165,6 +170,7 @@ class AbstractTab(tk.Frame):
         self.simArgs['balls']=self.ballStates
         self.simArgs['playbackSpeed'] = self.playbackSpeedScale.get()
         self.simArgs['trace'] = self.toTrace.get()
+        self.simArgs['friction'] = self.friction.get()
         # get number of balls from formation string
         self.simArgs['nBalls'] = self.nBalls
         # for s in self.numberOfBallsSelector.get().split():

@@ -4,7 +4,6 @@ from matplotlib import pyplot as plt
 from scipy import optimize as op
 from AbstractTable import AbstractTable as abT
 
-
 class RectTable(abT):
     """
     subclass of AbstractTable for the Rectangle table
