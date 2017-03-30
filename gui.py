@@ -16,6 +16,7 @@ import circle
 import Buminovich
 import Lorentz
 from PIL import Image, ImageTk
+import random
 import platform
 
 
@@ -50,7 +51,7 @@ class AbstractTab(tk.Frame):
 
         self.balls = tuple(map(str, range(self.nBalls)))
         # initial states
-        self.initBallState = [1, 1, 1, -3]
+        self.initBallState = [1.5, 0.75, 1, -3]
 
         # balls zero-indexed for easier code
         self.ballStates = {0 : self.initBallState}
@@ -193,13 +194,14 @@ class AbstractTab(tk.Frame):
         # get the number of balls
         # formation = self.numberOfBallsSelector.get(first=None, last=None)
         upnballs = int(self.numberOfBallsSelector.get())
-        if upnballs >= self.nBalls:
-            # self.createmorestates = True
-            for i in range(self.nBalls, upnballs):
-                self.ballStates[i] = self.initBallState
 
+        if upnballs >= self.nBalls:
+            for i in range(self.nBalls, upnballs):
+                self.ballStates[i] = [1.5,0.75,0,1]
+                # for some reason self.initballstate gets updated; must be a reference
                 # TODO: change this later after we figure out proper initial ball locations
-                self.ballStates[i][3] +=0.1
+                self.ballStates[i][2] = random.uniform(-3,3)
+                self.ballStates[i][3] = random.uniform(-3,3)
 
         self.nBalls = upnballs
         self.balls = tuple(map(str, range(self.nBalls)))
@@ -209,20 +211,7 @@ class AbstractTab(tk.Frame):
                                          labelpos='nw', selectioncommand=self.changeBall,
                                          scrolledlist_items=self.balls, dropdown=1)
         self.ballSelector.grid(column=0, row=3)
-        self.ballSelector.selectitem(0)
-        # self.saveParameters()
-        # set the ball selector based on what formation is chosen
-        # if formation == self.ballFormations[0]:
-        #     self.ballSelector.selectitem(0)
-        # elif formation == self.ballFormations[1] and (self.ballSelector.get()\
-        #     == self.balls[2] or self.ballSelector.get() == self.balls[3]):
-        #     self.ballSelector.selectitem(1)
-        # elif formation == self.ballFormations[2] and self.ballSelector.get() ==\
-        #     self.balls[3]:
-        #     self.ballSelector.selectitem(2)
-
-        # set sliders to new ball state if it was chaged above
-        # r
+        self.ballSelector.selectitem(self.currentBall)
 
     def updateSize(self, *args):
         """
@@ -235,26 +224,16 @@ class AbstractTab(tk.Frame):
         """
             run when a different ball is selected.
             saveParameters and sets sliders to settings for new ball.
-            also checks that you have selected the appropriate number of balls.
         """
 
-        # formation = self.numberOfBallsSelector.get()
-        # # set ball selector if needed
-        # if formation == self.ballFormations[0]:
-        #     self.ballSelector.selectitem(0)
-        # elif formation == self.ballFormations[1] and (self.ballSelector.get() == self.balls[2]
-        #                                               or self.ballSelector.get() == self.balls[3]):
-        #     self.ballSelector.selectitem(1)
-        # elif formation == self.ballFormations[2] and self.ballSelector.get() == self.balls[3]:
-        #     self.ballSelector.selectitem(2)
-
-        self.saveParameters()
         # set sliders to state for new ball
+        self.currentBall = int(self.ballSelector.get())
         newState = self.ballStates[self.currentBall]
         self.initialXScale.set(newState[0])
         self.initialYScale.set(newState[1])
         self.initialXVelScale.set(newState[2])
         self.initialYVelScale.set(newState[3])
+        self.saveParameters()
 
     # must be implemented for each type
     def startSimulation(self):

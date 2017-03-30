@@ -37,6 +37,8 @@ class AbstractTable(object):
         self.colorlist = ['r', 'g', 'b', 'y']
         self.ballList = []
         self.nBalls = self.parameters['nBalls']
+
+        # use colormap for many colors
         self.cmap = plt.cm.get_cmap("rainbow", self.nBalls + 1)
 
     def drawTable(self,ec='none'):
@@ -145,20 +147,6 @@ class AbstractTable(object):
                 ball.set_data([], [])
             # reset table
             self.table.set_edgecolor('none')
-
-            # return proper number of objects as we can't return the whole list
-            # TODO Find a way to clean this up
-            # if self.nBalls == 4:
-            #     return particles[0], particles[1], particles[2], particles[3], \
-            #             self.table, paths[0], paths[1],paths[2],paths[3]
-            # elif self.nBalls == 3:
-            #     return particles[0], particles[1], particles[2], \
-            #            self.table, paths[0], paths[1], paths[2]
-            # elif self.nBalls == 2:
-            #     return particles[0], particles[1], \
-            #            self.table, paths[0], paths[1]
-            # else:
-            #     return particles[0], self.table, paths[0]
             return tuple(particles) + (self.table,) + tuple(paths)
 
         def animate(k):
@@ -180,19 +168,6 @@ class AbstractTable(object):
                     self.ballList[ball].state[1])
                 paths[ball].set_data(self.pathx[ball], self.pathy[ball])
             return tuple(particles) + (self.table,) + tuple(paths)
-            # return proper number of objects as we can't return the whole list
-            # TODO Find a way to clean this up
-            # if self.nBalls == 4:
-            #     return particles[0], particles[1], particles[2], particles[3], \
-            #            self.table, paths[0], paths[1], paths[2], paths[3]
-            # elif self.nBalls == 3:
-            #     return particles[0], particles[1], particles[2], \
-            #            self.table, paths[0], paths[1], paths[2]
-            # elif self.nBalls == 2:
-            #     return particles[0], particles[1], \
-            #            self.table, paths[0], paths[1]
-            # else:
-            #     return particles[0], self.table, paths[0]
 
         # define animation with appropriate playbackSpeed
         ani = animation.FuncAnimation(self.fig, animate, frames=600,
