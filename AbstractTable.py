@@ -7,6 +7,7 @@ import numpy as np
 from matplotlib import animation
 from matplotlib import pyplot as plt
 import matplotlib.patches as patches
+
 from PIL import Image
 
 class Ball(object):
@@ -16,7 +17,6 @@ class Ball(object):
         self.parameters = kwargs
         self.state = self.parameters['initstate']
         self.color = self.parameters['color']
-
 
 class AbstractTable(object):
     """
@@ -93,9 +93,11 @@ class AbstractTable(object):
             # plot arrow indicating velocity vector
             self.ax.add_patch(patches.Arrow(balls[i].state[0], balls[i].state[1], balls[i].state[2]*0.3,
                                             balls[i].state[3]*0.3, width=0.05, ls='-', color=self.cmap(i)))
+
         # linewidth needs to be larger than animating so it will be visible in
         # the preview
         self.table.set_linewidth(6)
+
         self.fig.savefig('preview.png')
         f=Image.open('preview.png')
         # resize object so it will fit in tkinter canvas
@@ -130,6 +132,7 @@ class AbstractTable(object):
                 initstate=self.parameters['balls'][i]))
 
             # initialize particles and paths that will be plotted
+
             particles.append(self.ax.plot([], [], color=self.cmap(i), marker='o',
                                           ms=6)[0])
             paths.append(self.ax.plot([], [], color=self.cmap(i), ls='-',
