@@ -12,11 +12,11 @@ from PIL import Image, ImageTk
 import numpy as np
 import LTable as Ltab
 import RectTable as rect
-import AbstractTable as abT
 import circle
 import Buminovich
 import Lorentz
 from PIL import Image, ImageTk
+import random
 import platform
 
 
@@ -33,6 +33,7 @@ class AbstractTab(tk.Frame):
     def __init__(self, parent):
         tk.Frame.__init__(self, parent)
         self.parent = parent
+        self.nBalls = 1
         self.initialize()
 
     def initialize(self):
@@ -42,31 +43,33 @@ class AbstractTab(tk.Frame):
             initial velocity
             trace checkbox
             ball formation selection
-            number of balls
+            number of balls (0-indexed)
             start simulation button
         """
         # dictionary for the simulation arguments
         self.simArgs={}
 
-        # ComboBox item lists
-        self.ballFormations = ["1 Ball", "2 Balls", "3 Balls", "4 Balls"]
-        self.balls = ['Ball 1', 'Ball 2', 'Ball 3', 'Ball 4']
+        self.balls = tuple(map(str, range(self.nBalls)))
         # initial states
-        self.ballStates = {'Ball 1': [0.5, 0.5, 1, 0.5], 'Ball 2': [1.5, 1.5, 1, -0.5],
-                           'Ball 3': [0.5, 1.5, -1, 0.5], 'Ball 4': [1.5, 0.5, -0.5, 1]}
-        self.currentBall = 'Ball 1'
+        self.initBallState = [1.5, 0.75, 0, 0]
+
+        # balls zero-indexed for easier code
+        self.ballStates = {0 : self.initBallState}
+        self.currentBall = 0
 
         # sets up grid
         self.grid()
         self.grid_columnconfigure(0, weight=1)
 
         # set up selector for number of balls
-        self.numberOfBallsSelector = Pmw.ComboBox(self,
-            label_text='Choose Ball Formation', labelpos='nw',
-            selectioncommand=self.changeFormation,
-            scrolledlist_items=self.ballFormations, dropdown=1)
+        # self.numberOfBallsSelector = Pmw.ComboBox(self,
+        #     label_text='Choose Ball Formation', labelpos='nw',
+        #     selectioncommand=self.changeFormation,
+        #     scrolledlist_items=self.ballFormations, dropdown=1)
+        self.numberOfBallsSelector = Pmw.EntryField(self, validate=Pmw.numericvalidator, label_text='# balls',
+                                                    labelpos='nw', modifiedcommand=self.changeFormation)
         self.numberOfBallsSelector.grid(column=0, row=1)
-        self.numberOfBallsSelector.selectitem(0)
+        self.numberOfBallsSelector.setvalue(1)
 
         # label for ball parameters
         self.ballLabel = tk.Label(self, text='Ball Parameters')
@@ -75,7 +78,8 @@ class AbstractTab(tk.Frame):
         # selector for which ball to adjust parameters for
         self.ballSelector = Pmw.ComboBox(self,label_text='Choose Ball',
             labelpos='nw',selectioncommand=self.changeBall,
-            scrolledlist_items=self.balls,dropdown=1)
+            scrolledlist_items=self.balls, dropdown=1)
+        #
         self.ballSelector.grid(column=0, row=3)
         self.ballSelector.selectitem(0)
 
@@ -121,7 +125,7 @@ class AbstractTab(tk.Frame):
             command=self.startSimulation)
         self.button.grid(column=1, row=11)
 
-        # button to start simulation
+        # button to generate preview image
         self.previewButton = tk.Button(self, text=u'Generate Preview',
             command=self.generatePreview)
         self.previewButton.grid(column=2, row=11)
@@ -161,16 +165,17 @@ class AbstractTab(tk.Frame):
         yVel = self.initialYVelScale.get()
         self.ballStates[self.currentBall] = [x, y, xVel, yVel]
         # set new currentBall if changed
-        self.currentBall=self.ballSelector.get()
+        self.currentBall = int(self.ballSelector.get())
         # the states of all the balls to be simulated
         self.simArgs['balls']=self.ballStates
         self.simArgs['playbackSpeed'] = self.playbackSpeedScale.get()
         self.simArgs['trace'] = self.toTrace.get()
         self.simArgs['friction'] = self.friction.get()
         # get number of balls from formation string
-        for s in self.numberOfBallsSelector.get().split():
-            if s.isdigit():
-                self.simArgs['nBalls']=int(s)
+        self.simArgs['nBalls'] = self.nBalls
+        # for s in self.numberOfBallsSelector.get().split():
+        #     if s.isdigit():
+        #         self.simArgs['nBalls']=int(s)
 
     def generatePreview(self):
         """
@@ -193,30 +198,27 @@ class AbstractTab(tk.Frame):
         """
 
         # get the number of balls
-        formation = self.numberOfBallsSelector.get(first=None, last=None)
+        # formation = self.numberOfBallsSelector.get(first=None, last=None)
+        newNBalls = int(self.numberOfBallsSelector.get())
 
-        self.saveParameters()
+        if newNBalls >= self.nBalls:
+            for i in range(self.nBalls, newNBalls):
+                # for some reason self.initballstate gets edited if ballstates gets edited
+                self.ballStates[i] = [1.5, 0.75, 0, 0]
 
-        # set the ball selector based on what formation is chosen
-        if formation == self.ballFormations[0]:
-            self.ballSelector.selectitem(0)
-        elif formation == self.ballFormations[1] and (self.ballSelector.get()\
-            == self.balls[2] or self.ballSelector.get() == self.balls[3]):
-            self.ballSelector.selectitem(1)
-        elif formation == self.ballFormations[2] and self.ballSelector.get() ==\
-            self.balls[3]:
-            self.ballSelector.selectitem(2)
+                # TODO: change this later after we figure out proper initial ball locations
+                self.ballStates[i][2] += random.uniform(-3, 3)
+                self.ballStates[i][3] += random.uniform(-3, 3)
 
-        # set sliders to new ball state if it was chaged above
-        newX = self.ballStates[self.currentBall][0]
-        newY = self.ballStates[self.currentBall][1]
-        newXVel = self.ballStates[self.currentBall][2]
-        newYVel = self.ballStates[self.currentBall][3]
-
-        self.initialXScale.set(newX)
-        self.initialYScale.set(newY)
-        self.initialXVelScale.set(newXVel)
-        self.initialYVelScale.set(newYVel)
+        self.nBalls = newNBalls
+        self.balls = tuple(map(str, range(self.nBalls)))
+        # self.saveParameters()
+        # recreate combobox with updated number of balls
+        self.ballSelector = Pmw.ComboBox(self, label_text='Choose Ball',
+                                         labelpos='nw', selectioncommand=self.changeBall,
+                                         scrolledlist_items=self.balls, dropdown=1)
+        self.ballSelector.grid(column=0, row=3)
+        self.ballSelector.selectitem(self.currentBall)
 
     def updateSize(self, *args):
         """
@@ -229,26 +231,16 @@ class AbstractTab(tk.Frame):
         """
             run when a different ball is selected.
             saveParameters and sets sliders to settings for new ball.
-            also checks that you have selected the appropriate number of balls.
         """
 
-        formation = self.numberOfBallsSelector.get()
-        # set ball selector if needed
-        if formation == self.ballFormations[0]:
-            self.ballSelector.selectitem(0)
-        elif formation == self.ballFormations[1] and (self.ballSelector.get() == self.balls[2]
-                                                      or self.ballSelector.get() == self.balls[3]):
-            self.ballSelector.selectitem(1)
-        elif formation == self.ballFormations[2] and self.ballSelector.get() == self.balls[3]:
-            self.ballSelector.selectitem(2)
-
-        self.saveParameters()
         # set sliders to state for new ball
+        self.currentBall = int(self.ballSelector.get())
         newState = self.ballStates[self.currentBall]
         self.initialXScale.set(newState[0])
         self.initialYScale.set(newState[1])
         self.initialXVelScale.set(newState[2])
         self.initialYVelScale.set(newState[3])
+        self.saveParameters()
 
     # must be implemented for each type
     def startSimulation(self):
