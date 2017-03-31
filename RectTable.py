@@ -30,9 +30,9 @@ class RectTable(abT):
         self.ax.add_patch(self.table)
         plt.axis('equal')
 
-    def update(self,**kwargs):
+    def update(self, **kwargs):
         """updates superclass parameters as well as height and width"""
-        super(RectTable,self).update(**kwargs)
+        super(RectTable, self).update(**kwargs)
         self.maxx = self.parameters['width']
         self.maxy = self.parameters['height']
 
@@ -49,31 +49,38 @@ class RectTable(abT):
 
         # reset the position to the boundry line
         if crossed_x1:
-            fun = lambda y: particle.state[2] / particle.state[3] *\
-                (y - particle.state[1]) + particle.state[0]
-            root = op.brentq(fun, -0.1, self.maxy + 0.1)
+            if particle.state[3] != 0:
+                fun = lambda y: particle.state[2] / particle.state[3] *\
+                    (y - particle.state[1]) + particle.state[0]
+                root = op.brentq(fun, -0.1, self.maxy + 0.1)
+                particle.state[1] = root
+
             particle.state[0] = 0
-            particle.state[1] = root
             particle.state[2] *= -1
         elif crossed_x2:
-            fun = lambda y: particle.state[2] / particle.state[3] *\
-                (y - particle.state[1]) + particle.state[0] - self.maxx
-            root = op.brentq(fun, -0.1, self.maxy + 0.1)
+            if particle.state[3] != 0:
+                fun = lambda y: particle.state[2] / particle.state[3] *\
+                    (y - particle.state[1]) + particle.state[0] - self.maxx
+                root = op.brentq(fun, -0.1, self.maxy + 0.1)
+                particle.state[1] = root
+
             particle.state[0] = self.maxx
-            particle.state[1] = root
             particle.state[2] *= -1
+
         if crossed_y1:
-            fun = lambda x: particle.state[3] / particle.state[2] *\
-                (x - particle.state[0]) + particle.state[1]
-            root = op.brentq(fun, -0.1, self.maxx + 0.1)
-            particle.state[0] = root
+            if particle.state[2] != 0:
+                fun = lambda x: particle.state[3] / particle.state[2] *\
+                    (x - particle.state[0]) + particle.state[1]
+                root = op.brentq(fun, -0.1, self.maxx + 0.1)
+                particle.state[0] = root
             particle.state[1] = 0
             particle.state[3] *= -1
         elif crossed_y2:
-            fun = lambda x: particle.state[3] / particle.state[2] *\
-                (x - particle.state[0]) + particle.state[1] - self.maxy
-            root = op.brentq(fun, -0.1, self.maxx + 0.1)
-            particle.state[0] = root
+            if particle.state[2] != 0:
+                fun = lambda x: particle.state[3] / particle.state[2] *\
+                    (x - particle.state[0]) + particle.state[1] - self.maxy
+                root = op.brentq(fun, -0.1, self.maxx + 0.1)
+                particle.state[0] = root
             particle.state[1] = self.maxy
             particle.state[3] *= -1
 

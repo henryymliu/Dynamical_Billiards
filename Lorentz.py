@@ -59,52 +59,47 @@ class Lorentz(abT):
         crossed_y1 = particle.state[1] < self.miny
         crossed_y2 = particle.state[1] > self.maxy
 
-        # reset the position to the boundary line
         if crossed_x1:
-            fun = lambda y: particle.state[2] / particle.state[3] *\
-                (y - particle.state[1]) + particle.state[0] - self.minx
-            root = op.brentq(fun, -0.1+self.miny, self.maxy + 0.1)
-            particle.state[0] = self.minx
-            particle.state[1] = root
-            particle.state[2] *= -1
+            if particle.state[3] != 0:
+                fun = lambda y: particle.state[2] / particle.state[3] * \
+                                (y - particle.state[1]) + particle.state[0]
+                root = op.brentq(fun, -0.1, self.maxy + 0.1)
+                particle.state[1] = root
 
+            particle.state[0] = self.minx
+            particle.state[2] *= -1
         elif crossed_x2:
-            fun = lambda y: particle.state[2] / particle.state[3] *\
-                (y - particle.state[1]) + particle.state[0] - self.maxx
-            root = op.brentq(fun, -0.1+self.miny, self.maxy + 0.1)
+            if particle.state[3] != 0:
+                fun = lambda y: particle.state[2] / particle.state[3] * (y - particle.state[1]) + particle.state[0] - self.maxx
+                root = op.brentq(fun, -0.1, self.maxy + 0.1)
+                particle.state[1] = root
+
             particle.state[0] = self.maxx
-            particle.state[1] = root
             particle.state[2] *= -1
 
         if crossed_y1:
-            fun = lambda x: particle.state[3] / particle.state[2] *\
-                (x - particle.state[0]) + particle.state[1] - self.miny
-            root = op.brentq(fun, -0.1+self.minx, self.maxx + 0.1)
-            particle.state[0] = root
+            if particle.state[2] != 0:
+                fun = lambda x: particle.state[3] / particle.state[2] * (x - particle.state[0]) + particle.state[1]
+                root = op.brentq(fun, -0.1, self.maxx + 0.1)
+                particle.state[0] = root
             particle.state[1] = self.miny
             particle.state[3] *= -1
         elif crossed_y2:
-            fun = lambda x: particle.state[3] / particle.state[2] *\
-                (x - particle.state[0]) + particle.state[1] - self.maxy
-            root = op.brentq(fun, -0.1+self.minx, self.maxx + 0.1)
-            particle.state[0] = root
+            if particle.state[2] != 0:
+                fun = lambda x: particle.state[3] / particle.state[2] * \
+                                (x - particle.state[0]) + particle.state[1] - self.maxy
+                root = op.brentq(fun, -0.1, self.maxx + 0.1)
+                particle.state[0] = root
             particle.state[1] = self.maxy
             particle.state[3] *= -1
 
         # check for crossing boundary
         if np.hypot(particle.state[0], particle.state[1]) < self.radius:
-            # circ = lambda x: np.sqrt(abs(4 - x**2)) - particle.state[3]/particle.state[2]*(x-particle.state[0])+particle.state[1]
-            # root = op.fsolve(circ, particle.state[0])
-            # print(root)
-            # first quadrant
-            # dy/dx
-            # intercept = particle.state[3] * -particle.state[0] / particle.state[2] + particle.state[1]
-
-            if abs(particle.state[3] / particle.state[2]) <= 1:
+            if particle.state[2] != 0 and abs(particle.state[3] / particle.state[2]) <= 1:
                 m = particle.state[3] / particle.state[2]
                 intercept = m * -particle.state[0] + particle.state[1]
 
-                # discrimanant
+                # discriminant
                 b = 2 * m * intercept
                 a = m ** 2 + 1
                 c = -self.radius ** 2 + intercept ** 2
@@ -112,8 +107,7 @@ class Lorentz(abT):
                 # choose root based on proximity with x
                 root = -b / (2 * a)
                 dis = (np.sqrt(abs(b ** 2 - 4 * a * c))) / (2 * a)
-                if abs(particle.state[0] - root - dis) < abs(particle.state[0]\
-                    - root + dis):
+                if abs(particle.state[0] - root - dis) < abs(particle.state[0] - root + dis):
                     root += dis
                 else:
                     root -= dis
@@ -123,12 +117,9 @@ class Lorentz(abT):
                 # print((particle.state[0], particle.state[1]))
 
                 vel_norm = np.hypot(particle.state[0], particle.state[1])
-                dot = (particle.state[2] * particle.state[0] +\
-                    particle.state[3] * particle.state[1]) / (vel_norm ** 2)
-                particle.state[2] = particle.state[2] - 2 * dot *\
-                    particle.state[0]
-                particle.state[3] = particle.state[3] - 2 * dot *\
-                    particle.state[1]
+                dot = (particle.state[2] * particle.state[0] + particle.state[3] * particle.state[1]) / (vel_norm ** 2)
+                particle.state[2] = particle.state[2] - 2 * dot * particle.state[0]
+                particle.state[3] = particle.state[3] - 2 * dot * particle.state[1]
 
                 # particle.state[3] *= -1/2;
                 # particle.state[2] *= -1;
@@ -146,8 +137,7 @@ class Lorentz(abT):
                 # choose root based on proximity with current y
                 root = -b / (2 * a)
                 dis = (np.sqrt(abs(b ** 2 - 4 * a * c))) / (2 * a)
-                if abs(particle.state[1] - root - dis) < abs(particle.state[1]\
-                    - root + dis):
+                if abs(particle.state[1] - root - dis) < abs(particle.state[1] - root + dis):
                     root += dis
                 else:
                     root -= dis
@@ -159,12 +149,9 @@ class Lorentz(abT):
 
                 # update velocity based on r = d - 2(r.n)r
                 vel_norm = np.hypot(particle.state[0], particle.state[1])
-                dot = (particle.state[2] * particle.state[0] +\
-                    particle.state[3] * particle.state[1]) / (vel_norm ** 2)
-                particle.state[2] = particle.state[2] - 2 * dot *\
-                    particle.state[0]
-                particle.state[3] = particle.state[3] - 2 * dot *\
-                    particle.state[1]
+                dot = (particle.state[2] * particle.state[0] + particle.state[3] * particle.state[1]) / (vel_norm ** 2)
+                particle.state[2] = particle.state[2] - 2 * dot * particle.state[0]
+                particle.state[3] = particle.state[3] - 2 * dot * particle.state[1]
                 # print((particle.state[2], particle.state[3]))
                 # print((particle.state[0], particle.state[1]))
 

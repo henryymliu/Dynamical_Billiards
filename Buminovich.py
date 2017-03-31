@@ -58,23 +58,25 @@ class Buminovich(abT):
             crossed_ymax = particle.state[1] > self.radius
             crossed_ymin = particle.state[1] < -self.radius
             if crossed_ymin:
-                fun = lambda x: particle.state[3]/particle.state[2]*\
-                    (x-particle.state[0])+particle.state[1] + self.radius
-                root=op.brentq(fun, self.minlinex - 0.1, self.length + 0.1)
-                particle.state[0]=root
+                if particle.state[2] != 0:
+                    fun = lambda x: particle.state[3]/particle.state[2]* \
+                                    (x-particle.state[0])+particle.state[1] + self.radius
+                    root=op.brentq(fun, self.minlinex - 0.1, self.length + 0.1)
+                    particle.state[0]=root
                 particle.state[1]=-self.radius
                 particle.state[3]*=-1
             if crossed_ymax:
-                fun = lambda x: particle.state[3]/particle.state[2]*\
-                    (x-particle.state[0])+particle.state[1]-self.radius
-                root=op.brentq(fun, self.minlinex - 0.1, self.length + 0.1)
-                particle.state[0]=root
+                if particle.state[2] != 0:
+                    fun = lambda x: particle.state[3]/particle.state[2]* \
+                                    (x-particle.state[0])+particle.state[1]-self.radius
+                    root = op.brentq(fun, self.minlinex - 0.1, self.length + 0.1)
+                    particle.state[0]=root
                 particle.state[1]=self.radius
                 particle.state[3]*=-1
 
         elif particle.state[0] < self.minlinex:
             if np.hypot(particle.state[0], particle.state[1]) > self.radius:
-                if abs(particle.state[3] / particle.state[2]) <= 1:
+                if particle.state[2] != 0 and abs(particle.state[3] / particle.state[2]) <= 1:
                     m = particle.state[3] / particle.state[2]
                     intercept = m * -particle.state[0] + particle.state[1]
 
@@ -143,11 +145,11 @@ class Buminovich(abT):
                     #print((particle.state[0], particle.state[1]))
 
         elif particle.state[0] > self.length:
-            if np.hypot(particle.state[0] - self.length, particle.state[1]) >\
-                self.radius:
+            if np.hypot(particle.state[0] - self.length, particle.state[1]) > self.radius:
                 #shift table so that centre of right circle is origin
                 particle.state[0] = particle.state[0] - self.length
-                if abs(particle.state[3] / particle.state[2]) <= 1:
+
+                if particle.state[2] != 0 and abs(particle.state[3] / particle.state[2]) <= 1:
                     m = particle.state[3] / particle.state[2]
                     intercept = m * -particle.state[0] + particle.state[1]
 
@@ -170,12 +172,9 @@ class Buminovich(abT):
                     # print((particle.state[0], particle.state[1]))
 
                     vel_norm = np.hypot(particle.state[0], particle.state[1])
-                    dot = (particle.state[2] * particle.state[0] +\
-                        particle.state[3] * particle.state[1]) / (vel_norm ** 2)
-                    particle.state[2] = particle.state[2] - 2 * dot *\
-                        particle.state[0]
-                    particle.state[3] = particle.state[3] - 2 * dot *\
-                        particle.state[1]
+                    dot = (particle.state[2] * particle.state[0] + particle.state[3] * particle.state[1]) / (vel_norm ** 2)
+                    particle.state[2] = particle.state[2] - 2 * dot * particle.state[0]
+                    particle.state[3] = particle.state[3] - 2 * dot * particle.state[1]
 
                     # particle.state[3] *= -1/2;
                     # particle.state[2] *= -1;
@@ -193,8 +192,7 @@ class Buminovich(abT):
                     # choose root based on proximity with current y
                     root = -b / (2 * a)
                     dis = (np.sqrt(abs(b ** 2 - 4 * a * c))) / (2 * a)
-                    if abs(particle.state[1] - root - dis) <\
-                        abs(particle.state[1] - root + dis):
+                    if abs(particle.state[1] - root - dis) < abs(particle.state[1] - root + dis):
                         root += dis
                     else:
                         root -= dis
@@ -206,12 +204,9 @@ class Buminovich(abT):
 
                     # update velocity based on r = d - 2(r.n)r
                     vel_norm = np.hypot(particle.state[0], particle.state[1])
-                    dot = (particle.state[2] * particle.state[0] +\
-                        particle.state[3] * particle.state[1]) / (vel_norm ** 2)
-                    particle.state[2] = particle.state[2] - 2 * dot *\
-                        particle.state[0]
-                    particle.state[3] = particle.state[3] - 2 * dot *\
-                        particle.state[1]
+                    dot = (particle.state[2] * particle.state[0] + particle.state[3] * particle.state[1]) / (vel_norm ** 2)
+                    particle.state[2] = particle.state[2] - 2 * dot * particle.state[0]
+                    particle.state[3] = particle.state[3] - 2 * dot * particle.state[1]
                     # print((particle.state[2], particle.state[3]))
                     #print((particle.state[0], particle.state[1]))
 
