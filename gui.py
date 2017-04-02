@@ -268,7 +268,7 @@ class Main(tk.Tk):
         f5 = LorentzTab(self)
         n.add(f1, text='Rectangle')
         n.add(f2, text='L')
-        n.add(f3, text='Circle ')
+        n.add(f3, text='Circle    ')
         n.add(f4, text='Buminovich')
         n.add(f5, text='Lorentz')
         # need to pack for the Notebook to display

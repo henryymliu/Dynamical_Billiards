@@ -128,15 +128,12 @@ class AbstractTable(object):
 
         for i in range(self.nBalls):
             # make ball object and add it to ball list
-            self.ballList.append(Ball(color= self.cmap(i),
-                initstate=self.parameters['balls'][i]))
+            self.ballList.append(Ball(color=self.cmap(i), initstate=self.parameters['balls'][i]))
 
             # initialize particles and paths that will be plotted
 
-            particles.append(self.ax.plot([], [], color=self.cmap(i), marker='o',
-                                          ms=6)[0])
-            paths.append(self.ax.plot([], [], color=self.cmap(i), ls='-',
-                                      lw=1)[0])
+            particles.append(self.ax.plot([], [], color=self.cmap(i), marker='o', ms=6)[0])
+            paths.append(self.ax.plot([], [], color=self.cmap(i), ls='-', lw=1)[0])
             self.pathx[i] = np.array([])
             self.pathy[i] = np.array([])
 

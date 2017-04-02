@@ -1,8 +1,8 @@
 # Dynamical-Billiards
-Uses Python 3.
+2-D simulation demonstrating chaotic motion on various tables. Uses Python 3.
 ## Dependency Installation
 
-1) Install PIL, matplotlib, Pmw, scipy (pip install pillow matplotlib Pmw scipy)
+Install PIL, matplotlib, Pmw, scipy (use Anaconda as scipy fails to install with pip): conda install pillow matplotlib Pmw scipy
 
 
 ## About
