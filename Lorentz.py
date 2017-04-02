@@ -63,7 +63,7 @@ class Lorentz(abT):
             if particle.state[3] != 0:
                 fun = lambda y: particle.state[2] / particle.state[3] * \
                                 (y - particle.state[1]) + particle.state[0]
-                root = op.brentq(fun, -0.1, self.maxy + 0.1)
+                root = op.brentq(fun, self.miny-0.1, self.maxy + 0.1)
                 particle.state[1] = root
 
             particle.state[0] = self.minx
@@ -71,7 +71,7 @@ class Lorentz(abT):
         elif crossed_x2:
             if particle.state[3] != 0:
                 fun = lambda y: particle.state[2] / particle.state[3] * (y - particle.state[1]) + particle.state[0] - self.maxx
-                root = op.brentq(fun, -0.1, self.maxy + 0.1)
+                root = op.brentq(fun, self.miny-0.1, self.maxy + 0.1)
                 particle.state[1] = root
 
             particle.state[0] = self.maxx
@@ -80,7 +80,7 @@ class Lorentz(abT):
         if crossed_y1:
             if particle.state[2] != 0:
                 fun = lambda x: particle.state[3] / particle.state[2] * (x - particle.state[0]) + particle.state[1]
-                root = op.brentq(fun, -0.1, self.maxx + 0.1)
+                root = op.brentq(fun, self.minx-0.1, self.maxx + 0.1)
                 particle.state[0] = root
             particle.state[1] = self.miny
             particle.state[3] *= -1
@@ -88,7 +88,7 @@ class Lorentz(abT):
             if particle.state[2] != 0:
                 fun = lambda x: particle.state[3] / particle.state[2] * \
                                 (x - particle.state[0]) + particle.state[1] - self.maxy
-                root = op.brentq(fun, -0.1, self.maxx + 0.1)
+                root = op.brentq(fun, self.minx-0.1, self.maxx + 0.1)
                 particle.state[0] = root
             particle.state[1] = self.maxy
             particle.state[3] *= -1
