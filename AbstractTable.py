@@ -108,7 +108,7 @@ class AbstractTable(object):
         """saves new parameters for the Simulation"""
         self.parameters = kwargs
 
-    def main(self):
+    def main(self,frames=600):
         """
         opens the matplotlib window and starts the animation
         should run update before calling with function
@@ -171,7 +171,7 @@ class AbstractTable(object):
             return tuple(particles) + (self.table,) + tuple(paths)
 
         # define animation with appropriate playbackSpeed
-        ani = animation.FuncAnimation(self.fig, animate, frames=600,
+        ani = animation.FuncAnimation(self.fig, animate, frames=frames,
             interval=np.ceil((1 / self.parameters['playbackSpeed']) * 10 ** 3),
             blit=True, init_func=init)
         # show matplotlib window
