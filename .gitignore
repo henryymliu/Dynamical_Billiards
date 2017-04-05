@@ -93,4 +93,5 @@ workspace.xml
 tasks.xml
 
 preview.png
-*.html
+
+Presentation.slides.html
