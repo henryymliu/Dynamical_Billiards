@@ -40,7 +40,7 @@ class AbstractTable(object):
         self.drag = 0.999 # TODO: possibly change this with entrybox
 
         # use colormap for many colors
-        self.cmap = plt.cm.get_cmap("rainbow", self.nBalls + 1)
+        self.cmap = plt.cm.get_cmap("gist_rainbow", self.nBalls + 1)
 
     def drawTable(self, ec='none'):
         """
