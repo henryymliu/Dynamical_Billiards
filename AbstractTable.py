@@ -34,7 +34,6 @@ class AbstractTable(object):
     def __init__(self, **kwargs):
         super().__init__()
         self.parameters = kwargs
-        self.colorlist = ['r', 'g', 'b', 'y']
         self.ballList = []
         self.nBalls = self.parameters['nBalls']
         self.drag = 0.999 # TODO: possibly change this with entrybox
