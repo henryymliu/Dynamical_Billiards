@@ -23,8 +23,7 @@ class Buminovich(abT):
         ec should be set to 'k' when generating a preview
         """
         self.fig, self.ax = plt.subplots(figsize=(10, 10))
-        self.fig.canvas.set_window_title('Buminovich Stadium Billiards\
-            Simulation')
+        self.fig.canvas.set_window_title('Buminovich Stadium Billiards Simulation')
         self.ax.set(xlim=[-(self.minlinex + self.radius + 0.5),(self.length + self.radius + 0.5)],
                     ylim=[-(self.radius + 0.5), self.radius + 0.5])
         self.ax.axis('off')

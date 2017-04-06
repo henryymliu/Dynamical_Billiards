@@ -52,8 +52,7 @@ class LTable(abT):
             > self.Lheight[2])
 
         if crossed_x1:
-            fun = lambda y: particle.state[2] / particle.state[3] *\
-                (y - particle.state[1]) + particle.state[0]
+            fun = lambda y: particle.state[2] / particle.state[3] * (y - particle.state[1]) + particle.state[0]
             root = op.brentq(fun, -0.1 + self.Lheight[0], self.Lheight[2] + 0.1)
             particle.state[0] = self.Lwidth[0]
             particle.state[1] = root
@@ -86,7 +85,7 @@ class LTable(abT):
         elif crossed_y2:
             fun = lambda x: particle.state[3] / particle.state[2] *\
                 (x - particle.state[0]) + particle.state[1] - self.Lheight[1]
-            root = op.brentq(fun, -0.1 + self.Lwidth[1], self.Lwidth[2] + 0.1)
+            root = op.brentq(fun, -0.1 + self.Lwidth[1], self.Lwidth[1] + 0.1)
             particle.state[0] = root
             particle.state[1] = self.Lheight[1]
             particle.state[3] *= -1
